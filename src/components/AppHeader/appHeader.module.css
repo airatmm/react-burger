@@ -1,0 +1,29 @@
+.header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #1C1C21;
+    height: 88px;
+}
+
+.header__menu {
+    display: flex;
+    gap: 8px;
+}
+
+.navigation__link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.navigation__link_active {
+    composes: navigation__link;
+    color: #fff;
+}
+.navigation__link_inactive {
+    composes: navigation__link;
+    /*text-decoration: none;*/
+}
