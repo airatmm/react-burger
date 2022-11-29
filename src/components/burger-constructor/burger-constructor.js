@@ -1,6 +1,7 @@
 import styles from "../burger-constructor/burger-constructor.module.css";
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import ConstructorItem from "../constructor-item/constructor-item";
+import PropTypes from 'prop-types';
 
 const BurgerConstructor = ({ data }) => {
 
@@ -8,7 +9,7 @@ const BurgerConstructor = ({ data }) => {
     const priceTotal = data.reduce((acc, value) => acc + value.price, 0)
 
     return (
-        <section className={ `${styles.main} pt-25` }>
+        <section className={ `${ styles.main } pt-25` }>
             <div className={ styles.content }>
                 <ConstructorElement
                     type="top"
@@ -39,16 +40,31 @@ const BurgerConstructor = ({ data }) => {
             </div>
 
             <div className={ `${ styles.orderInfo } pt-10` }>
-                <div className={ `${styles.priceTotal} pr-10` }>
+                <div className={ `${ styles.priceTotal } pr-10` }>
                     <p className={ 'text text_type_digits-medium' }>{ priceTotal }</p>
-                    <CurrencyIcon type="primary"/>
+                    <CurrencyIcon type="primary" />
                 </div>
-                <Button type='primary' size='medium'>
+                <Button htmlType='button' type='primary' size='medium'>
                     Оформить заказ
                 </Button>
             </div>
         </section>
     )
+}
+BurgerConstructor.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string,
+        name: PropTypes.string,
+        type: PropTypes.string,
+        proteins: PropTypes.number,
+        fat: PropTypes.number,
+        carbohydrates: PropTypes.number,
+        calories: PropTypes.number,
+        price: PropTypes.number,
+        image: PropTypes.string,
+        image_mobile: PropTypes.string,
+        image_large: PropTypes.string
+    }))
 }
 
 export default BurgerConstructor;

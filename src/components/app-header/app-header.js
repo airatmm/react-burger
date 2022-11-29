@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import styles from './app-header.module.css';
 import Navigation from '../navigation/navigation';
 
-const setActiveLink = ({ isActive }) => isActive ? `${ styles.navigationLink_active }  pt-4 pr-5 pb-4 pl-5  text text_type_main-default`
+const setActiveLink = ({ isActive }) => isActive ? `${ styles.navigationLinkActive  }  pt-4 pr-5 pb-4 pl-5  text text_type_main-default`
     :
     `${ styles.navigationLinkInactive } pt-4 pr-5 pb-4 pl-5  text text_type_main-default text_color_inactive`;
 
@@ -11,6 +11,7 @@ const AppHeader = ({ path }) => {
     const locationMain = path === "/";
     const locationOrder = path === "/order";
     const locationAccount = path === "/account";
+
     return (
         <>
             <header className={ styles.header }>
@@ -31,7 +32,7 @@ const AppHeader = ({ path }) => {
                             Лента заказов
                         </NavLink>
                     </div>
-                    <Logo/>
+                    <div className={styles.logo}><Logo/></div>
                     <NavLink
                         className={ setActiveLink }
                         to="/account">

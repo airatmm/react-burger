@@ -11,6 +11,10 @@
     gap: 8px;
 }
 
+.logo  {
+    margin-right: 150px;
+}
+
 .navigationLink {
     display: flex;
     flex-direction: row;
@@ -19,7 +23,11 @@
     text-decoration: none;
 }
 
-.navigationLink_active {
+.navigationLink:hover {
+    color: #fff;
+}
+
+.navigationLinkActive  {
     composes: navigationLink;
     color: #fff;
 }
