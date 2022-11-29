@@ -23,17 +23,20 @@
 .container {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-height: 756px;
+    overflow-y: scroll;
 }
 
-.ingredients__list {
-    display: flex;
+.container::-webkit-scrollbar {
+    width: 8px;
+}
+.container::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+.container::-webkit-scrollbar-thumb {
+    background: #8585AD;
 }
 
-.ingredients__items_title {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 30px;
-}
 
 

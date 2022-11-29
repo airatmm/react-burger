@@ -1,8 +1,8 @@
-import navigation from './navigation.module.css';
+import styles from './navigation.module.css';
 
 const Navigation = ({ children }) => {
     return (
-        <nav className={navigation.navigation}>
+        <nav className={styles.navigation}>
             {children}
         </nav>
     );

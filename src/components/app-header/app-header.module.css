@@ -6,12 +6,12 @@
     height: 88px;
 }
 
-.header__menu {
+.headerMenu {
     display: flex;
     gap: 8px;
 }
 
-.navigation__link {
+.navigationLink {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -19,11 +19,11 @@
     text-decoration: none;
 }
 
-.navigation__link_active {
-    composes: navigation__link;
+.navigationLink_active {
+    composes: navigationLink;
     color: #fff;
 }
-.navigation__link_inactive {
-    composes: navigation__link;
+.navigationLinkInactive {
+    composes: navigationLink;
     /*text-decoration: none;*/
 }
