@@ -1,13 +1,11 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, Outlet } from 'react-router-dom';
-import appHeader from './appHeader.module.css';
+import style from './app-header.module.css';
 import Navigation from '../Navigation/Navigation';
 
-// const normalStyle = `${appHeader.navigation__link} text text_type_main-default`
-
-const setActiveLink = ({ isActive }) => isActive ? `${ appHeader.navigation__link_active }  pt-4 pr-5 pb-4 pl-5  text text_type_main-default`
+const setActiveLink = ({ isActive }) => isActive ? `${ style.navigation__link_active }  pt-4 pr-5 pb-4 pl-5  text text_type_main-default`
     :
-    `${ appHeader.navigation__link_inactive } pt-4 pr-5 pb-4 pl-5  text text_type_main-default text_color_inactive`;
+    `${ style.navigation__link_inactive } pt-4 pr-5 pb-4 pl-5  text text_type_main-default text_color_inactive`;
 
 const AppHeader = ({ path }) => {
     const locationMain = path === "/";
@@ -15,9 +13,9 @@ const AppHeader = ({ path }) => {
     const locationAccount = path === "/account";
     return (
         <>
-            <header className={ appHeader.header }>
+            <header className={ style.header }>
                 <Navigation>
-                    <div className={ appHeader.header__menu }>
+                    <div className={ style.header__menu }>
                         <NavLink
                             className={ setActiveLink }
                             to="/">
