@@ -1,5 +1,7 @@
 import styles from './ingredient-group.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
+import PropTypes from "prop-types";
+
 const IngredientGroup = ({ data, title }) => {
     return (
         <section className={'pb-10'}>
@@ -13,6 +15,15 @@ const IngredientGroup = ({ data, title }) => {
             </div>
         </section>
     )
+}
+
+IngredientGroup.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string,
+        price: PropTypes.number,
+        image: PropTypes.string,
+    })),
+    title: PropTypes.string
 }
 
 export default IngredientGroup;

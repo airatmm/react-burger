@@ -1,9 +1,10 @@
 import styles from './constructor-item.module.css';
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 const ConstructorItem = ({ type, isLocked, text, price, thumbnail }) => {
     return (
-        <div className={ `${styles.content} pt-4 pb-4` }>
+        <div className={ `${ styles.content } pt-4 pb-4` }>
             <DragIcon type="primary" />
             <ConstructorElement
                 type={ type }
@@ -14,6 +15,14 @@ const ConstructorItem = ({ type, isLocked, text, price, thumbnail }) => {
             />
         </div>
     )
+}
+
+ConstructorItem.propTypes = {
+    type: PropTypes.string,
+    isLocked: PropTypes.bool,
+    text: PropTypes.string,
+    price: PropTypes.number,
+    thumbnail: PropTypes.string,
 }
 
 export default ConstructorItem;
