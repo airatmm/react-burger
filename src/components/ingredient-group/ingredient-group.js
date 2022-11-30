@@ -1,6 +1,7 @@
 import styles from './ingredient-group.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
 import PropTypes from "prop-types";
+import { ingredientType } from "../../utils/types";
 
 const IngredientGroup = ({ data, title }) => {
     return (
@@ -17,12 +18,17 @@ const IngredientGroup = ({ data, title }) => {
     )
 }
 
+// IngredientGroup.propTypes = {
+//     data: PropTypes.arrayOf(PropTypes.shape({
+//         name: PropTypes.string,
+//         price: PropTypes.number,
+//         image: PropTypes.string,
+//     })),
+//     title: PropTypes.string
+// }
+
 IngredientGroup.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string,
-        price: PropTypes.number,
-        image: PropTypes.string,
-    })),
+    data: PropTypes.arrayOf(ingredientType),
     title: PropTypes.string
 }
 
