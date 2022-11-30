@@ -1,42 +1,42 @@
 import styles from "../burger-constructor/burger-constructor.module.css";
-import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import ConstructorItem from "../constructor-item/constructor-item";
 import PropTypes from 'prop-types';
 import { ingredientType } from "../../utils/types";
 
 const BurgerConstructor = ({ data }) => {
 
-    const bunImage = data[0];
+    const bun = data[0];
     const priceTotal = data.reduce((acc, value) => acc + value.price, 0)
 
     return (
         <section className={ `${ styles.main } pt-25` }>
             <div className={ styles.content }>
-                <ConstructorElement
+                <ConstructorItem
                     type="top"
                     isLocked={ true }
-                    text={ bunImage.name }
-                    price={ bunImage.price }
-                    thumbnail={ bunImage.image }
+                    text={ `${ bun.name } (верх)` }
+                    price={ bun.price }
+                    thumbnail={ bun.image }
                 />
                 <div className={ styles.container }>
-                    { data.map(item =>
+                    { data.filter(item => item.type !== 'bun').map((item ) =>
                         <ConstructorItem
                             key={ item._id }
                             text={ item.name }
                             price={ item.price }
                             thumbnail={ item.image }
+                            isAdded={ true }
                         />
                     ) }
                 </div>
 
-
-                <ConstructorElement
+                <ConstructorItem
                     type="bottom"
                     isLocked={ true }
-                    text={ bunImage.name }
-                    price={ bunImage.price }
-                    thumbnail={ bunImage.image }
+                    text={ `${ bun.name } (низ)` }
+                    price={ bun.price }
+                    thumbnail={ bun.image }
                 />
             </div>
 

@@ -3,10 +3,10 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 
-const ConstructorItem = ({ type, isLocked, text, price, thumbnail }) => {
+const ConstructorItem = ({ type, isLocked, isAdded, text, price, thumbnail }) => {
     return (
         <div className={ `${ styles.content } pt-4 pb-4` }>
-            <DragIcon type="primary" />
+            { isAdded && <DragIcon type="primary" /> }
             <ConstructorElement
                 type={ type }
                 isLocked={ isLocked }
