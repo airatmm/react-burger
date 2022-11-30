@@ -6,24 +6,25 @@ import { ingredientType } from "../../utils/types";
 
 const BurgerConstructor = ({ data }) => {
 
-    const bun = data;
-    // console.log(bun)
-    // const bun = data;
+    const bun = data.find(item => item.type === 'bun');
+    if (!bun) {
+        return "Loading";
+    }
 
     const priceTotal = data.reduce((acc, value) => acc + value.price, 0)
 
     return (
         <section className={ `${ styles.main } pt-25` }>
             <div className={ styles.content }>
-                <ConstructorItem
+                {data && <ConstructorItem
                     type="top"
                     isLocked={ true }
                     text={ `${ bun.name } (верх)` }
                     price={ bun.price }
                     thumbnail={ bun.image }
-                />
+                /> }
                 <div className={ styles.container }>
-                    { data.filter(item => item.type !== 'bun').map((item ) =>
+                    { data.filter(item => item.type !== 'bun').map((item) =>
                         <ConstructorItem
                             key={ item._id }
                             text={ item.name }

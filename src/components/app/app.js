@@ -16,6 +16,7 @@ const App = () => {
             .then((data) => {
                 setIngredients(data.data)
             })
+
             .catch(() => {
                 console.log(SERVER_ERROR)
             })
@@ -28,7 +29,7 @@ const App = () => {
         <div className={ styles.app }>
             <Routes>
                 <Route path="/" element={ <AppHeader path={ path } /> }>
-                    <Route path="/" element={ <Constructor ingredients={ ingredients } /> }
+                    <Route path="/" element={<Constructor ingredients={ ingredients } />}
                     />
                     <Route path="/order" element={ <Order /> } />
                 </Route>

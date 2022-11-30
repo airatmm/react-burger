@@ -7,7 +7,7 @@ const Constructor = ({ ingredients }) => {
     return (
         <main className={ styles.main }>
             <BurgerIngredients data={ ingredients } />
-            <BurgerConstructor data={ ingredients }/>
+            {ingredients && <BurgerConstructor data={ ingredients } /> }
         </main>
 
     )
