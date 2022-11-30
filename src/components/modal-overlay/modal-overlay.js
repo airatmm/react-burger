@@ -1,7 +1,7 @@
+import {useCallback, useEffect} from "react";
 import styles from './modal-overlay.module.css';
-import { useEffect, useCallback } from 'react';
 
-const modalOverlay = ({ children, onClose }) => {
+const ModalOverlay = ({ children, onClose }) => {
 
     const handleEscClose = useCallback(({ key }) => {
         if (key === 'Escape') {
@@ -22,4 +22,4 @@ const modalOverlay = ({ children, onClose }) => {
     )
 }
 
-export default modalOverlay;
+export default ModalOverlay;

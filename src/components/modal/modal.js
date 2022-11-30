@@ -7,11 +7,11 @@ const Modal = ({ children, title, onClose }) => {
 
     return ReactDOM.createPortal(
         <>
-            <div className={styles.modal}>
-                <span className={styles.title}>{title}</span>
-                {children}
+            <div className={ `${ styles.modal } pt-10 pr-10 pb-15 pl-10` }>
+                <span className={ `${ styles.title } text text_type_main-large` }>{ title }</span>
+                { children }
             </div>
-            <CloseIcon type='secondary' onClick={onClose} />
+            <CloseIcon type='secondary' onClick={ onClose } />
         </>,
         modalRoot
     )
