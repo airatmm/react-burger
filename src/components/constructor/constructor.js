@@ -1,13 +1,13 @@
 import styles from './constructor.module.css';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import data from "../../utils/data";
+//import data from "../../utils/data";
 
-const Constructor = () => {
+const Constructor = ({ ingredients }) => {
     return (
         <main className={ styles.main }>
-            <BurgerIngredients data={ data } />
-            <BurgerConstructor data={ data } />
+            <BurgerIngredients data={ ingredients } />
+            <BurgerConstructor data={ ingredients }/>
         </main>
 
     )
