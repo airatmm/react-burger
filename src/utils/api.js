@@ -8,8 +8,8 @@ const checkResponse = (res) => {
 };
 
 
-export const getAllIngredients = () => {
-    return fetch(`${BASE_URL}/ingredients`, {
+export const getAllIngredients = async () => {
+    return await fetch(`${BASE_URL}/ingredients`, {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',

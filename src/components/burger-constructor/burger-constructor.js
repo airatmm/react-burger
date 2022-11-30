@@ -1,13 +1,13 @@
 import styles from "../burger-constructor/burger-constructor.module.css";
-import { CurrencyIcon, Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import ConstructorItem from "../constructor-item/constructor-item";
 import PropTypes from 'prop-types';
 import { ingredientType } from "../../utils/types";
 
 const BurgerConstructor = ({ data }) => {
 
-    const bun = data.find(item => item.type === 'bun');
-    // console.log(buns)
+    const bun = data;
+    // console.log(bun)
     // const bun = data;
 
     const priceTotal = data.reduce((acc, value) => acc + value.price, 0)

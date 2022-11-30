@@ -22,7 +22,7 @@ const App = () => {
     }
     useEffect(() => {
         getAllIngredientsData();
-    })
+    }, [])
 
     return (
         <div className={ styles.app }>
