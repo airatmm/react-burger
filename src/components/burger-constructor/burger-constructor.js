@@ -3,8 +3,20 @@ import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-co
 import ConstructorItem from "../constructor-item/constructor-item";
 import PropTypes from 'prop-types';
 import { ingredientType } from "../../utils/types";
+import { useState } from "react";
+import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
 
 const BurgerConstructor = ({ data }) => {
+    const [visible, setVisible] = useState(false)
+
+    const handleOpenModal = () => {
+        setVisible(true)
+    }
+
+    const handleCloseModal = () => {
+        setVisible(false)
+    }
 
     const bun = data.find(item => item.type === 'bun');
     if (!bun) {
@@ -16,7 +28,7 @@ const BurgerConstructor = ({ data }) => {
     return (
         <section className={ `${ styles.main } pt-25` }>
             <div className={ styles.content }>
-                {data && <ConstructorItem
+                { data && <ConstructorItem
                     type="top"
                     isLocked={ true }
                     text={ `${ bun.name } (верх)` }
@@ -49,11 +61,15 @@ const BurgerConstructor = ({ data }) => {
                     <p className={ 'text text_type_digits-medium' }>{ priceTotal }</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType='button' type='primary' size='medium'>
+                <Button htmlType='button' type='primary' size='medium' onClick={ handleOpenModal }>
                     Оформить заказ
                 </Button>
+                {visible && <Modal onClose={ handleCloseModal }>
+                    <OrderDetails />
+                </Modal> }
             </div>
         </section>
+
     )
 }
 

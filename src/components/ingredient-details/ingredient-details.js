@@ -3,7 +3,6 @@ import Meat from '../../images/meat-01.png'
 const IngredientDetails = () => {
     return (
         <section className={styles.main}>
-            <h3 className={'text text_type_main-large'}>Детали ингредиента</h3>
             <img src={Meat} alt='Meat'/>
             <span className={'text text_type_main-medium'}>Биокотлета из марсианской Магнолии</span>
             <div className={styles.nutrition}>
