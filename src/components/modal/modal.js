@@ -11,7 +11,7 @@ const Modal = ({ children, title, onClose }) => {
         <>
             <ModalOverlay onClose={ onClose }>
                 <div className={ `${ styles.modal } ` }>
-                    <span className={ `text text_type_main-large` }>{ title }</span>
+                    <span className={ `text text_type_main-large mt-10 ml-10` }>{ title }</span>
                     <div className={ styles.closeIcon }>
                         <CloseIcon type='secondary' onClose={ onClose } />
                     </div>

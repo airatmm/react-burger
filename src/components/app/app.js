@@ -31,7 +31,7 @@ const App = () => {
                 <Route path="/" element={ <AppHeader path={ path } /> }>
                     <Route path="/" element={<Constructor ingredients={ ingredients } />}
                     />
-                    <Route path="/order" element={ <Order /> } />
+                    <Route path="/order" element={ <Order ingredients={ingredients}/> } />
                 </Route>
             </Routes>
         </div>

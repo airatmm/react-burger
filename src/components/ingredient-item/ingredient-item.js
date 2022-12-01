@@ -3,11 +3,15 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 
-const IngredientItem = ({ ingredient, count }) => {
+const IngredientItem = ({ ingredient, count, onSelect }) => {
+
+const onSelectIngredient = () => {
+    onSelect(ingredient);
+}
 
     count = 16;
     return (
-        <div className={ `${ styles.content } pt-6` }>
+        <div className={ `${ styles.content } pt-6` } onClick={onSelectIngredient}>
             { count &&
                 <div className={ styles.counter }>
 

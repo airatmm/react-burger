@@ -1,26 +1,27 @@
 import styles from './ingredient-details.module.css';
-import Meat from '../../images/meat-01.png'
-const IngredientDetails = () => {
+
+const IngredientDetails = ({data}) => {
+    const spanStyle = 'text text_type_main-default text_color_inactive';
     return (
-        <section className={styles.main}>
-            <img src={Meat} alt='Meat'/>
-            <span className={'text text_type_main-medium'}>Биокотлета из марсианской Магнолии</span>
+        <section className={ `${ styles.main } pb-15` }>
+            <img src={data.image_large} alt={data.image}/>
+            <span className={'text text_type_main-medium pt-4 pb-8'}>{data.name}</span>
             <div className={styles.nutrition}>
                 <div className={styles.nutritionItem}>
-                    <span className={'text text_type_main-default text_color_inactive'}>Калории,ккал</span>
-                    <span className={'text text_type_main-default text_color_inactive'}>244,4</span>
+                    <span className={spanStyle}>Калории,ккал</span>
+                    <span className={spanStyle}>{data.calories}</span>
                 </div>
                 <div className={styles.nutritionItem}>
-                    <span className={'text text_type_main-default text_color_inactive'}>Белки, г</span>
-                    <span className={'text text_type_main-default text_color_inactive'}>12,2</span>
+                    <span className={spanStyle}>Белки, г</span>
+                    <span className={spanStyle}>{ data.proteins }</span>
                 </div>
                 <div className={styles.nutritionItem}>
-                    <span className={'text text_type_main-default text_color_inactive'}>Жиры, г</span>
-                    <span className={'text text_type_main-default text_color_inactive'}>17,2</span>
+                    <span className={spanStyle}>Жиры, г</span>
+                    <span className={spanStyle}>{data.fat}</span>
                 </div>
                 <div className={styles.nutritionItem}>
                     <span className={'text text_type_main-default text_color_inactive'}>Углеводы, г</span>
-                    <span className={'text text_type_main-default text_color_inactive'}>10,2</span>
+                    <span className={'text text_type_main-default text_color_inactive'}>{data.carbohydrates}</span>
                 </div>
             </div>
         </section>
