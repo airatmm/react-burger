@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 
 const IngredientDetails = ({ data }) => {
+    console.log(data);
     const spanStyle = 'text text_type_main-default text_color_inactive';
     return (
         <section className={ `${ styles.main } pb-15` }>
@@ -30,13 +31,13 @@ const IngredientDetails = ({ data }) => {
     )
 }
 
-IngredientDetails.propTypes = {
-    data: ingredientType
-}
-
 // IngredientDetails.propTypes = {
-//     data: PropTypes.arrayOf(ingredientType)
+//     data: ingredientType
 // }
+
+IngredientDetails.propTypes = {
+    data: PropTypes.arrayOf(ingredientType)
+}
 
 // IngredientDetails.propTypes = {
 //     data: PropTypes.shape({
