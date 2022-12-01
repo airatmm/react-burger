@@ -1,9 +1,7 @@
 import styles from './ingredient-details.module.css';
 import PropTypes from "prop-types";
-// import { ingredientType } from "../../utils/types";
 
 const IngredientDetails = ({ data }) => {
-    console.log(data);
     const spanStyle = 'text text_type_main-default text_color_inactive';
     return (
         <section className={ `${ styles.main } pb-15` }>
