@@ -3,10 +3,6 @@
     flex-direction: column;
 }
 
-.title {
-    margin: 0;
-}
-
 .content {
     display: flex;
     flex-direction: column;
