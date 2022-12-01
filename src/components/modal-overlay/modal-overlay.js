@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from "react";
+import { useCallback, useEffect } from "react";
 import styles from './modal-overlay.module.css';
 
 const ModalOverlay = ({ children, onClose }) => {

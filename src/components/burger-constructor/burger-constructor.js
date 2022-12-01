@@ -64,7 +64,7 @@ const BurgerConstructor = ({ data }) => {
                 <Button htmlType='button' type='primary' size='medium' onClick={ handleOpenModal }>
                     Оформить заказ
                 </Button>
-                {visible && <Modal onClose={ handleCloseModal }>
+                { visible && <Modal onClose={ handleCloseModal }>
                     <OrderDetails />
                 </Modal> }
             </div>

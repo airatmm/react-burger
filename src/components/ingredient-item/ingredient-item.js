@@ -5,25 +5,25 @@ import { ingredientType } from "../../utils/types";
 
 const IngredientItem = ({ ingredient, count, onSelect }) => {
 
-const onSelectIngredient = () => {
-    onSelect(ingredient);
-}
+    const onSelectIngredient = () => {
+        onSelect(ingredient);
+    }
 
     count = 16;
     return (
-        <div className={ `${ styles.content } pt-6` } onClick={onSelectIngredient}>
+        <div className={ `${ styles.content } pt-6` } onClick={ onSelectIngredient }>
             { count &&
                 <div className={ styles.counter }>
 
-                    { count < 99 ? <Counter count={count}  size='default'/>
+                    { count < 99 ? <Counter count={ count } size='default' />
                         :
-                        <Counter count={count}  size='small'/>
+                        <Counter count={ count } size='small' />
                     }
 
                 </div>
             }
             <div className={ `${ styles.image } ml-4 mr-4` }>
-                <img src={ ingredient.image } alt={ ingredient.name }/>
+                <img src={ ingredient.image } alt={ ingredient.name } />
             </div>
 
             <div className={ `${ styles.price } mt-1` }>

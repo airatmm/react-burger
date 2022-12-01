@@ -10,17 +10,18 @@ const IngredientGroup = ({ data, title }) => {
     const [currentIngredient, setCurrentIngredient] = useState();
 
     return (
-        <section className={'pb-10'}>
-            <div className={styles.title}>
+        <section className={ 'pb-10' }>
+            <div className={ styles.title }>
                 <p className='text text_type_main-medium'>
-                    {title}
+                    { title }
                 </p>
             </div>
-            <div className={styles.items}>
-                {data.map(ingredient => <IngredientItem key={ingredient._id} ingredient={ingredient} onSelect={setCurrentIngredient}/>)}
+            <div className={ styles.items }>
+                { data.map(ingredient => <IngredientItem key={ ingredient._id } ingredient={ ingredient }
+                                                         onSelect={ setCurrentIngredient } />) }
             </div>
-            {currentIngredient && <Modal title={'Детали ингредиента'} onClose={ () => setCurrentIngredient(null) }>
-                <IngredientDetails data={currentIngredient}/>
+            { currentIngredient && <Modal title={ 'Детали ингредиента' } onClose={ () => setCurrentIngredient(null) }>
+                <IngredientDetails data={ currentIngredient } />
             </Modal> }
         </section>
     )

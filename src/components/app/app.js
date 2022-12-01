@@ -29,9 +29,9 @@ const App = () => {
         <div className={ styles.app }>
             <Routes>
                 <Route path="/" element={ <AppHeader path={ path } /> }>
-                    <Route path="/" element={<Constructor ingredients={ ingredients } />}
+                    <Route path="/" element={ <Constructor ingredients={ ingredients } /> }
                     />
-                    <Route path="/order" element={ <Order ingredients={ingredients}/> } />
+                    <Route path="/order" element={ <Order ingredients={ ingredients } /> } />
                 </Route>
             </Routes>
         </div>
