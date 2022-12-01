@@ -1,6 +1,6 @@
 import styles from './ingredient-details.module.css';
 import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
+// import { ingredientType } from "../../utils/types";
 
 const IngredientDetails = ({ data }) => {
     console.log(data);
@@ -31,24 +31,17 @@ const IngredientDetails = ({ data }) => {
     )
 }
 
-// IngredientDetails.propTypes = {
-//     data: ingredientType
-// }
-
 IngredientDetails.propTypes = {
-    data: PropTypes.arrayOf(ingredientType)
+    data: PropTypes.shape({
+        image_large: PropTypes.string,
+        name: PropTypes.string,
+        calories: PropTypes.number,
+        proteins: PropTypes.number,
+        fat: PropTypes.number,
+        carbohydrates: PropTypes.number
+    })
 }
 
-// IngredientDetails.propTypes = {
-//     data: PropTypes.shape({
-//         image_large: PropTypes.string,
-//         name: PropTypes.string,
-//         calories: PropTypes.number,
-//         proteins: PropTypes.number,
-//         fat: PropTypes.number,
-//         carbohydrates: PropTypes.number
-//     })
-// }
 
 
 
