@@ -1,13 +1,13 @@
 import styles from './modal.module.css';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
-const modalRoot = document.getElementById("root");
+const modalRoot = document.getElementById("root-modals");
 
 const Modal = ({ children, title, onClose }) => {
 
-    return ReactDOM.createPortal(
+    return createPortal(
         <>
             <ModalOverlay onClose={ onClose }>
                 <div className={ `${ styles.modal } ` }>

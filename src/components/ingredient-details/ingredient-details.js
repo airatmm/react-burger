@@ -31,7 +31,24 @@ const IngredientDetails = ({ data }) => {
 }
 
 IngredientDetails.propTypes = {
-    data: PropTypes.arrayOf(ingredientType)
+    data: ingredientType
 }
+
+// IngredientDetails.propTypes = {
+//     data: PropTypes.arrayOf(ingredientType)
+// }
+
+// IngredientDetails.propTypes = {
+//     data: PropTypes.shape({
+//         image_large: PropTypes.string,
+//         name: PropTypes.string,
+//         calories: PropTypes.number,
+//         proteins: PropTypes.number,
+//         fat: PropTypes.number,
+//         carbohydrates: PropTypes.number
+//     })
+// }
+
+
 
 export default IngredientDetails;

@@ -5,13 +5,13 @@
 }
 
 .nutrition {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(4, 120px);
     gap: 20px;
 }
 
 .nutritionItem {
     display: flex;
     flex-direction: column;
-
+    align-items: center;
 }
