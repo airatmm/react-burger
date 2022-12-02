@@ -27,18 +27,9 @@ const IngredientGroup = ({ data, title }) => {
     )
 }
 
-// IngredientGroup.propTypes = {
-//     data: PropTypes.arrayOf(PropTypes.shape({
-//         name: PropTypes.string,
-//         price: PropTypes.number,
-//         image: PropTypes.string,
-//     })),
-//     title: PropTypes.string
-// }
-
 IngredientGroup.propTypes = {
-    data: PropTypes.arrayOf(ingredientType),
-    title: PropTypes.string
+    data: PropTypes.arrayOf(ingredientType).isRequired,
+    title: PropTypes.string.isRequired
 }
 
 export default IngredientGroup;

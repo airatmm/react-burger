@@ -28,13 +28,13 @@ const BurgerConstructor = ({ data }) => {
     return (
         <section className={ `${ styles.main } pt-25` }>
             <div className={ styles.content }>
-                { data && <ConstructorItem
+                <ConstructorItem
                     type="top"
                     isLocked={ true }
                     text={ `${ bun.name } (верх)` }
                     price={ bun.price }
                     thumbnail={ bun.image }
-                /> }
+                />
                 <div className={ styles.container }>
                     { data.filter(item => item.type !== 'bun').map((item) =>
                         <ConstructorItem
@@ -74,6 +74,6 @@ const BurgerConstructor = ({ data }) => {
 }
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(ingredientType)
+    data: PropTypes.arrayOf(ingredientType).isRequired
 }
 export default BurgerConstructor;

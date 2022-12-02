@@ -1,25 +1,20 @@
-import { useCallback, useEffect } from "react";
 import styles from './modal-overlay.module.css';
+import PropTypes from "prop-types";
+import { modalProps } from "../../utils/types";
 
 const ModalOverlay = ({ children, onClose }) => {
 
-    const handleEscClose = useCallback(({ key }) => {
-        if (key === 'Escape') {
-            onClose()
-        }
-    }, [onClose]);
-
-    useEffect(() => {
-        document.addEventListener('keydown', handleEscClose);
-        return () => document.removeEventListener('keydown', handleEscClose);
-    }, [handleEscClose]);
-
     return (
-        <div className={ styles.overlay } onClick={ onClose }>
+        <div className={ styles.overlay} onClick={onClose}>
             { children }
         </div>
 
     )
+}
+
+ModalOverlay.propTypes = {
+    children: modalProps.children,
+    onClose: modalProps.onClose,
 }
 
 export default ModalOverlay;

@@ -1,5 +1,5 @@
 import styles from './ingredient-details.module.css';
-import PropTypes from "prop-types";
+import { ingredientType } from "../../utils/types";
 
 const IngredientDetails = ({ data }) => {
     const spanStyle = 'text text_type_main-default text_color_inactive';
@@ -30,17 +30,7 @@ const IngredientDetails = ({ data }) => {
 }
 
 IngredientDetails.propTypes = {
-    data: PropTypes.shape({
-        image_large: PropTypes.string,
-        name: PropTypes.string,
-        calories: PropTypes.number,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number
-    })
+    data: ingredientType.isRequired
 }
-
-
-
 
 export default IngredientDetails;

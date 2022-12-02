@@ -42,18 +42,11 @@ const IngredientItem = ({ ingredient, count, onSelect }) => {
     )
 }
 
-// IngredientItem.propTypes = {
-//     ingredient: PropTypes.shape({
-//         name: PropTypes.string,
-//         price: PropTypes.number,
-//         image: PropTypes.string,
-//     }),
-//     count: PropTypes.number
-// }
 
 IngredientItem.propTypes = {
     data: PropTypes.arrayOf(ingredientType),
-    count: PropTypes.number
+    count: PropTypes.number,
+    onSelect: PropTypes.func.isRequired
 }
 
 export default IngredientItem;

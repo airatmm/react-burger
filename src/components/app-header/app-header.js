@@ -2,6 +2,7 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-dev
 import { NavLink, Outlet } from 'react-router-dom';
 import styles from './app-header.module.css';
 import Navigation from '../navigation/navigation';
+import PropTypes from "prop-types";
 
 const setActiveLink = ({ isActive }) => isActive ? `${ styles.navigationLinkActive }  pt-4 pr-5 pb-4 pl-5  text text_type_main-default`
     :
@@ -45,6 +46,10 @@ const AppHeader = ({ path }) => {
             <Outlet />
         </>
     );
+}
+
+AppHeader.propTypes = {
+    path: PropTypes.string.isRequired
 }
 
 export default AppHeader;

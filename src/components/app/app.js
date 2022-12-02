@@ -12,7 +12,7 @@ const App = () => {
     const path = useLocation().pathname;
 
     const getAllIngredientsData = () => {
-        getAllIngredients()
+        getAllIngredients
             .then((data) => {
                 setIngredients(data.data)
             })
