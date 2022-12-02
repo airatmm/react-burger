@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 
+// quote: если мы не проверяем существование просов в коде, то они по дефолту считаюся обязательными
 export const ingredientType = PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -13,6 +14,7 @@ export const ingredientType = PropTypes.shape({
     image_mobile: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired
 });
+
 
 export const modalProps = {
     children: PropTypes.element.isRequired,
