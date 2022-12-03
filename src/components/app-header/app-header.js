@@ -2,8 +2,9 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-dev
 import { NavLink, Outlet } from 'react-router-dom';
 import styles from './app-header.module.css';
 import Navigation from '../navigation/navigation';
+import PropTypes from "prop-types";
 
-const setActiveLink = ({ isActive }) => isActive ? `${ styles.navigationLinkActive  }  pt-4 pr-5 pb-4 pl-5  text text_type_main-default`
+const setActiveLink = ({ isActive }) => isActive ? `${ styles.navigationLinkActive }  pt-4 pr-5 pb-4 pl-5  text text_type_main-default`
     :
     `${ styles.navigationLinkInactive } pt-4 pr-5 pb-4 pl-5  text text_type_main-default text_color_inactive`;
 
@@ -20,31 +21,35 @@ const AppHeader = ({ path }) => {
                         <NavLink
                             className={ setActiveLink }
                             to="/">
-                            { locationMain && <BurgerIcon type="primary"/> }
-                            { !locationMain && <BurgerIcon type="secondary"/> }
+                            { locationMain && <BurgerIcon type="primary" /> }
+                            { !locationMain && <BurgerIcon type="secondary" /> }
                             Конструктор
                         </NavLink>
                         <NavLink
                             className={ setActiveLink }
                             to="/order">
-                            { locationOrder && <ListIcon type="primary"/> }
-                            { !locationOrder && <ListIcon type="secondary"/> }
+                            { locationOrder && <ListIcon type="primary" /> }
+                            { !locationOrder && <ListIcon type="secondary" /> }
                             Лента заказов
                         </NavLink>
                     </div>
-                    <div className={styles.logo}><Logo/></div>
+                    <div className={ styles.logo }><Logo /></div>
                     <NavLink
                         className={ setActiveLink }
                         to="/account">
-                        { locationAccount && <ProfileIcon type="primary"/> }
-                        { !locationAccount && <ProfileIcon type="secondary"/> }
+                        { locationAccount && <ProfileIcon type="primary" /> }
+                        { !locationAccount && <ProfileIcon type="secondary" /> }
                         Личный кабинет
                     </NavLink>
                 </Navigation>
             </header>
-            <Outlet/>
+            <Outlet />
         </>
     );
+}
+
+AppHeader.propTypes = {
+    path: PropTypes.string.isRequired
 }
 
 export default AppHeader;

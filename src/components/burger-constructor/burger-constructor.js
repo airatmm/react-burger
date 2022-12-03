@@ -1,12 +1,28 @@
-import styles from "../burger-constructor/burger-constructor.module.css";
-import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import styles from './burger-constructor.module.css';
+import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorItem from "../constructor-item/constructor-item";
 import PropTypes from 'prop-types';
 import { ingredientType } from "../../utils/types";
+import { useState } from "react";
+import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
 
 const BurgerConstructor = ({ data }) => {
+    const [visible, setVisible] = useState(false)
 
-    const bun = data[0];
+    const handleOpenModal = () => {
+        setVisible(true)
+    }
+
+    const handleCloseModal = () => {
+        setVisible(false)
+    }
+
+    const bun = data.find(item => item.type === 'bun');
+    if (!bun) {
+        return "Loading";
+    }
+
     const priceTotal = data.reduce((acc, value) => acc + value.price, 0)
 
     return (
@@ -20,7 +36,7 @@ const BurgerConstructor = ({ data }) => {
                     thumbnail={ bun.image }
                 />
                 <div className={ styles.container }>
-                    { data.filter(item => item.type !== 'bun').map((item ) =>
+                    { data.filter(item => item.type !== 'bun').map((item) =>
                         <ConstructorItem
                             key={ item._id }
                             text={ item.name }
@@ -45,15 +61,19 @@ const BurgerConstructor = ({ data }) => {
                     <p className={ 'text text_type_digits-medium' }>{ priceTotal }</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType='button' type='primary' size='medium'>
+                <Button htmlType='button' type='primary' size='medium' onClick={ handleOpenModal }>
                     Оформить заказ
                 </Button>
+                { visible && <Modal onClose={ handleCloseModal }>
+                    <OrderDetails />
+                </Modal> }
             </div>
         </section>
+
     )
 }
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(ingredientType)
+    data: PropTypes.arrayOf(ingredientType).isRequired
 }
 export default BurgerConstructor;

@@ -1,0 +1,21 @@
+.modal {
+    display: flex;
+    flex-direction: column;
+    max-width: 720px;
+    width: 100%;
+    background: #1C1C21;
+    border: 1px solid rgba(76, 76, 255, 0.2);
+    box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+    position: relative;
+}
+
+.closeIcon {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 53px;
+    right: 40px;
+}
+

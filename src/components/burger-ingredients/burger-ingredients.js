@@ -10,7 +10,7 @@ const BurgerIngredients = ({ data }) => {
 
     return (
         <section className={ `${ styles.ingredients } pt-10` }>
-            <h2 className={ `${ styles.title } text text_type_main-large pb-5` }>Соберите бургер</h2>
+            <h2 className={ 'text text_type_main-large pb-5' }>Соберите бургер</h2>
             <div className={ `${ styles.content } custom-scroll` }>
                 <div className={ `${ styles.tabs } pb-10` }>
                     <Tab value="one" active={ current === 'one' } onClick={ setCurrent }>
@@ -33,7 +33,7 @@ const BurgerIngredients = ({ data }) => {
     )
 }
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientType)
+    data: PropTypes.arrayOf(ingredientType).isRequired
 }
 
 export default BurgerIngredients;

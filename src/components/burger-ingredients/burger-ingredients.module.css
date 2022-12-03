@@ -3,14 +3,6 @@
     flex-direction: column;
 }
 
-.title {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 40px;
-    margin: 0;
-}
-
 .content {
     display: flex;
     flex-direction: column;
