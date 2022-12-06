@@ -17,7 +17,7 @@ const IngredientGroup = ({ data, title }) => {
                 </p>
             </div>
             <div className={ styles.items }>
-                { data.map(ingredient => <IngredientItem key={ ingredient._id } ingredient={ ingredient }
+                { data.map(ingredient => <IngredientItem count={1} key={ ingredient._id } ingredient={ ingredient }
                                                          onSelect={ setCurrentIngredient } />) }
             </div>
             { currentIngredient && <Modal title={ 'Детали ингредиента' } onClose={ () => setCurrentIngredient(null) }>

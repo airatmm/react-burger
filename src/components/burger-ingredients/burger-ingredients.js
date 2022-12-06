@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "../ingredient-group/ingredient-group";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
+import { IngredientsContext } from "../../contexts/ingredients-context";
 
-const BurgerIngredients = ({ data }) => {
+const BurgerIngredients = () => {
+    const { allIngredients: data } = useContext(IngredientsContext);
+
     const [current, setCurrent] = useState('one')
 
     return (
@@ -33,7 +36,7 @@ const BurgerIngredients = ({ data }) => {
     )
 }
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientType).isRequired
+    data: PropTypes.arrayOf(ingredientType)
 }
 
 export default BurgerIngredients;

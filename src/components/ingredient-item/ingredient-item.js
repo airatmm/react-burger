@@ -9,7 +9,7 @@ const IngredientItem = ({ ingredient, count, onSelect }) => {
         onSelect(ingredient);
     }
 
-    count = 16;
+    // count = 16;
     return (
         <div className={ `${ styles.content } pt-6` } onClick={ onSelectIngredient }>
             { count &&

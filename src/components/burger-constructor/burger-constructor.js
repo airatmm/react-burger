@@ -3,11 +3,17 @@ import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-co
 import ConstructorItem from "../constructor-item/constructor-item";
 import PropTypes from 'prop-types';
 import { ingredientType } from "../../utils/types";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
+import { IngredientsContext } from "../../contexts/ingredients-context";
 
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = () => {
+    const { allIngredients: data } = useContext(IngredientsContext);
+
+    // console.log(data)
+    // const [addIngredients, setAddIngredients] = useState([]);
+
     const [visible, setVisible] = useState(false)
 
     const handleOpenModal = () => {
@@ -18,13 +24,18 @@ const BurgerConstructor = ({ data }) => {
         setVisible(false)
     }
 
+    // const bun = {
+    //     name: "Краторная булка N-200i",
+    //     price: 1255,
+    //     image: "https://code.s3.yandex.net/react/code/bun-02.png",
+    // }
     const bun = data.find(item => item.type === 'bun');
     if (!bun) {
         return "Loading";
     }
 
     const priceTotal = data.reduce((acc, value) => acc + value.price, 0)
-
+    //const priceTotal = 5000;
     return (
         <section className={ `${ styles.main } pt-25` }>
             <div className={ styles.content }>
@@ -36,7 +47,7 @@ const BurgerConstructor = ({ data }) => {
                     thumbnail={ bun.image }
                 />
                 <div className={ styles.container }>
-                    { data.filter(item => item.type !== 'bun').map((item) =>
+                    { data.filter(item => item.type !== 'bun').slice(0, 4).map((item) =>
                         <ConstructorItem
                             key={ item._id }
                             text={ item.name }
@@ -74,6 +85,6 @@ const BurgerConstructor = ({ data }) => {
 }
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(ingredientType).isRequired
+    data: PropTypes.arrayOf(ingredientType)
 }
 export default BurgerConstructor;
