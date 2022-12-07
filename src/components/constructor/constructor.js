@@ -30,7 +30,6 @@ const Constructor = () => {
     const [modal, setModal] = useState({
         visible: false,
         content: null,
-        title: '',
     });
 
     const { visible, content } = modal;
@@ -39,9 +38,9 @@ const Constructor = () => {
         <main className={ styles.main }>
             <ModalContext.Provider value={{modal, setModal}}>
                 <IngredientsContext.Provider value={ { allIngredients, setAllIngredients } }>
-                    <BurgerIngredients data={ allIngredients } />
+                    <BurgerIngredients />
                     <BurgerConstructor />
-                    {visible && <Modal >{content}</Modal>}
+                    {visible && <Modal>{content}</Modal>}
                 </IngredientsContext.Provider>
             </ModalContext.Provider>
         </main>

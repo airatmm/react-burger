@@ -56,7 +56,6 @@ const IngredientItem = ({ ingredient, count, renderModal, onSelect }) => {
     )
 }
 
-
 IngredientItem.propTypes = {
     data: PropTypes.arrayOf(ingredientType),
     count: PropTypes.number,
