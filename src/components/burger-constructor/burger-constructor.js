@@ -9,7 +9,10 @@ import { IngredientsContext } from "../../contexts/ingredients-context";
 import { ModalContext } from "../../contexts/modal-context";
 
 const BurgerConstructor = () => {
-    const { allIngredients: data } = useContext(IngredientsContext);
+    const { orderIngredients: data } = useContext(IngredientsContext);
+    // const ingredientsContext = useContext(IngredientsContext);
+    // const { allIngredients, setAllIngredients } = ingredientsContext;
+    console.log(data)
 
     const { setModal } = useContext(ModalContext);
 
@@ -25,17 +28,18 @@ const BurgerConstructor = () => {
         return "Loading";
     }
 
-    const priceTotal = data.reduce((acc, value) => acc + value.price, 0)
+    // const priceTotal = data.reduce((acc, value) => acc + value.price, 0)
     return (
         <section className={ `${ styles.main } pt-25` }>
             <div className={ styles.content }>
-                <ConstructorItem
-                    type="top"
-                    isLocked={ true }
-                    text={ `${ bun.name } (верх)` }
-                    price={ bun.price }
-                    thumbnail={ bun.image }
-                />
+
+                    <ConstructorItem
+                        type="top"
+                        isLocked={ true }
+                        text={ `${ bun.name } (верх)` }
+                        price={ bun.price }
+                        thumbnail={ bun.image }
+                    />
                 <div className={ styles.container }>
                     { data.filter(item => item.type !== 'bun').slice(0, 4).map((item) =>
                         <ConstructorItem
@@ -46,20 +50,21 @@ const BurgerConstructor = () => {
                             isAdded={ true }
                         />
                     ) }
+
                 </div>
 
-                <ConstructorItem
-                    type="bottom"
-                    isLocked={ true }
-                    text={ `${ bun.name } (низ)` }
-                    price={ bun.price }
-                    thumbnail={ bun.image }
-                />
+                    <ConstructorItem
+                        type="bottom"
+                        isLocked={ true }
+                        text={ `${ bun.name } (низ)` }
+                        price={ bun.price }
+                        thumbnail={ bun.image }
+                    />
             </div>
 
             <div className={ `${ styles.orderInfo } pt-10` }>
                 <div className={ `${ styles.priceTotal } pr-10` }>
-                    <p className={ 'text text_type_digits-medium' }>{ priceTotal }</p>
+                    <p className={ 'text text_type_digits-medium' }>{ 'priceTotal' }</p>
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button htmlType='button' type='primary' size='medium' onClick={ handleOpenModal }>

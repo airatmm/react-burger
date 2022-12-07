@@ -12,8 +12,8 @@ import Modal from '../modal/modal';
 
 const Constructor = () => {
     const [allIngredients, setAllIngredients] = useState([]);
-    // const [buns, setBuns] = useState([]);
-    // const [burgerIngredients, setBurgerIngredients] = useState([])
+    const [orderIngredients, setOrderIngredients] = useState([])
+    //console.log(order)
 
     const getAllIngredientsData = () => {
         getAllIngredients
@@ -38,11 +38,17 @@ const Constructor = () => {
 
     return (
         <main className={ styles.main }>
-            <ModalContext.Provider value={{modal, setModal}}>
-                <IngredientsContext.Provider value={ { allIngredients, setAllIngredients } }>
+            <ModalContext.Provider value={ { modal, setModal } }>
+                <IngredientsContext.Provider
+                    value={ {
+                        allIngredients,
+                        setAllIngredients,
+                        orderIngredients,
+                        setOrderIngredients
+                    } }>
                     <BurgerIngredients />
                     <BurgerConstructor />
-                    {visible && <Modal>{content}</Modal>}
+                    { visible && <Modal>{ content }</Modal> }
                 </IngredientsContext.Provider>
             </ModalContext.Provider>
         </main>

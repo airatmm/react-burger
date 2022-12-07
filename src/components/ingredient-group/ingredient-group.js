@@ -1,20 +1,49 @@
 import styles from './ingredient-group.module.css';
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 import IngredientItem from '../ingredient-item/ingredient-item';
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
+import { IngredientsContext } from "../../contexts/ingredients-context";
+// import order from "../order/order";
 
-const IngredientGroup = forwardRef(({ data, title, ingredientModal }, ref) => {
+const IngredientGroup = forwardRef(({ title, ingredientModal }, ref) => {
+    const ingredientsContext = useContext(IngredientsContext);
+    const { allIngredients: data,  setOrderIngredients } = ingredientsContext;
+    // const onIdClick = (id) => {
+    //     setSelectedIds((selectedIds) => [...selectedIds, id]);
+    // };
+    //const { order, setOrder } = ingredientsContext;
+    // setSelectedIds((selectedIds) => [...selectedIds, id]);
+    // onClick={() => setCount(prevCount => prevCount - 1)}
+    const addToOrder = (ingredient) => {
+        setOrderIngredients((orderIngredients) =>[...orderIngredients, ingredient])
+        // console.log(ingredient.type);
+        // if (ingredient.type === 'bun' && orderIngredients.bun.length === 0) {
+        //     setOrderIngredients({
+        //         bun: [ingredient],
+        //         ingredients: [...orderIngredients.ingredients]
+        //     })
+        // }
+        //
+        // if (ingredient.type !== 'bun' && orderIngredients.bun.length !== 0) {
+        //     setOrderIngredients({
+        //         ...orderIngredients,
+        //         ingredients: [...orderIngredients.ingredients, ingredient]
+        //     })
+        // }
+    }
     return (
         <section className={ 'pb-10' }>
             <div className={ styles.title }>
-                <p ref={ref} className='text text_type_main-medium'>
+                <p ref={ ref } className='text text_type_main-medium'>
                     { title }
                 </p>
             </div>
-            <div  className={ styles.items }>
+            <div className={ styles.items }>
                 { data.map(ingredient => <IngredientItem count={ 1 } key={ ingredient._id } ingredient={ ingredient }
-                                                         ingredientModal={ ingredientModal } />) }
+                                                         ingredientModal={ ingredientModal }
+                                                         addToOrder={ addToOrder }
+                />) }
             </div>
         </section>
     )

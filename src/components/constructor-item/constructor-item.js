@@ -21,8 +21,8 @@ ConstructorItem.propTypes = {
     type: PropTypes.string,
     isLocked: PropTypes.bool,
     isAdded: PropTypes.bool,
-    text: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    text: PropTypes.string,
+    price: PropTypes.number,
     thumbnail: PropTypes.string
 }
 

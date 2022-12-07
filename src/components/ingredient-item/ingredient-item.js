@@ -2,11 +2,11 @@ import styles from './ingredient-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
-import { useContext } from "react";
-import { IngredientsContext } from "../../contexts/ingredients-context";
+// import { useContext } from "react";
+// import { IngredientsContext } from "../../contexts/ingredients-context";
 
-const IngredientItem = ({ ingredient, count, ingredientModal }) => {
-    const { allIngredients, setAllIngredients} = useContext(IngredientsContext);
+const IngredientItem = ({ ingredient, count, ingredientModal, addToOrder }) => {
+    //const { allIngredients, setAllIngredients} = useContext(IngredientsContext);
 
     const ingredientCard = {
         image: ingredient.image_large,
@@ -17,10 +17,11 @@ const IngredientItem = ({ ingredient, count, ingredientModal }) => {
         proteins: ingredient.proteins,
         price: ingredient.price,
         _id: ingredient._id,
+        // type: ingredient.type,
     }
     const onSelectIngredient = () => {
-        setAllIngredients(allIngredients)
         ingredientModal(ingredientCard);
+        addToOrder(ingredient)
     }
 
     return (

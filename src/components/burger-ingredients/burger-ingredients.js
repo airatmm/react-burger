@@ -9,6 +9,8 @@ import { IngredientsContext } from "../../contexts/ingredients-context";
 import { ModalContext } from "../../contexts/modal-context";
 
 const BurgerIngredients = () => {
+    // const ingredientsContext = useContext(IngredientsContext);
+    // const { allIngredients: data } = ingredientsContext;
     const { allIngredients: data } = useContext(IngredientsContext);
     const [current, setCurrent] = useState('one')
     const { setModal } = useContext(ModalContext);

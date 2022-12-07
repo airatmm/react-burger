@@ -1,3 +1,9 @@
-import {createContext} from 'react';
+import { createContext } from 'react';
 
-export const IngredientsContext = createContext([]);
+const initialState = {
+    allIngredients: [],
+    orderIngredients: []
+};
+
+export const IngredientsContext = createContext(initialState);
+
