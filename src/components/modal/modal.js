@@ -1,32 +1,41 @@
 import styles from './modal.module.css';
+import { useContext } from 'react';
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { modalProps } from "../../utils/types";
+import { ModalContext } from '../../contexts/modal-context';
 
 const modalRoot = document.getElementById("root-modals");
 
-const Modal = ({ children, title, onClose }) => {
+const Modal = ({ children, title }) => {
+    const { setModal } = useContext(ModalContext);
 
-    const handleEscClose = useCallback(({ key }) => {
+    const handleClose = () => {
+        setModal({
+            visible: false,
+            content: null
+        })
+    }
+    const handleEscClose = ({ key }) => {
         if (key === 'Escape') {
-            onClose()
+            handleClose()
         }
-    }, [onClose]);
+    };
 
     useEffect(() => {
         document.addEventListener('keydown', handleEscClose);
         return () => document.removeEventListener('keydown', handleEscClose);
-    }, [handleEscClose]);
+    });
 
     return createPortal(
         <>
-            <ModalOverlay onClose={ onClose }>
-                <div className={ `${ styles.modal } `} onClick={(e) =>e.stopPropagation() }>
+            <ModalOverlay onClose={ handleClose }>
+                <div className={ `${ styles.modal } ` } onClick={ (e) => e.stopPropagation() }>
                     <span className={ `text text_type_main-large mt-10 ml-10` }>{ title }</span>
-                    <div className={ styles.closeIcon } onClick={ onClose }>
-                        <CloseIcon type='secondary'  />
+                    <div className={ styles.closeIcon } onClick={ handleClose }>
+                        <CloseIcon type='secondary' />
                     </div>
                     { children }
                 </div>
@@ -38,7 +47,6 @@ const Modal = ({ children, title, onClose }) => {
 
 Modal.propTypes = {
     children: modalProps.children,
-    onClose: modalProps.onClose,
     title: modalProps.title,
 }
 

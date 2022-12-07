@@ -3,39 +3,29 @@ import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-co
 import ConstructorItem from "../constructor-item/constructor-item";
 import PropTypes from 'prop-types';
 import { ingredientType } from "../../utils/types";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import OrderDetails from "../order-details/order-details";
-import Modal from "../modal/modal";
 import { IngredientsContext } from "../../contexts/ingredients-context";
+import { ModalContext } from "../../contexts/modal-context";
 
 const BurgerConstructor = () => {
     const { allIngredients: data } = useContext(IngredientsContext);
 
-    // console.log(data)
-    // const [addIngredients, setAddIngredients] = useState([]);
-
-    const [visible, setVisible] = useState(false)
+    const { setModal } = useContext(ModalContext);
 
     const handleOpenModal = () => {
-        setVisible(true)
+        setModal({
+            visible: true,
+            content: <OrderDetails />
+        })
     }
 
-    const handleCloseModal = () => {
-        setVisible(false)
-    }
-
-    // const bun = {
-    //     name: "Краторная булка N-200i",
-    //     price: 1255,
-    //     image: "https://code.s3.yandex.net/react/code/bun-02.png",
-    // }
     const bun = data.find(item => item.type === 'bun');
     if (!bun) {
         return "Loading";
     }
 
     const priceTotal = data.reduce((acc, value) => acc + value.price, 0)
-    //const priceTotal = 5000;
     return (
         <section className={ `${ styles.main } pt-25` }>
             <div className={ styles.content }>
@@ -75,9 +65,7 @@ const BurgerConstructor = () => {
                 <Button htmlType='button' type='primary' size='medium' onClick={ handleOpenModal }>
                     Оформить заказ
                 </Button>
-                { visible && <Modal onClose={ handleCloseModal }>
-                    <OrderDetails />
-                </Modal> }
+
             </div>
         </section>
 

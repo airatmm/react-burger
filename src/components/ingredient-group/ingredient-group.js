@@ -2,13 +2,8 @@ import styles from './ingredient-group.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
-import { useState } from "react";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 
-const IngredientGroup = ({ data, title }) => {
-    const [currentIngredient, setCurrentIngredient] = useState();
-
+const IngredientGroup = ({ data, title, renderModal }) => {
     return (
         <section className={ 'pb-10' }>
             <div className={ styles.title }>
@@ -17,19 +12,16 @@ const IngredientGroup = ({ data, title }) => {
                 </p>
             </div>
             <div className={ styles.items }>
-                { data.map(ingredient => <IngredientItem count={1} key={ ingredient._id } ingredient={ ingredient }
-                                                         onSelect={ setCurrentIngredient } />) }
+                { data.map(ingredient => <IngredientItem key={ ingredient._id } ingredient={ ingredient }
+                                                         renderModal={ renderModal } />) }
             </div>
-            { currentIngredient && <Modal title={ 'Детали ингредиента' } onClose={ () => setCurrentIngredient(null) }>
-                <IngredientDetails data={ currentIngredient } />
-            </Modal> }
         </section>
     )
 }
 
 IngredientGroup.propTypes = {
-    data: PropTypes.arrayOf(ingredientType).isRequired,
-    title: PropTypes.string.isRequired
+    data: PropTypes.arrayOf(ingredientType),
+    title: PropTypes.string
 }
 
 export default IngredientGroup;
