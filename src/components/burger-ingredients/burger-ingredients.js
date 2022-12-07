@@ -32,6 +32,7 @@ const BurgerIngredients = () => {
     const mainRef = useRef(null)
 
     const scroll = (ref) => {
+        setCurrent(current)
         ref.current.scrollIntoView({
             behavior: "smooth"
         })
@@ -44,19 +45,16 @@ const BurgerIngredients = () => {
                 <div className={ `${ styles.tabs } pb-10` }>
                     <Tab value="one" active={ current === 'one' } onClick={() => {
                         scroll(bunRef)
-                        setCurrent(current)
                     }}>
                         Булки
                     </Tab>
                     <Tab value="two" active={ current === 'two' } onClick={() => {
                         scroll(sauceRef)
-                        setCurrent(current)
                     }}>
                         Соусы
                     </Tab>
                     <Tab value="three" active={ current === 'three' } onClick={() => {
                         scroll(mainRef)
-                        setCurrent(current)
                     }}>
                         Начинки
                     </Tab>
