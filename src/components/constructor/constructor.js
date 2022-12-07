@@ -11,7 +11,9 @@ import { ModalContext } from "../../contexts/modal-context";
 import Modal from '../modal/modal';
 
 const Constructor = () => {
-    const [allIngredients, setAllIngredients] = useState([])
+    const [allIngredients, setAllIngredients] = useState([]);
+    // const [buns, setBuns] = useState([]);
+    // const [burgerIngredients, setBurgerIngredients] = useState([])
 
     const getAllIngredientsData = () => {
         getAllIngredients
