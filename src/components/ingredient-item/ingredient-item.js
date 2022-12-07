@@ -5,7 +5,7 @@ import { ingredientType } from "../../utils/types";
 import { useContext } from "react";
 import { IngredientsContext } from "../../contexts/ingredients-context";
 
-const IngredientItem = ({ ingredient, count, renderModal, onSelect }) => {
+const IngredientItem = ({ ingredient, count, renderModal }) => {
     const { allIngredients, setAllIngredients} = useContext(IngredientsContext);
 
     const ingredientCard = {
