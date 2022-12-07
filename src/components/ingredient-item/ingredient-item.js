@@ -5,7 +5,7 @@ import { ingredientType } from "../../utils/types";
 import { useContext } from "react";
 import { IngredientsContext } from "../../contexts/ingredients-context";
 
-const IngredientItem = ({ ingredient, count, renderModal }) => {
+const IngredientItem = ({ ingredient, count, ingredientModal }) => {
     const { allIngredients, setAllIngredients} = useContext(IngredientsContext);
 
     const ingredientCard = {
@@ -20,7 +20,7 @@ const IngredientItem = ({ ingredient, count, renderModal }) => {
     }
     const onSelectIngredient = () => {
         setAllIngredients(allIngredients)
-        renderModal(ingredientCard);
+        ingredientModal(ingredientCard);
     }
 
     count = 16;

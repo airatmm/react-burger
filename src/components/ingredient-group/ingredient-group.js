@@ -3,7 +3,7 @@ import IngredientItem from '../ingredient-item/ingredient-item';
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 
-const IngredientGroup = ({ data, title, renderModal }) => {
+const IngredientGroup = ({ data, title, ingredientModal }) => {
     return (
         <section className={ 'pb-10' }>
             <div className={ styles.title }>
@@ -13,7 +13,7 @@ const IngredientGroup = ({ data, title, renderModal }) => {
             </div>
             <div className={ styles.items }>
                 { data.map(ingredient => <IngredientItem key={ ingredient._id } ingredient={ ingredient }
-                                                         renderModal={ renderModal } />) }
+                                                         ingredientModal={ ingredientModal } />) }
             </div>
         </section>
     )

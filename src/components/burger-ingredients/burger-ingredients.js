@@ -13,10 +13,9 @@ const BurgerIngredients = () => {
     const [current, setCurrent] = useState('one')
     const { setModal } = useContext(ModalContext);
 
-    const renderModal = (ingredient) => {
+    const ingredientModal = (ingredient) => {
         setModal({
             visible: true,
-            title: 'Детали ингредиента',
             content: <IngredientDetails
                 image={ ingredient.image }
                 name={ ingredient.name }
@@ -45,11 +44,11 @@ const BurgerIngredients = () => {
                 </div>
                 <div className={ styles.container }>
                     <IngredientGroup data={ data.filter(el => el.type === 'bun') } title={ 'Булки' }
-                                     renderModal={ renderModal } />
+                                     ingredientModal={ ingredientModal } />
                     <IngredientGroup data={ data.filter(el => el.type === 'sauce') } title={ 'Соусы' }
-                                     renderModal={ renderModal } />
+                                     ingredientModal={ ingredientModal } />
                     <IngredientGroup data={ data.filter(el => el.type === 'main') } title={ 'Начинки' }
-                                     renderModal={ renderModal } />
+                                     ingredientModal={ ingredientModal } />
                 </div>
             </div>
         </section>
