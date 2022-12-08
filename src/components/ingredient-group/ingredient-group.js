@@ -16,7 +16,7 @@ const IngredientGroup = forwardRef(({ data, title, ingredientModal }, ref) => {
                 buns: [ingredient],
             })
         }
-        if(ingredient.type !== 'bun') {
+        if (ingredient.type !== 'bun') {
 
             setOrderIngredients({
                 ...orderIngredients,

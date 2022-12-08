@@ -32,18 +32,6 @@ export const getOrder = (ingredients) => request(
             Accept: "application/json",
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ingredients}),
+        body: JSON.stringify({ ingredients }),
     }
 );
-
-
-// export const getAllIngredients = () => {
-//     return fetch(`${BASE_URL}/ingredients`, {
-//         method: 'GET',
-//         headers: {
-//             'Content-type': 'application/json',
-//             Accept: 'application/json',
-//         }
-//     })
-//         .then(checkResponse);
-// }

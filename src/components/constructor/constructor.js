@@ -10,12 +10,15 @@ import { IngredientsContext } from "../../contexts/ingredients-context";
 import { ModalContext } from "../../contexts/modal-context";
 import Modal from '../modal/modal';
 
+export const initialState = {
+    buns: null,
+    fillings: []
+}
+
 const Constructor = () => {
+
     const [allIngredients, setAllIngredients] = useState([]);
-    const [orderIngredients, setOrderIngredients] = useState({
-        buns: null,
-        fillings: []
-    })
+    const [orderIngredients, setOrderIngredients] = useState(initialState)
 
     const getAllIngredientsData = () => {
         getAllIngredients
