@@ -23,6 +23,19 @@ export const getAllIngredients = request(
     }
 );
 
+export const getOrder = (ingredients) => request(
+    `${ BASE_URL }/orders`,
+
+    {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ingredients}),
+    }
+);
+
 
 // export const getAllIngredients = () => {
 //     return fetch(`${BASE_URL}/ingredients`, {

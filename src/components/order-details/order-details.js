@@ -1,10 +1,10 @@
 import styles from './order-details.module.css';
 import doneImage from '../../images/done-image.svg';
 
-const OrderDetails = () => {
+const OrderDetails = ({number}) => {
     return (
         <section className={ styles.main }>
-            <span className={ `${ styles.orderId } text text_type_digits-large mt-30 mb-8` }>034536</span>
+            <span className={ `${ styles.orderId } text text_type_digits-large mt-30 mb-8` }>{number}</span>
             <span className={ 'text text_type_main-medium mb-15' }>идентификатор заказа</span>
             <img className={ `${ styles.image } mb-15` } src={ doneImage } alt='Done' />
             <span className={ 'text text_type_main-small mb-2' }>Ваш заказ начали готовить</span>
