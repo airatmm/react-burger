@@ -2,11 +2,8 @@ import styles from './ingredient-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
-// import { useContext } from "react";
-// import { IngredientsContext } from "../../contexts/ingredients-context";
 
 const IngredientItem = ({ ingredient, count, ingredientModal, addToOrder }) => {
-    //const { allIngredients, setAllIngredients} = useContext(IngredientsContext);
 
     const ingredientCard = {
         image: ingredient.image_large,
@@ -17,7 +14,6 @@ const IngredientItem = ({ ingredient, count, ingredientModal, addToOrder }) => {
         proteins: ingredient.proteins,
         price: ingredient.price,
         _id: ingredient._id,
-        // type: ingredient.type,
     }
     const onSelectIngredient = () => {
         ingredientModal(ingredientCard);
@@ -57,9 +53,9 @@ const IngredientItem = ({ ingredient, count, ingredientModal, addToOrder }) => {
 }
 
 IngredientItem.propTypes = {
-    data: PropTypes.arrayOf(ingredientType),
-    count: PropTypes.number,
-    onSelect: PropTypes.func
+    ingredient: ingredientType.isRequired,
+    count: PropTypes.number.isRequired,
+    addToOrder: PropTypes.func.isRequired
 }
 
 export default IngredientItem;

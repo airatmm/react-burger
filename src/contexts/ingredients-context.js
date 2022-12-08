@@ -2,10 +2,7 @@ import { createContext } from 'react';
 
 const initialState = {
     allIngredients: [],
-    orderIngredients: {
-        buns: [],
-        fillings: [],
-    }
+    orderIngredients: {}
 };
 
 export const IngredientsContext = createContext(initialState);

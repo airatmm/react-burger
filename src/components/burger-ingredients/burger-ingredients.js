@@ -3,14 +3,10 @@ import styles from './burger-ingredients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "../ingredient-group/ingredient-group";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
 import { IngredientsContext } from "../../contexts/ingredients-context";
 import { ModalContext } from "../../contexts/modal-context";
 
 const BurgerIngredients = () => {
-    // const ingredientsContext = useContext(IngredientsContext);
-    // const { allIngredients: data } = ingredientsContext;
     const { allIngredients: data } = useContext(IngredientsContext);
     const [current, setCurrent] = useState('one')
     const { setModal } = useContext(ModalContext);
@@ -74,9 +70,6 @@ const BurgerIngredients = () => {
             </div>
         </section>
     )
-}
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientType)
 }
 
 export default BurgerIngredients;

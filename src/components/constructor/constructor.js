@@ -12,7 +12,10 @@ import Modal from '../modal/modal';
 
 const Constructor = () => {
     const [allIngredients, setAllIngredients] = useState([]);
-    const [orderIngredients, setOrderIngredients] = useState({})
+    const [orderIngredients, setOrderIngredients] = useState({
+        buns: null,
+        fillings: []
+    })
 
     const getAllIngredientsData = () => {
         getAllIngredients
@@ -54,10 +57,6 @@ const Constructor = () => {
         </main>
 
     )
-}
-
-Constructor.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientType),
 }
 
 export default Constructor;

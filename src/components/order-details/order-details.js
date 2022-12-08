@@ -1,5 +1,7 @@
 import styles from './order-details.module.css';
 import doneImage from '../../images/done-image.svg';
+import PropTypes from "prop-types";
+import { ingredientType } from "../../utils/types";
 
 const OrderDetails = ({number}) => {
     return (
@@ -11,6 +13,10 @@ const OrderDetails = ({number}) => {
             <span className={ 'text text_type_main-small text_color_inactive mb-30' }>Дождитесь готовности на орбитальной станции</span>
         </section>
     )
+}
+
+OrderDetails.propTypes = {
+    number: PropTypes.number.isRequired
 }
 
 export default OrderDetails;
