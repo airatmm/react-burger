@@ -12,7 +12,7 @@ import Modal from '../modal/modal';
 
 const Constructor = () => {
     const [allIngredients, setAllIngredients] = useState([]);
-    const [orderIngredients, setOrderIngredients] = useState([])
+    const [orderIngredients, setOrderIngredients] = useState({})
     //console.log(order)
 
     const getAllIngredientsData = () => {

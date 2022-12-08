@@ -9,10 +9,13 @@ import { IngredientsContext } from "../../contexts/ingredients-context";
 import { ModalContext } from "../../contexts/modal-context";
 
 const BurgerConstructor = () => {
-    const { orderIngredients: data } = useContext(IngredientsContext);
+    const { orderIngredients } = useContext(IngredientsContext);
+    const { fillings: data, buns: bun } = orderIngredients;
     // const ingredientsContext = useContext(IngredientsContext);
     // const { allIngredients, setAllIngredients } = ingredientsContext;
     console.log(data)
+    console.log(bun)
+    //console.log(orderIngredients)
 
     const { setModal } = useContext(ModalContext);
 
@@ -23,25 +26,25 @@ const BurgerConstructor = () => {
         })
     }
 
-    const bun = data.find(item => item.type === 'bun');
-    if (!bun) {
-        return "Loading";
-    }
+    //const bun = data.find(item => item.type === 'bun');
+    // if (!bun) {
+    //     return "Loading";
+    //}
 
     // const priceTotal = data.reduce((acc, value) => acc + value.price, 0)
     return (
         <section className={ `${ styles.main } pt-25` }>
             <div className={ styles.content }>
-
+                {bun &&
                     <ConstructorItem
                         type="top"
                         isLocked={ true }
-                        text={ `${ bun.name } (верх)` }
-                        price={ bun.price }
-                        thumbnail={ bun.image }
-                    />
-                <div className={ styles.container }>
-                    { data.filter(item => item.type !== 'bun').slice(0, 4).map((item) =>
+                        text={ `${ bun[0].name } (верх)` }
+                        price={ bun[0].price }
+                        thumbnail={ bun[0].image }
+                    />}
+                {data ? <div className={ styles.container }>
+                    { data.map((item) =>
                         <ConstructorItem
                             key={ item._id }
                             text={ item.name }
@@ -49,17 +52,18 @@ const BurgerConstructor = () => {
                             thumbnail={ item.image }
                             isAdded={ true }
                         />
-                    ) }
+                    )
+                    }
 
-                </div>
+                </div>  : <h2>Добавьте ингредиенты</h2>}
 
-                    <ConstructorItem
+                {bun && <ConstructorItem
                         type="bottom"
                         isLocked={ true }
-                        text={ `${ bun.name } (низ)` }
-                        price={ bun.price }
-                        thumbnail={ bun.image }
-                    />
+                        text={ `${ bun[0].name } (низ)` }
+                        price={ bun[0].price }
+                        thumbnail={ bun[0].image }
+                    />}
             </div>
 
             <div className={ `${ styles.orderInfo } pt-10` }>
