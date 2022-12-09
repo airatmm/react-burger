@@ -1,79 +1,88 @@
 import styles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorItem from "../constructor-item/constructor-item";
-import PropTypes from 'prop-types';
-import { ingredientType } from "../../utils/types";
-import { useState } from "react";
+import { useContext } from "react";
 import OrderDetails from "../order-details/order-details";
-import Modal from "../modal/modal";
+import { IngredientsContext } from "../../contexts/ingredients-context";
+import { ModalContext } from "../../contexts/modal-context";
+import { getOrder } from "../../utils/api";
+import { calculationCost } from "../../utils/tools";
+import { initialState } from "../constructor/constructor";
 
-const BurgerConstructor = ({ data }) => {
-    const [visible, setVisible] = useState(false)
+const BurgerConstructor = () => {
+    const { orderIngredients, setOrderIngredients } = useContext(IngredientsContext);
+    const { fillings: data, buns: bun } = orderIngredients;
+    const { setModal } = useContext(ModalContext);
 
-    const handleOpenModal = () => {
-        setVisible(true)
+    const getOrderNumbers = () => {
+        getOrder(data.map(el => el._id))
+            .then((data) => {
+                setModal({
+                    visible: true,
+                    content: <OrderDetails number={ data.order.number } />
+                })
+                setOrderIngredients(initialState)
+            })
+            .catch((err) => {
+                (console.log(err))
+            })
     }
 
-    const handleCloseModal = () => {
-        setVisible(false)
+    const deleteToOrder = (ingredient) => {
+        setOrderIngredients({
+            ...orderIngredients,
+            fillings: [...orderIngredients.fillings.filter(i => i.id !== ingredient.id)]
+        })
     }
-
-    const bun = data.find(item => item.type === 'bun');
-    if (!bun) {
-        return "Loading";
-    }
-
-    const priceTotal = data.reduce((acc, value) => acc + value.price, 0)
 
     return (
         <section className={ `${ styles.main } pt-25` }>
             <div className={ styles.content }>
-                <ConstructorItem
-                    type="top"
-                    isLocked={ true }
-                    text={ `${ bun.name } (верх)` }
-                    price={ bun.price }
-                    thumbnail={ bun.image }
-                />
-                <div className={ styles.container }>
-                    { data.filter(item => item.type !== 'bun').map((item) =>
+                { bun &&
+                    <ConstructorItem
+                        type="top"
+                        isLocked={ true }
+                        text={ `${ bun[0].name } (верх)` }
+                        price={ bun[0].price }
+                        thumbnail={ bun[0].image }
+                    /> }
+                { data.length !== 0 ? <div className={ styles.container }>
+                    { data.map((item) =>
                         <ConstructorItem
-                            key={ item._id }
+                            key={ crypto.randomUUID() }
                             text={ item.name }
                             price={ item.price }
                             thumbnail={ item.image }
                             isAdded={ true }
+                            handleClose={ () => deleteToOrder(item) }
                         />
-                    ) }
-                </div>
+                    )
+                    }
 
-                <ConstructorItem
+                </div> : <h2>Добавьте ингредиенты</h2> }
+
+                { bun && <ConstructorItem
                     type="bottom"
                     isLocked={ true }
-                    text={ `${ bun.name } (низ)` }
-                    price={ bun.price }
-                    thumbnail={ bun.image }
-                />
+                    text={ `${ bun[0].name } (низ)` }
+                    price={ bun[0].price }
+                    thumbnail={ bun[0].image }
+                /> }
             </div>
 
             <div className={ `${ styles.orderInfo } pt-10` }>
                 <div className={ `${ styles.priceTotal } pr-10` }>
-                    <p className={ 'text text_type_digits-medium' }>{ priceTotal }</p>
+                    <p className={ 'text text_type_digits-medium' }>{ calculationCost(bun, data) }</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType='button' type='primary' size='medium' onClick={ handleOpenModal }>
+                <Button htmlType='button' type='primary' size='medium' onClick={ getOrderNumbers }>
                     Оформить заказ
                 </Button>
-                { visible && <Modal onClose={ handleCloseModal }>
-                    <OrderDetails />
-                </Modal> }
+
             </div>
         </section>
 
     )
 }
 
-BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(ingredientType).isRequired
-}
 export default BurgerConstructor;

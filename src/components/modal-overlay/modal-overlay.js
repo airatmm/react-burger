@@ -4,7 +4,7 @@ import { modalProps } from "../../utils/types";
 const ModalOverlay = ({ children, onClose }) => {
 
     return (
-        <div className={ styles.overlay} onClick={onClose}>
+        <div className={ styles.overlay } onClick={ onClose }>
             { children }
         </div>
 

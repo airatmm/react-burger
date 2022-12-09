@@ -3,13 +3,23 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 
-const IngredientItem = ({ ingredient, count, onSelect }) => {
+const IngredientItem = ({ ingredient, count, ingredientModal, addToOrder }) => {
 
+    const ingredientCard = {
+        image: ingredient.image_large,
+        name: ingredient.name,
+        calories: ingredient.calories,
+        fat: ingredient.fat,
+        carbohydrates: ingredient.carbohydrates,
+        proteins: ingredient.proteins,
+        price: ingredient.price,
+        _id: ingredient._id,
+    }
     const onSelectIngredient = () => {
-        onSelect(ingredient);
+        ingredientModal(ingredientCard);
+        addToOrder(ingredient)
     }
 
-    count = 16;
     return (
         <div className={ `${ styles.content } pt-6` } onClick={ onSelectIngredient }>
             { count &&
@@ -42,11 +52,11 @@ const IngredientItem = ({ ingredient, count, onSelect }) => {
     )
 }
 
-
 IngredientItem.propTypes = {
-    data: PropTypes.arrayOf(ingredientType),
-    count: PropTypes.number,
-    onSelect: PropTypes.func.isRequired
+    ingredient: ingredientType.isRequired,
+    count: PropTypes.number.isRequired,
+    addToOrder: PropTypes.func.isRequired,
+    ingredientModal: PropTypes.func.isRequired
 }
 
 export default IngredientItem;
