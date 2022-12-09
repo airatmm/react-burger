@@ -48,7 +48,8 @@ const IngredientGroup = forwardRef(({ data, title, ingredientModal }, ref) => {
 
 IngredientGroup.propTypes = {
     data: PropTypes.arrayOf(ingredientType),
-    title: PropTypes.string
+    title: PropTypes.string,
+    ingredientModal: PropTypes.func.isRequired
 }
 
 export default IngredientGroup;
