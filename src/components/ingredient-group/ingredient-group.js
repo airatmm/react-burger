@@ -23,7 +23,6 @@ const IngredientGroup = forwardRef(({ data, title, ingredientModal }, ref) => {
                 fillings: [...orderIngredients.fillings, ingredient]
             })
         }
-
     }
     return (
         <section className={ 'pb-10' }>
