@@ -50,7 +50,7 @@ const BurgerConstructor = () => {
                 { data.length !== 0 ? <div className={ styles.container }>
                     { data.map((item) =>
                         <ConstructorItem
-                            key={ item._id }
+                            key={ crypto.randomUUID() }
                             text={ item.name }
                             price={ item.price }
                             thumbnail={ item.image }

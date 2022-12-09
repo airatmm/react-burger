@@ -15,12 +15,7 @@ const BurgerIngredients = () => {
         setModal({
             visible: true,
             content: <IngredientDetails
-                image={ ingredient.image }
-                name={ ingredient.name }
-                calories={ ingredient.calories }
-                proteins={ ingredient.proteins }
-                fat={ ingredient.fat }
-                carbohydrates={ ingredient.carbohydrates }
+                data={ingredient}
             />
         })
     }
