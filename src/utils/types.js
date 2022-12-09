@@ -18,7 +18,6 @@ export const ingredientType = PropTypes.shape({
 
 export const modalProps = {
     children: PropTypes.element.isRequired,
-    title: PropTypes.string,
-    onClose: PropTypes.func
+    onClose: PropTypes.func.isRequired,
 };
 

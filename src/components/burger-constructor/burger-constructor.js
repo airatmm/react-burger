@@ -12,7 +12,6 @@ import { initialState } from "../constructor/constructor";
 const BurgerConstructor = () => {
     const { orderIngredients, setOrderIngredients } = useContext(IngredientsContext);
     const { fillings: data, buns: bun } = orderIngredients;
-
     const { setModal } = useContext(ModalContext);
 
     const getOrderNumbers = () => {
@@ -32,7 +31,7 @@ const BurgerConstructor = () => {
     const deleteToOrder = (ingredient) => {
         setOrderIngredients({
             ...orderIngredients,
-            fillings: [...orderIngredients.fillings.filter(i => i._id !== ingredient._id)]
+            fillings: [...orderIngredients.fillings.filter(i => i.id !== ingredient.id)]
         })
     }
 

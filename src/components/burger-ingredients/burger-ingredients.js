@@ -15,7 +15,7 @@ const BurgerIngredients = () => {
         setModal({
             visible: true,
             content: <IngredientDetails
-                data={ingredient}
+                data={ ingredient }
             />
         })
     }

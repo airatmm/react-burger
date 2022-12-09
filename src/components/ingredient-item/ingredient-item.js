@@ -55,7 +55,8 @@ const IngredientItem = ({ ingredient, count, ingredientModal, addToOrder }) => {
 IngredientItem.propTypes = {
     ingredient: ingredientType.isRequired,
     count: PropTypes.number.isRequired,
-    addToOrder: PropTypes.func.isRequired
+    addToOrder: PropTypes.func.isRequired,
+    ingredientModal: PropTypes.func.isRequired
 }
 
 export default IngredientItem;

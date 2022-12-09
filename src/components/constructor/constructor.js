@@ -1,9 +1,7 @@
 import styles from './constructor.module.css';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
-import { getAllIngredients, getOrder } from "../../utils/api";
+import { getAllIngredients } from "../../utils/api";
 import { SERVER_ERROR } from "../../utils/constants";
 import { useEffect, useState } from "react";
 import { IngredientsContext } from "../../contexts/ingredients-context";
@@ -19,7 +17,6 @@ const Constructor = () => {
 
     const [allIngredients, setAllIngredients] = useState([]);
     const [orderIngredients, setOrderIngredients] = useState(initialState)
-
     const getAllIngredientsData = () => {
         getAllIngredients
             .then((data) => {

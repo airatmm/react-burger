@@ -9,7 +9,7 @@ import { ModalContext } from '../../contexts/modal-context';
 
 const modalRoot = document.getElementById("root-modals");
 
-const Modal = ({ children, title }) => {
+const Modal = ({ children }) => {
     const { setModal } = useContext(ModalContext);
 
     const handleClose = () => {
@@ -46,8 +46,7 @@ const Modal = ({ children, title }) => {
 }
 
 Modal.propTypes = {
-    children: modalProps.children,
-    title: modalProps.title,
+    children: modalProps.children
 }
 
 export default Modal;

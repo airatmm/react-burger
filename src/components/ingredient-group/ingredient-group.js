@@ -17,10 +17,9 @@ const IngredientGroup = forwardRef(({ data, title, ingredientModal }, ref) => {
             })
         }
         if (ingredient.type !== 'bun') {
-
             setOrderIngredients({
                 ...orderIngredients,
-                fillings: [...orderIngredients.fillings, ingredient]
+                fillings: [...orderIngredients.fillings, ingredient].map((item) => ({ ...item, id: crypto.randomUUID()}))
             })
         }
     }
@@ -46,8 +45,8 @@ const IngredientGroup = forwardRef(({ data, title, ingredientModal }, ref) => {
 });
 
 IngredientGroup.propTypes = {
-    data: PropTypes.arrayOf(ingredientType),
-    title: PropTypes.string,
+    data: PropTypes.arrayOf(ingredientType).isRequired,
+    title: PropTypes.string.isRequired,
     ingredientModal: PropTypes.func.isRequired
 }
 
