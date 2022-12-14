@@ -1,7 +1,6 @@
 import styles from './order-details.module.css';
 import doneImage from '../../images/done-image.svg';
 import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
 
 const OrderDetails = ({ number }) => {
     return (

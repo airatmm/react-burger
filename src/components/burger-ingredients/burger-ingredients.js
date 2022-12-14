@@ -1,15 +1,23 @@
-import { useContext, useState, useRef } from 'react';
+import { useContext, useState, useRef, useEffect, useMemo } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "../ingredient-group/ingredient-group";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { IngredientsContext } from "../../contexts/ingredients-context";
+//import { IngredientsContext } from "../../contexts/ingredients-context";
 import { ModalContext } from "../../contexts/modal-context";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllIngredientsData } from "../../services/slices/ingredientsSlice";
+//import { store } from "../../services";
 
 const BurgerIngredients = () => {
-    const { allIngredients: data } = useContext(IngredientsContext);
     const [current, setCurrent] = useState('one')
     const { setModal } = useContext(ModalContext);
+    const data = useSelector(store => store.ingredients.items)
+    // console.log("DATA", data)
+
+    const buns = useMemo(() => data.filter(el => el.type === 'bun'), [data])
+    const mains = useMemo(() => data.filter(el => el.type === 'main'), [data])
+    const sauces = useMemo(() => data.filter(el => el.type === 'sauce'), [data])
 
     const ingredientModal = (ingredient) => {
         setModal({
@@ -55,11 +63,11 @@ const BurgerIngredients = () => {
                     </Tab>
                 </div>
                 <div className={ styles.container }>
-                    <IngredientGroup data={ data.filter(el => el.type === 'bun') } title={ 'Булки' }
+                    <IngredientGroup data={ buns } title={ 'Булки' }
                                      ingredientModal={ ingredientModal } ref={ bunRef } />
-                    <IngredientGroup data={ data.filter(el => el.type === 'sauce') } title={ 'Соусы' }
+                    <IngredientGroup data={ sauces } title={ 'Соусы' }
                                      ingredientModal={ ingredientModal } ref={ sauceRef } />
-                    <IngredientGroup data={ data.filter(el => el.type === 'main') } title={ 'Начинки' }
+                    <IngredientGroup data={ mains } title={ 'Начинки' }
                                      ingredientModal={ ingredientModal } ref={ mainRef } />
                 </div>
             </div>
