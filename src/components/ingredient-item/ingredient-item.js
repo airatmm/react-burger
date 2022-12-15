@@ -2,23 +2,31 @@ import styles from './ingredient-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
+import { setCurrentIngredient } from "../../services/slices/current-ingredient-slice";
+import { useDispatch } from "react-redux";
 
-const IngredientItem = ({ ingredient, count, ingredientModal, addToOrder }) => {
+const IngredientItem = ({ ingredient, count }) => {
+    const dispatch = useDispatch();
+    // const ingredientCard = {
+    //     image: ingredient.image_large,
+    //     name: ingredient.name,
+    //     calories: ingredient.calories,
+    //     fat: ingredient.fat,
+    //     carbohydrates: ingredient.carbohydrates,
+    //     proteins: ingredient.proteins,
+    //     price: ingredient.price,
+    //     _id: ingredient._id,
+    // }
 
-    const ingredientCard = {
-        image: ingredient.image_large,
-        name: ingredient.name,
-        calories: ingredient.calories,
-        fat: ingredient.fat,
-        carbohydrates: ingredient.carbohydrates,
-        proteins: ingredient.proteins,
-        price: ingredient.price,
-        _id: ingredient._id,
+    const  onSelectIngredient = () => {
+        dispatch(setCurrentIngredient(ingredient))
+        //console.log(ingredient)
     }
-    const onSelectIngredient = () => {
-        ingredientModal(ingredientCard);
-        addToOrder(ingredient)
-    }
+
+    // const onSelectIngredient = () => {
+    //     //ingredientModal(ingredientCard);
+    //     addToOrder(ingredient)
+    // }
 
     return (
         <div className={ `${ styles.content } pt-6` } onClick={ onSelectIngredient }>
@@ -53,10 +61,10 @@ const IngredientItem = ({ ingredient, count, ingredientModal, addToOrder }) => {
 }
 
 IngredientItem.propTypes = {
-    ingredient: ingredientType.isRequired,
-    count: PropTypes.number.isRequired,
-    addToOrder: PropTypes.func.isRequired,
-    ingredientModal: PropTypes.func.isRequired
+    ingredient: ingredientType,
+    count: PropTypes.number,
+    addToOrder: PropTypes.func,
+    ingredientModal: PropTypes.func
 }
 
 export default IngredientItem;

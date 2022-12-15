@@ -3,28 +3,21 @@ import styles from './burger-ingredients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "../ingredient-group/ingredient-group";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-//import { IngredientsContext } from "../../contexts/ingredients-context";
-import { ModalContext } from "../../contexts/modal-context";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Modal from "../modal/modal";
+import { removeCurrentIngredient } from "../../services/slices/current-ingredient-slice";
 
 const BurgerIngredients = () => {
     const [current, setCurrent] = useState('one')
-    const { setModal } = useContext(ModalContext);
+    //const { setModal } = useContext(ModalContext);
     const data = useSelector(store => store.ingredients.items)
     // console.log("DATA", data)
+    const dispatch = useDispatch()
+    const currentIngredient = useSelector(store => store.currentIngredient)
 
     const buns = useMemo(() => data.filter(el => el.type === 'bun'), [data])
     const mains = useMemo(() => data.filter(el => el.type === 'main'), [data])
     const sauces = useMemo(() => data.filter(el => el.type === 'sauce'), [data])
-
-    const ingredientModal = (ingredient) => {
-        setModal({
-            visible: true,
-            content: <IngredientDetails
-                data={ ingredient }
-            />
-        })
-    }
 
     const bunRef = useRef(null)
     const sauceRef = useRef(null)
@@ -61,13 +54,15 @@ const BurgerIngredients = () => {
                     </Tab>
                 </div>
                 <div className={ styles.container }>
-                    <IngredientGroup data={ buns } title={ 'Булки' }
-                                     ingredientModal={ ingredientModal } ref={ bunRef } />
-                    <IngredientGroup data={ sauces } title={ 'Соусы' }
-                                     ingredientModal={ ingredientModal } ref={ sauceRef } />
-                    <IngredientGroup data={ mains } title={ 'Начинки' }
-                                     ingredientModal={ ingredientModal } ref={ mainRef } />
+                    <IngredientGroup data={ buns } title={ 'Булки' } ref={ bunRef } />
+                    <IngredientGroup data={ sauces } title={ 'Соусы' } ref={ sauceRef } />
+                    <IngredientGroup data={ mains } title={ 'Начинки' } ref={ mainRef } />
                 </div>
+                {currentIngredient &&
+                    <Modal header={'Детали ингредиента'} onClose={() => dispatch(removeCurrentIngredient())}>
+                        <IngredientDetails ingredient={currentIngredient}/>
+                    </Modal>
+                }
             </div>
         </section>
     )

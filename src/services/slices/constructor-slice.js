@@ -3,18 +3,25 @@ import { createSlice } from "@reduxjs/toolkit";
 const constructorSlice = createSlice({
     name: 'constructor',
     initialState: {
+        itemsBurger: [],
         bun: null,
-        items: [],
     },
     reducers: {
         addIngredient: (state, action) => {
+            console.log(state)
             return {
                 ...state,
-                items: ({ ...action.payload, id: crypto.randomUUID() })
-            }
+                itemsBurger:  [{ ...action.payload, id: crypto.randomUUID() }]
+                // itemsBurger:  [ { ...action.payload, id: crypto.randomUUID() }]
+                //, state.itemsBurger].map((item) => ({ ...action.payload, id: crypto.randomUUID()}))
+
+                //itemsBurger: ({ ...action.payload, id: crypto.randomUUID() })
+
+            //...orderIngredients,
+            // [...orderIngredients.fillings, ingredient].map((item) => ({ ...item, id: crypto.randomUUID()}))
             //state.items.push({ ...action.payload, id: crypto.randomUUID() });
             //state.items.push({ ...action.payload, id: crypto.randomUUID() })
-
+            }
         },
         addBun: (state, action) => {
             return {
@@ -29,7 +36,7 @@ const constructorSlice = createSlice({
         cleanConstructor: (state) => {
             return {
                 bun: null,
-                items: [],
+                itemsBurger: [],
             }
         },
     }

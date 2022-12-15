@@ -4,32 +4,29 @@ import IngredientItem from '../ingredient-item/ingredient-item';
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import { useDispatch } from "react-redux";
-// import { IngredientsContext } from "../../contexts/ingredients-context";
 import { addBun, addIngredient } from "../../services/slices/constructor-slice";
 
 const IngredientGroup = forwardRef(({ data, title, ingredientModal }, ref) => {
-    // const ingredientsContext = useContext(IngredientsContext);
-    // const { orderIngredients, setOrderIngredients } = ingredientsContext;
     const dispatch = useDispatch();
 
     const addToOrder = (ingredient) => {
         // console.log(ingredient)
 
-        dispatch(ingredient.type === 'bun' ? addBun(ingredient) : addIngredient(ingredient))
-        // if (ingredient.type === 'bun') {
-        //     dispatch(addBun(ingredient))
-        //     // addBun({
-        //     //     ...orderIngredients,
-        //     //     buns: [ingredient],
-        //     // })
-        // }
-        // if (ingredient.type !== 'bun') {
-        //     dispatch(addIngredient(ingredient));
-        //     // setOrderIngredients({
-        //     //     ...orderIngredients,
-        //     //     fillings: [...orderIngredients.fillings, ingredient].map((item) => ({ ...item, id: crypto.randomUUID()}))
-        //     // })
-        // }
+        //dispatch(ingredient.type === 'bun' ? addBun(ingredient) : addIngredient(ingredient))
+        if (ingredient.type === 'bun') {
+            dispatch(addBun(ingredient))
+            // addBun({
+            //     ...orderIngredients,
+            //     buns: [ingredient],
+            // })
+        }
+        if (ingredient.type !== 'bun') {
+            dispatch(addIngredient(ingredient));
+            // setOrderIngredients({
+            //     ...orderIngredients,
+            //     fillings: [...orderIngredients.fillings, ingredient].map((item) => ({ ...item, id: crypto.randomUUID()}))
+            // })
+        }
     }
 
     // const addToOrder = (ingredient) => {
@@ -68,9 +65,9 @@ const IngredientGroup = forwardRef(({ data, title, ingredientModal }, ref) => {
 });
 
 IngredientGroup.propTypes = {
-    data: PropTypes.arrayOf(ingredientType).isRequired,
+    data: PropTypes.arrayOf(ingredientType),
     title: PropTypes.string.isRequired,
-    ingredientModal: PropTypes.func.isRequired
+    ingredientModal: PropTypes.func
 }
 
 export default IngredientGroup;

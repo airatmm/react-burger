@@ -1,10 +1,7 @@
 import styles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorItem from "../constructor-item/constructor-item";
-import { useContext } from "react";
-import OrderDetails from "../order-details/order-details";
 // import { IngredientsContext } from "../../contexts/ingredients-context";
-import { ModalContext } from "../../contexts/modal-context";
 //import { getOrder } from "../../utils/api";
 import { calculationCost } from "../../utils/tools";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,22 +10,22 @@ import { setOrder } from "../../services/slices/order-slice";
 // import { initialState } from "../constructor/constructor";
 
 const BurgerConstructor = () => {
-    const { items: data, bun } = useSelector(store => store.constructor);
+    const { itemsBurger: data, bun } = useSelector(store => store.constructor);
     const dispatch = useDispatch();
     console.log(data)
     //const { addBuns } = constructorSlice.actions;
     // const { orderIngredients, setOrderIngredients } = useContext(IngredientsContext);
     // const { fillings: data, buns: bun } = orderIngredients;
-    const { setModal } = useContext(ModalContext);
+    //const { setModal } = useContext(ModalContext);
 
-    const getOrderNumbers = () => dispatch => {
-        dispatch(setOrder(data.map(el => el._id)))
-        setModal({
-            visible: true,
-            content: <OrderDetails number={ data.order.number } />
-        })
-
-    }
+    // const getOrderNumbers = () => dispatch => {
+    //     dispatch(setOrder(data.map(el => el._id)))
+    //     setModal({
+    //         visible: true,
+    //         content: <OrderDetails number={ data.order.number } />
+    //     })
+    //
+    // }
 
     const deleteToOrder = (ingredient) => {
         dispatch(removeIngredient(ingredient))
@@ -50,14 +47,14 @@ const BurgerConstructor = () => {
                         thumbnail={ bun.image }
                     /> }
                 { data ? <div className={ styles.container }>
-                    { data.map((item) =>
+                    { data.map((data) =>
                         <ConstructorItem
                             key={ crypto.randomUUID() }
-                            text={ item.name }
-                            price={ item.price }
-                            thumbnail={ item.image }
+                            text={ data.name }
+                            price={ data.price }
+                            thumbnail={ data.image }
                             isAdded={ true }
-                            handleClose={ () => deleteToOrder(item) }
+                            handleClose={ () => deleteToOrder(data) }
                         />
                     )
                     }
@@ -79,7 +76,7 @@ const BurgerConstructor = () => {
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button htmlType='button' type='primary' size='medium'
-                        onClick={ getOrderNumbers }
+                        //onClick={ getOrderNumbers }
                 >
                     Оформить заказ
                 </Button>
