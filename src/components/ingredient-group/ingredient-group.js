@@ -1,28 +1,51 @@
 import styles from './ingredient-group.module.css';
-import { forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
 import IngredientItem from '../ingredient-item/ingredient-item';
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
-import { IngredientsContext } from "../../contexts/ingredients-context";
+import { useDispatch } from "react-redux";
+// import { IngredientsContext } from "../../contexts/ingredients-context";
+import { addBun, addIngredient } from "../../services/slices/constructor-slice";
 
 const IngredientGroup = forwardRef(({ data, title, ingredientModal }, ref) => {
-    const ingredientsContext = useContext(IngredientsContext);
-    const { orderIngredients, setOrderIngredients } = ingredientsContext;
+    // const ingredientsContext = useContext(IngredientsContext);
+    // const { orderIngredients, setOrderIngredients } = ingredientsContext;
+    const dispatch = useDispatch();
 
     const addToOrder = (ingredient) => {
-        if (ingredient.type === 'bun') {
-            setOrderIngredients({
-                ...orderIngredients,
-                buns: [ingredient],
-            })
-        }
-        if (ingredient.type !== 'bun') {
-            setOrderIngredients({
-                ...orderIngredients,
-                fillings: [...orderIngredients.fillings, ingredient].map((item) => ({ ...item, id: crypto.randomUUID()}))
-            })
-        }
+        // console.log(ingredient)
+
+        dispatch(ingredient.type === 'bun' ? addBun(ingredient) : addIngredient(ingredient))
+        // if (ingredient.type === 'bun') {
+        //     dispatch(addBun(ingredient))
+        //     // addBun({
+        //     //     ...orderIngredients,
+        //     //     buns: [ingredient],
+        //     // })
+        // }
+        // if (ingredient.type !== 'bun') {
+        //     dispatch(addIngredient(ingredient));
+        //     // setOrderIngredients({
+        //     //     ...orderIngredients,
+        //     //     fillings: [...orderIngredients.fillings, ingredient].map((item) => ({ ...item, id: crypto.randomUUID()}))
+        //     // })
+        // }
     }
+
+    // const addToOrder = (ingredient) => {
+    //     if (ingredient.type === 'bun') {
+    //         setOrderIngredients({
+    //             ...orderIngredients,
+    //             buns: [ingredient],
+    //         })
+    //     }
+    //     if (ingredient.type !== 'bun') {
+    //         setOrderIngredients({
+    //             ...orderIngredients,
+    //             fillings: [...orderIngredients.fillings, ingredient].map((item) => ({ ...item, id: crypto.randomUUID()}))
+    //         })
+    //     }
+    // }
     return (
         <section className={ 'pb-10' }>
             <div className={ styles.title }>

@@ -3,36 +3,39 @@ import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-co
 import ConstructorItem from "../constructor-item/constructor-item";
 import { useContext } from "react";
 import OrderDetails from "../order-details/order-details";
-import { IngredientsContext } from "../../contexts/ingredients-context";
+// import { IngredientsContext } from "../../contexts/ingredients-context";
 import { ModalContext } from "../../contexts/modal-context";
-import { getOrder } from "../../utils/api";
+//import { getOrder } from "../../utils/api";
 import { calculationCost } from "../../utils/tools";
-import { initialState } from "../constructor/constructor";
+import { useDispatch, useSelector } from "react-redux";
+import { removeIngredient } from "../../services/slices/constructor-slice";
+import { setOrder } from "../../services/slices/order-slice";
+// import { initialState } from "../constructor/constructor";
 
 const BurgerConstructor = () => {
-    const { orderIngredients, setOrderIngredients } = useContext(IngredientsContext);
-    const { fillings: data, buns: bun } = orderIngredients;
+    const { items: data, bun } = useSelector(store => store.constructor);
+    const dispatch = useDispatch();
+    console.log(data)
+    //const { addBuns } = constructorSlice.actions;
+    // const { orderIngredients, setOrderIngredients } = useContext(IngredientsContext);
+    // const { fillings: data, buns: bun } = orderIngredients;
     const { setModal } = useContext(ModalContext);
 
-    const getOrderNumbers = () => {
-        getOrder(data.map(el => el._id))
-            .then((data) => {
-                setModal({
-                    visible: true,
-                    content: <OrderDetails number={ data.order.number } />
-                })
-                setOrderIngredients(initialState)
-            })
-            .catch((err) => {
-                (console.log(err))
-            })
+    const getOrderNumbers = () => dispatch => {
+        dispatch(setOrder(data.map(el => el._id)))
+        setModal({
+            visible: true,
+            content: <OrderDetails number={ data.order.number } />
+        })
+
     }
 
     const deleteToOrder = (ingredient) => {
-        setOrderIngredients({
-            ...orderIngredients,
-            fillings: [...orderIngredients.fillings.filter(i => i.id !== ingredient.id)]
-        })
+        dispatch(removeIngredient(ingredient))
+        // setOrderIngredients({
+        //     ...orderIngredients,
+        //     fillings: [...orderIngredients.fillings.filter(i => i.id !== ingredient.id)]
+        // })
     }
 
     return (
@@ -42,11 +45,11 @@ const BurgerConstructor = () => {
                     <ConstructorItem
                         type="top"
                         isLocked={ true }
-                        text={ `${ bun[0].name } (верх)` }
-                        price={ bun[0].price }
-                        thumbnail={ bun[0].image }
+                        text={ `${ bun.name } (верх)` }
+                        price={ bun.price }
+                        thumbnail={ bun.image }
                     /> }
-                { data.length !== 0 ? <div className={ styles.container }>
+                { data ? <div className={ styles.container }>
                     { data.map((item) =>
                         <ConstructorItem
                             key={ crypto.randomUUID() }
@@ -64,9 +67,9 @@ const BurgerConstructor = () => {
                 { bun && <ConstructorItem
                     type="bottom"
                     isLocked={ true }
-                    text={ `${ bun[0].name } (низ)` }
-                    price={ bun[0].price }
-                    thumbnail={ bun[0].image }
+                    text={ `${ bun.name } (низ)` }
+                    price={ bun.price }
+                    thumbnail={ bun.image }
                 /> }
             </div>
 
@@ -75,7 +78,9 @@ const BurgerConstructor = () => {
                     <p className={ 'text text_type_digits-medium' }>{ calculationCost(bun, data) }</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType='button' type='primary' size='medium' onClick={ getOrderNumbers }>
+                <Button htmlType='button' type='primary' size='medium'
+                        onClick={ getOrderNumbers }
+                >
                     Оформить заказ
                 </Button>
 

@@ -23,7 +23,7 @@ export const getAllIngredients = request(
     }
 );
 
-export const getOrder = (ingredients) => request(
+export const setOrderRequest = (ingredients) => request(
     `${ BASE_URL }/orders`,
 
     {

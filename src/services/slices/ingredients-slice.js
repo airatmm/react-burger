@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getAllIngredients } from "../../utils/api";
-import { SERVER_ERROR } from "../../utils/constants";
+// import { SERVER_ERROR } from "../../utils/constants";
 
 const ingredientsSlice = createSlice({
     name: 'ingredients',
@@ -8,15 +8,16 @@ const ingredientsSlice = createSlice({
         items: [],
         itemsRequest: false,
         itemsSuccess: false,
-        itemsError: false
+        itemsFiled: false
     },
     reducers: {
         ingredientsSuccess: (state, action) => {
             return {
+                ...state,
                 items: action.payload,
                 itemsRequest: false,
                 itemsSuccess: true,
-                itemsError: false
+                itemsFiled: false
             }
         },
         ingredientsRequest: (state) => {
@@ -24,7 +25,7 @@ const ingredientsSlice = createSlice({
                 ...state,
                 itemsRequest: true,
                 itemsSuccess: false,
-                itemsError: false
+                itemsFiled: false
             }
         },
         ingredientsError: (state) => {
@@ -32,7 +33,7 @@ const ingredientsSlice = createSlice({
                 ...state,
                 itemsRequest: false,
                 itemsSuccess: false,
-                itemsError: true
+                itemsFiled: true
             }
         },
     }
@@ -41,26 +42,14 @@ const ingredientsSlice = createSlice({
 export default ingredientsSlice.reducer
 export const { ingredientsSuccess, ingredientsRequest, ingredientsError } = ingredientsSlice.actions
 
-export const getAllData = () => dispatch => {
+export const getAllIngredientsData = () => async dispatch => {
     dispatch(ingredientsRequest())
-    getAllIngredients
-        .then((data) => dispatch(ingredientsSuccess(data.data)))
-        // .then((data) => dispatch(console.log(data.data)))
-        .catch = () => {
+    try {
+        await getAllIngredients
+            .then((data) => dispatch(ingredientsSuccess(data.data)))
+    } catch (e) {
         dispatch(ingredientsError())
-        console.log(SERVER_ERROR)
+        // console.log(SERVER_ERROR)
     }
 }
-
-// export const getAllIngredientsData = () => async dispatch => {
-//     dispatch(ingredientsRequest())
-//     try {
-//         await getAllIngredients
-//             .then((data) => dispatch(ingredientsSuccess(data.data)))
-//         // .then((data) => dispatch(console.log(data.data)))
-//     } catch (e) {
-//         dispatch(ingredientsError())
-//         dispatch(console.log(SERVER_ERROR))
-//     }
-// }
 

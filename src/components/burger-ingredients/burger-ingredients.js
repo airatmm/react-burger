@@ -1,13 +1,11 @@
-import { useContext, useState, useRef, useEffect, useMemo } from 'react';
+import { useContext, useState, useRef, useMemo } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "../ingredient-group/ingredient-group";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 //import { IngredientsContext } from "../../contexts/ingredients-context";
 import { ModalContext } from "../../contexts/modal-context";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllIngredientsData } from "../../services/slices/ingredientsSlice";
-//import { store } from "../../services";
+import { useSelector } from "react-redux";
 
 const BurgerIngredients = () => {
     const [current, setCurrent] = useState('one')

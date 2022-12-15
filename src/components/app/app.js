@@ -4,15 +4,14 @@ import AppHeader from '../app-header/app-header';
 import Constructor from '../constructor/constructor';
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAllData } from "../../services/slices/ingredientsSlice";
+import { getAllIngredientsData } from "../../services/slices/ingredients-slice";
 
 const App = () => {
     const path = useLocation().pathname;
     const dispatch = useDispatch();
 
-
     useEffect(() => {
-        dispatch(getAllData())
+        dispatch(getAllIngredientsData())
     }, [dispatch]);
 
     return (
