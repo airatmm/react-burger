@@ -5,27 +5,53 @@ import ConstructorItem from "../constructor-item/constructor-item";
 //import { getOrder } from "../../utils/api";
 import { calculationCost } from "../../utils/tools";
 import { useDispatch, useSelector } from "react-redux";
-import { removeIngredient } from "../../services/slices/constructor-slice";
+import { addBun, addIngredient, removeIngredient } from "../../services/slices/burger-constructor-slice";
 import { setOrder } from "../../services/slices/order-slice";
+import { useDrop } from "react-dnd";
+import EmptyBurgerConstruction from "./empty-burger-constructor/empty-burger-constructor";
+import { useState } from "react";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
 // import { initialState } from "../constructor/constructor";
 
 const BurgerConstructor = () => {
-    const { itemsBurger: data, bun } = useSelector(store => store.constructor);
+    const { itemsBurger: data, bun } = useSelector(store => store.burgerConstructor);
+    const isOrderSuccess = useSelector(store => store.order.orderSuccess)
+    console.log(isOrderSuccess)
     const dispatch = useDispatch();
     console.log(data)
-    //const { addBuns } = constructorSlice.actions;
+    const [isModal, setIsModal] = useState(false);
+
+    const addToOrder = (ingredient) => {
+        //console.log(ingredient)
+        dispatch(ingredient.type === 'bun' ? addBun(ingredient) : addIngredient(ingredient))
+    }
+    const [{ isHover }, dropTarget] = useDrop({
+        accept: 'ingredients',
+        collect: monitor => ({
+            isHover: monitor.isOver()
+        }),
+        drop(ingredient) {
+            //console.log(ingredient)
+            addToOrder(ingredient)
+        },
+    });
+
+    //const { addBuns } = burgerConstructorSlice.actions;
     // const { orderIngredients, setOrderIngredients } = useContext(IngredientsContext);
     // const { fillings: data, buns: bun } = orderIngredients;
     //const { setModal } = useContext(ModalContext);
 
-    // const getOrderNumbers = () => dispatch => {
-    //     dispatch(setOrder(data.map(el => el._id)))
-    //     setModal({
-    //         visible: true,
-    //         content: <OrderDetails number={ data.order.number } />
-    //     })
-    //
-    // }
+    const getOrderNumbers = ()  => {
+        dispatch(setOrder(data.map(el => el._id)))
+        setIsModal(true)
+
+        // setModal({
+        //     visible: true,
+        //     content: <OrderDetails number={ data.order.number } />
+        // })
+
+    }
 
     const deleteToOrder = (ingredient) => {
         dispatch(removeIngredient(ingredient))
@@ -35,8 +61,11 @@ const BurgerConstructor = () => {
         // })
     }
 
+    const { order: number } = useSelector(store => store.order.result)
+    //console.log(order)
+
     return (
-        <section className={ `${ styles.main } pt-25` }>
+        <section className={ `${ styles.main } pt-25` } ref={ dropTarget }>
             <div className={ styles.content }>
                 { bun &&
                     <ConstructorItem
@@ -46,20 +75,25 @@ const BurgerConstructor = () => {
                         price={ bun.price }
                         thumbnail={ bun.image }
                     /> }
-                { data ? <div className={ styles.container }>
-                    { data.map((data) =>
-                        <ConstructorItem
-                            key={ crypto.randomUUID() }
-                            text={ data.name }
-                            price={ data.price }
-                            thumbnail={ data.image }
-                            isAdded={ true }
-                            handleClose={ () => deleteToOrder(data) }
-                        />
-                    )
-                    }
 
-                </div> : <h2>Добавьте ингредиенты</h2> }
+                { data.length !== 0
+                    ?
+                    <div className={ styles.container }>
+                        { data.map((data, ingredient) =>
+                            <ConstructorItem
+                                key={ data.id }
+                                isDraggable
+                                //key={ crypto.randomUUID() }
+                                text={ data.name }
+                                price={ data.price }
+                                thumbnail={ data.image }
+                                isAdded={ true }
+                                handleClose={ () => deleteToOrder(ingredient) }
+                                ingredient={ ingredient }
+                            />
+                        ) } </div>
+                    :
+                    <EmptyBurgerConstruction isFieldHover={ isHover } /> }
 
                 { bun && <ConstructorItem
                     type="bottom"
@@ -75,13 +109,17 @@ const BurgerConstructor = () => {
                     <p className={ 'text text_type_digits-medium' }>{ calculationCost(bun, data) }</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType='button' type='primary' size='medium'
-                        //onClick={ getOrderNumbers }
+                <Button htmlType='button' type='primary' size='medium' disabled={ (!data || !bun) }
+                    onClick={ getOrderNumbers }
                 >
                     Оформить заказ
                 </Button>
-
             </div>
+            {isModal && isOrderSuccess &&
+                <Modal onClose={() => setIsModal(false)}>
+                    <OrderDetails number={number}/>
+                </Modal>
+            }
         </section>
 
     )

@@ -1,31 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { setOrderRequest } from "../../utils/api";
-import { cleanConstructor } from "./constructor-slice";
+import { cleanConstructor } from "./burger-constructor-slice";
 // import { SERVER_ERROR } from "../../utils/constants";
 
 const orderSlice = createSlice({
     name: 'order',
     initialState: {
-        items: [],
+        result: {},
         itemsRequest: false,
         itemsSuccess: false,
         itemsFiled: false
     },
     reducers: {
-        orderSuccess: (state, action) => {
-            return {
-                ...state,
-                items: action.payload,
-                itemsRequest: false,
-                itemsSuccess: true,
-                itemsFiled: false
-            }
-        },
         orderRequest: (state) => {
             return {
                 ...state,
                 itemsRequest: true,
                 itemsSuccess: false,
+                itemsFiled: false
+            }
+        },
+        orderSuccess: (state, action) => {
+            return {
+                ...state,
+                result: action.payload,
+                itemsRequest: false,
+                itemsSuccess: true,
                 itemsFiled: false
             }
         },
@@ -43,20 +43,17 @@ const orderSlice = createSlice({
 export default orderSlice.reducer
 export const { orderSuccess, orderRequest, orderError } = orderSlice.actions
 
-export const setOrder = () => async dispatch => {
+export const setOrder = (ingredients) => dispatch => {
     dispatch(orderRequest())
-    try {
-        await setOrderRequest
-            .then((data) => {
-                dispatch(orderSuccess(data))
-                dispatch(cleanConstructor())
-            })
-
-        // .then((data) => dispatch(console.log(data.data)))
-    } catch (e) {
-        dispatch(orderError())
-        // console.log(SERVER_ERROR)
-    }
+    setOrderRequest(ingredients)
+        .then((data) => {
+            // console.log(data)
+            dispatch(orderSuccess(data))
+           // dispatch(cleanConstructor())
+        })
+        .catch(e => {
+            dispatch(orderError())
+        })
 }
 
 

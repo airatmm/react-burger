@@ -1,8 +1,12 @@
 import styles from './order-details.module.css';
 import doneImage from '../../images/done-image.svg';
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const OrderDetails = ({ number }) => {
+const OrderDetails = ({number}) => {
+
+
+    //number={ data.order.number }
     return (
         <section className={ styles.main }>
             <span className={ `${ styles.orderId } text text_type_digits-large mt-30 mb-8` }>{ number }</span>
@@ -15,7 +19,7 @@ const OrderDetails = ({ number }) => {
 }
 
 OrderDetails.propTypes = {
-    number: PropTypes.number.isRequired
+    number: PropTypes.number
 }
 
 export default OrderDetails;

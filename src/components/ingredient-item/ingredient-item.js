@@ -4,9 +4,18 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import { setCurrentIngredient } from "../../services/slices/current-ingredient-slice";
 import { useDispatch } from "react-redux";
+import { useDrag } from "react-dnd";
 
 const IngredientItem = ({ ingredient, count }) => {
     const dispatch = useDispatch();
+
+    const [{ opacity }, ref] = useDrag({
+        type: 'ingredients',
+        item: ingredient,
+        collect: monitor => ({
+            opacity: monitor.isDragging() ? 0.5 : 1
+        })
+    });
     // const ingredientCard = {
     //     image: ingredient.image_large,
     //     name: ingredient.name,
@@ -29,7 +38,7 @@ const IngredientItem = ({ ingredient, count }) => {
     // }
 
     return (
-        <div className={ `${ styles.content } pt-6` } onClick={ onSelectIngredient }>
+        <div className={ `${ styles.content } mt-6` } onClick={ onSelectIngredient } style={{ opacity }} ref={ref} >
             { count &&
                 <div className={ styles.counter }>
 
@@ -64,7 +73,7 @@ IngredientItem.propTypes = {
     ingredient: ingredientType,
     count: PropTypes.number,
     addToOrder: PropTypes.func,
-    ingredientModal: PropTypes.func
+   // ingredientModal: PropTypes.func
 }
 
 export default IngredientItem;

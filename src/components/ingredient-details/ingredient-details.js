@@ -2,7 +2,7 @@ import styles from './ingredient-details.module.css';
 import { ingredientType } from "../../utils/types";
 
 const IngredientDetails = ({ ingredient: data }) => {
-    console.log(data)
+    //console.log(data)
     const spanStyle = 'text text_type_main-default text_color_inactive';
     return (
         <section className={ `${ styles.main } pb-15` }>

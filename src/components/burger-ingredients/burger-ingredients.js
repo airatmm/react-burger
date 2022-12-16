@@ -1,4 +1,4 @@
-import { useContext, useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "../ingredient-group/ingredient-group";
@@ -9,9 +9,7 @@ import { removeCurrentIngredient } from "../../services/slices/current-ingredien
 
 const BurgerIngredients = () => {
     const [current, setCurrent] = useState('one')
-    //const { setModal } = useContext(ModalContext);
     const data = useSelector(store => store.ingredients.items)
-    // console.log("DATA", data)
     const dispatch = useDispatch()
     const currentIngredient = useSelector(store => store.currentIngredient)
 
