@@ -4,17 +4,8 @@ import PropTypes from "prop-types";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { movedIngredient } from "../../services/slices/burger-constructor-slice";
-//import { useDrag } from "react-dnd";
 
 const ConstructorItem = ({ ingredient, type, isLocked, isAdded, text, price, thumbnail, handleClose, isDraggable, moveItem }) => {
-    // const [{ isDragging }, drag] = useDrag({
-    //     type: 'constructorIngredients',
-    //     item: { ingredient },
-    //     collect: (monitor) => ({
-    //         isDragging: monitor.isDragging(),
-    //     }),
-    // });
     const ref = useRef();
     const dispatch = useDispatch();
     //console.log(ingredient)
@@ -87,7 +78,7 @@ const ConstructorItem = ({ ingredient, type, isLocked, isAdded, text, price, thu
     const opacity = isDragging ? 0.5 : 1;
 
     return (
-        <div ref={ref}  className={ `${ styles.content } mt-4 mb-4 ${ isDraggable ? styles.moved : '' }` } style={ { opacity }} >
+        <div data-handler-id={handlerId} ref={ref}  className={ `${ styles.content } mt-4 mb-4 ${ isDraggable ? styles.moved : '' }` } style={ { opacity }} >
             { isDraggable && <DragIcon type="primary" /> }
             <ConstructorElement
                 type={ type }
