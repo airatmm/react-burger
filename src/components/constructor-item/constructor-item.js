@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { movedIngredient } from "../../services/slices/burger-constructor-slice";
 //import { useDrag } from "react-dnd";
 
-const ConstructorItem = ({ ingredient, type, isLocked, isAdded, text, price, thumbnail, handleClose, isDraggable }) => {
+const ConstructorItem = ({ ingredient, type, isLocked, isAdded, text, price, thumbnail, handleClose, isDraggable, moveItem }) => {
     // const [{ isDragging }, drag] = useDrag({
     //     type: 'constructorIngredients',
     //     item: { ingredient },
@@ -18,13 +18,18 @@ const ConstructorItem = ({ ingredient, type, isLocked, isAdded, text, price, thu
     const ref = useRef();
     const dispatch = useDispatch();
     //console.log(ingredient)
-    const [, drop] = useDrop({
+    const [{handlerId}, drop] = useDrop({
         accept: 'constructorIngredient',
+        collect(monitor) {
+            return {
+                handlerId: monitor.getHandlerId()
+            }
+        },
         hover(item, monitor) {
             if (!ref.current) {
                 return
             }
-            const dragIndex = item.index
+            const dragIndex = item.ingredient
             const hoverIndex = ingredient
 
             // Don't replace items with themselves
@@ -59,13 +64,13 @@ const ConstructorItem = ({ ingredient, type, isLocked, isAdded, text, price, thu
             }
 
             // Time to actually perform the action
-            dispatch(movedIngredient( [hoverIndex, hoverIndex ]))
+            moveItem(dragIndex, hoverIndex)
 
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
             // but it's good here for the sake of performance
             // to avoid expensive index searches.
-            item.index = hoverIndex
+            item.ingredient = hoverIndex
         },
     })
 
@@ -82,7 +87,7 @@ const ConstructorItem = ({ ingredient, type, isLocked, isAdded, text, price, thu
     const opacity = isDragging ? 0.5 : 1;
 
     return (
-        <div ref={ref}  className={ `${ styles.content } pt-4 pb-4 ${ isDraggable ? styles.moved : '' }` } style={ { opacity }} >
+        <div ref={ref}  className={ `${ styles.content } mt-4 mb-4 ${ isDraggable ? styles.moved : '' }` } style={ { opacity }} >
             { isDraggable && <DragIcon type="primary" /> }
             <ConstructorElement
                 type={ type }

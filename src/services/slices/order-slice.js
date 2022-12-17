@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setOrderRequest } from "../../utils/api";
+import { getAllIngredients, setOrderRequest } from "../../utils/api";
 import { cleanConstructor } from "./burger-constructor-slice";
+import { ingredientsError, ingredientsSuccess } from "./ingredients-slice";
 // import { SERVER_ERROR } from "../../utils/constants";
 
 const orderSlice = createSlice({
@@ -43,18 +44,18 @@ const orderSlice = createSlice({
 export default orderSlice.reducer
 export const { orderSuccess, orderRequest, orderError } = orderSlice.actions
 
-export const setOrder = (ingredients) => dispatch => {
+export const setOrder = (ingredients) => async dispatch => {
     dispatch(orderRequest())
-    setOrderRequest(ingredients)
+    try {
+    await setOrderRequest(ingredients)
         .then((data) => {
             // console.log(data)
             dispatch(orderSuccess(data))
            // dispatch(cleanConstructor())
         })
-        .catch(e => {
+    } catch(e) {
             dispatch(orderError())
-        })
+        }
 }
-
 
 

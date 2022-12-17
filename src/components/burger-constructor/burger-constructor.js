@@ -5,11 +5,16 @@ import ConstructorItem from "../constructor-item/constructor-item";
 //import { getOrder } from "../../utils/api";
 import { calculationCost } from "../../utils/tools";
 import { useDispatch, useSelector } from "react-redux";
-import { addBun, addIngredient, removeIngredient } from "../../services/slices/burger-constructor-slice";
+import {
+    addBun,
+    addIngredient,
+    movedIngredient,
+    removeIngredient
+} from "../../services/slices/burger-constructor-slice";
 import { setOrder } from "../../services/slices/order-slice";
 import { useDrop } from "react-dnd";
 import EmptyBurgerConstruction from "./empty-burger-constructor/empty-burger-constructor";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 // import { initialState } from "../constructor/constructor";
@@ -63,7 +68,13 @@ const BurgerConstructor = () => {
 
     const { order: number } = useSelector(store => store.order.result)
     //console.log(order)
-
+    const moveItem = useCallback(
+        (dragIndex, hoverIndex) => {
+            dispatch(movedIngredient({ dragIndex: dragIndex, hoverIndex: hoverIndex })
+            );
+        },
+        [dispatch]
+    );
     return (
         <section className={ `${ styles.main } pt-25` } ref={ dropTarget }>
             <div className={ styles.content }>
@@ -90,6 +101,7 @@ const BurgerConstructor = () => {
                                 isAdded={ true }
                                 handleClose={ () => deleteToOrder(ingredient) }
                                 ingredient={ ingredient }
+                                moveItem={moveItem}
                             />
                         ) } </div>
                     :

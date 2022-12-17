@@ -6,9 +6,12 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import { removeCurrentIngredient } from "../../services/slices/current-ingredient-slice";
+import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients = () => {
     const [current, setCurrent] = useState('one')
+    const { ref, inView } = useInView({threshold: 0});
+
     const data = useSelector(store => store.ingredients.items)
     const dispatch = useDispatch()
     const currentIngredient = useSelector(store => store.currentIngredient)

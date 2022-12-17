@@ -17,8 +17,10 @@ const burgerConstructorSlice = createSlice({
             state.itemsBurger.splice(action.payload, 1)
         },
         movedIngredient: (state, action) => {
-            const movedItem = state.itemsBurger.splice(action.payload[0], 1);
-            state.itemsBurger.splice(action.payload, 0, movedItem[0]);
+            console.log(state)
+            console.log(action.payload)
+            const movedItem = state.itemsBurger.splice(action.payload.dragIndex, 1);
+            state.itemsBurger.splice(action.payload.hoverIndex, 0, movedItem[0]);
         },
         cleanConstructor: (state) => {
             return {
@@ -28,6 +30,8 @@ const burgerConstructorSlice = createSlice({
         },
     }
 })
+// const dragIngredient = newListIngredients.splice(action.dragIndex, 1)[0];
+// newListIngredients.splice(action.hoverIndex, 0, dragIngredient);
 
 export default burgerConstructorSlice.reducer
 export const { addIngredient, addBun, removeIngredient, cleanConstructor, movedIngredient } = burgerConstructorSlice.actions
