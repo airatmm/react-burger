@@ -17,8 +17,6 @@ const burgerConstructorSlice = createSlice({
             state.itemsBurger.splice(action.payload, 1)
         },
         movedIngredient: (state, action) => {
-            console.log(state)
-            console.log(action.payload)
             const movedItem = state.itemsBurger.splice(action.payload.dragIndex, 1);
             state.itemsBurger.splice(action.payload.hoverIndex, 0, movedItem[0]);
         },

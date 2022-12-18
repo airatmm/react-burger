@@ -10,7 +10,6 @@ import { removeCurrentIngredient } from "../../services/slices/current-ingredien
 const BurgerIngredients = () => {
     //const tabs = ['one', 'two', 'three']
     const [current, setCurrent] = useState('one');
-    console.log(current)
 
     const data = useSelector(store => store.ingredients.items);
     const dispatch = useDispatch();
