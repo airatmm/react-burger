@@ -3,7 +3,6 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import PropTypes from "prop-types";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
-import { ingredientType } from "../../utils/types";
 
 const ConstructorItem = ({ ingredient, type, isLocked, text, price, thumbnail, handleClose, isDraggable, moveItem }) => {
     const ref = useRef();

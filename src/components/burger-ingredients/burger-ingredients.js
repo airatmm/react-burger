@@ -6,11 +6,10 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import { removeCurrentIngredient } from "../../services/slices/current-ingredient-slice";
-//import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients = () => {
-    const tabs = ['one', 'two', 'three']
-    const [current, setCurrent] = useState(tabs[0]);
+    //const tabs = ['one', 'two', 'three']
+    const [current, setCurrent] = useState('one');
     console.log(current)
 
     const data = useSelector(store => store.ingredients.items);
@@ -36,24 +35,27 @@ const BurgerIngredients = () => {
         const distToSauce = Math.abs(rootTop - sauceTop)
         const distToMain = Math.abs(rootTop - mainTop)
 
-        const distances = [distToBun, distToSauce, distToMain]
-        const minElement = Math.min(...distances)
-        const minIndex = distances.findIndex(el => el === minElement)
-        let newTab = tabs[minIndex]
-
-        if (newTab !== current) {
-            setCurrent(newTab)
+        //работает также ...
+        if (distToBun < distToSauce) {
+            setCurrent("one");
+        } else if (distToSauce < distToMain) {
+            setCurrent("two");
+        } else {
+            setCurrent("three");
         }
+
+        //... как и это
+
+        // const distances = [distToBun, distToSauce, distToMain]
+        // const minElement = Math.min(...distances)
+        // const minIndex = distances.findIndex(el => el === minElement)
+        // let newTab = tabs[minIndex]
+
+        // if (newTab !== current) {
+        //     setCurrent(newTab)
+        // }
     }
-    //const [inViewRef, inView] = useInView()
-    // const { ref: inViewRef, inView } = useInView({
-    //     /* Optional options */
-    //     threshold: 0,
-    // });
-    // function handleRef(node) {
-    //     inViewRef(node);
-    //     mainRef.current = node;
-    // }
+
     const scroll = (ref) => {
         ref.current.scrollIntoView({
             behavior: "smooth"
@@ -67,31 +69,31 @@ const BurgerIngredients = () => {
                 <div className={ `${ styles.tabs } pb-10` }>
                     <Tab value="one" active={ current === 'one' } onClick={ () => {
                         scroll(bunRef)
-                        setCurrent(tabs[0])
+                        setCurrent('one')
                     } }>
                         Булки
                     </Tab>
                     <Tab value="two" active={ current === 'two' } onClick={ () => {
                         scroll(sauceRef)
-                        setCurrent(tabs[1])
+                        setCurrent('two')
                     } }>
                         Соусы
                     </Tab>
                     <Tab value="three" active={ current === 'three' } onClick={ () => {
                         scroll(mainRef)
-                        setCurrent(tabs[2])
+                        setCurrent('three')
                     } }>
                         Начинки
                     </Tab>
                 </div>
-                <div ref={rootRef} onScroll={onScroll} className={ styles.container }>
+                <div ref={ rootRef } onScroll={ onScroll } className={ styles.container }>
                     <IngredientGroup data={ buns } title={ 'Булки' } ref={ bunRef } />
                     <IngredientGroup data={ sauces } title={ 'Соусы' } ref={ sauceRef } />
                     <IngredientGroup data={ mains } title={ 'Начинки' } ref={ mainRef } />
                 </div>
-                {currentIngredient &&
-                    <Modal header={'Детали ингредиента'} onClose={() => dispatch(removeCurrentIngredient())}>
-                        <IngredientDetails ingredient={currentIngredient}/>
+                { currentIngredient &&
+                    <Modal header={ 'Детали ингредиента' } onClose={ () => dispatch(removeCurrentIngredient()) }>
+                        <IngredientDetails ingredient={ currentIngredient } />
                     </Modal>
                 }
             </div>
@@ -100,3 +102,4 @@ const BurgerIngredients = () => {
 }
 
 export default BurgerIngredients;
+

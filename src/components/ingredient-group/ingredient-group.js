@@ -25,7 +25,7 @@ const IngredientGroup = forwardRef(({ data, title }, ref) => {
 });
 
 IngredientGroup.propTypes = {
-    data: PropTypes.arrayOf(ingredientType),
+    data: PropTypes.arrayOf(ingredientType).isRequired,
     title: PropTypes.string.isRequired,
 }
 

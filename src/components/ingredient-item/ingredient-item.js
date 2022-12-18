@@ -54,7 +54,7 @@ const IngredientItem = ({ ingredient, count }) => {
 }
 
 IngredientItem.propTypes = {
-    ingredient: ingredientType,
+    ingredient: ingredientType.isRequired,
     count: PropTypes.number,
 }
 
