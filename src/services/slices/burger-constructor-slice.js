@@ -20,7 +20,7 @@ const burgerConstructorSlice = createSlice({
             const movedItem = state.itemsBurger.splice(action.payload.dragIndex, 1);
             state.itemsBurger.splice(action.payload.hoverIndex, 0, movedItem[0]);
         },
-        cleanConstructor: (state) => {
+        cleanConstructor: () => {
             return {
                 bun: null,
                 itemsBurger: [],

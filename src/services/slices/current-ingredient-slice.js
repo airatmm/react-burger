@@ -7,7 +7,7 @@ const currentIngredientSlice = createSlice({
         setCurrentIngredient: (state, action) => {
             return action.payload
         },
-        removeCurrentIngredient: (state) => {
+        removeCurrentIngredient: () => {
             return null
         }
     }

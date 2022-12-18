@@ -5,7 +5,7 @@ import { cleanConstructor } from "./burger-constructor-slice";
 const orderSlice = createSlice({
     name: 'order',
     initialState: {
-        result: {},
+        result: null,
         itemsRequest: false,
         itemsSuccess: false,
         itemsFiled: false
@@ -17,7 +17,7 @@ const orderSlice = createSlice({
                 itemsRequest: true,
                 itemsSuccess: false,
                 itemsFiled: false
-            }
+            };
         },
         orderSuccess: (state, action) => {
             return {
@@ -26,7 +26,7 @@ const orderSlice = createSlice({
                 itemsRequest: false,
                 itemsSuccess: true,
                 itemsFiled: false
-            }
+            };
         },
         orderError: (state) => {
             return {
@@ -34,13 +34,21 @@ const orderSlice = createSlice({
                 itemsRequest: false,
                 itemsSuccess: false,
                 itemsFiled: true
+            };
+        },
+        orderClear: () => {
+            return {
+                result: null,
+                itemsRequest: false,
+                itemsSuccess: false,
+                itemsFiled: false
             }
         },
     }
 })
 
 export default orderSlice.reducer
-export const { orderSuccess, orderRequest, orderError } = orderSlice.actions
+export const { orderSuccess, orderRequest, orderError, orderClear } = orderSlice.actions
 
 export const setOrder = (ingredients) => async dispatch => {
     dispatch(orderRequest())

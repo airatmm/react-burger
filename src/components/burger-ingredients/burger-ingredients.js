@@ -8,16 +8,18 @@ import Modal from "../modal/modal";
 import { removeCurrentIngredient } from "../../services/slices/current-ingredient-slice";
 
 const BurgerIngredients = () => {
-    //const tabs = ['one', 'two', 'three']
-    const [current, setCurrent] = useState('one');
+    const tabs = { bun: 'bun', sauce: 'sauce', main: 'main'};
+    const {bun, sauce, main} = tabs;
+
+    const [current, setCurrent] = useState(bun);
 
     const data = useSelector(store => store.ingredients.items);
     const dispatch = useDispatch();
     const currentIngredient = useSelector(store => store.currentIngredient);
 
-    const buns = useMemo(() => data.filter(el => el.type === 'bun'), [data]);
-    const mains = useMemo(() => data.filter(el => el.type === 'main'), [data]);
-    const sauces = useMemo(() => data.filter(el => el.type === 'sauce'), [data]);
+    const buns = useMemo(() => data.filter(el => el.type === bun), [data, bun]);
+    const sauces = useMemo(() => data.filter(el => el.type === sauce), [data, sauce]);
+    const mains = useMemo(() => data.filter(el => el.type === main), [data, main]);
 
     const rootRef = useRef(null);
     const bunRef = useRef(null);
@@ -36,11 +38,11 @@ const BurgerIngredients = () => {
 
         //работает также ...
         if (distToBun < distToSauce) {
-            setCurrent("one");
+            setCurrent(bun);
         } else if (distToSauce < distToMain) {
-            setCurrent("two");
+            setCurrent(sauce);
         } else {
-            setCurrent("three");
+            setCurrent(main);
         }
 
         //... как и это
@@ -66,21 +68,21 @@ const BurgerIngredients = () => {
             <h2 className={ 'text text_type_main-large pb-5' }>Соберите бургер</h2>
             <div className={ `${ styles.content } custom-scroll` }>
                 <div className={ `${ styles.tabs } pb-10` }>
-                    <Tab value="one" active={ current === 'one' } onClick={ () => {
+                    <Tab value={ bun } active={ current === bun } onClick={ () => {
                         scroll(bunRef)
-                        setCurrent('one')
+                        setCurrent(bun)
                     } }>
                         Булки
                     </Tab>
-                    <Tab value="two" active={ current === 'two' } onClick={ () => {
+                    <Tab value={ sauce } active={ current === sauce } onClick={ () => {
                         scroll(sauceRef)
-                        setCurrent('two')
+                        setCurrent(sauce)
                     } }>
                         Соусы
                     </Tab>
-                    <Tab value="three" active={ current === 'three' } onClick={ () => {
+                    <Tab value={ main } active={ current === main } onClick={ () => {
                         scroll(mainRef)
-                        setCurrent('three')
+                        setCurrent(main)
                     } }>
                         Начинки
                     </Tab>
@@ -89,6 +91,7 @@ const BurgerIngredients = () => {
                     <IngredientGroup data={ buns } title={ 'Булки' } ref={ bunRef } />
                     <IngredientGroup data={ sauces } title={ 'Соусы' } ref={ sauceRef } />
                     <IngredientGroup data={ mains } title={ 'Начинки' } ref={ mainRef } />
+
                 </div>
                 { currentIngredient &&
                     <Modal header={ 'Детали ингредиента' } onClose={ () => dispatch(removeCurrentIngredient()) }>

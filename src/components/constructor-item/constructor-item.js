@@ -95,7 +95,7 @@ ConstructorItem.propTypes = {
     isLocked: PropTypes.bool,
     text: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    thumbnail: PropTypes.string,
+    thumbnail: PropTypes.string.isRequired,
     handleClose: PropTypes.func,
     isDraggable: PropTypes.bool,
     moveItem: PropTypes.func,

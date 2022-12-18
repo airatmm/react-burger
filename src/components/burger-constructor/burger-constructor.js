@@ -9,18 +9,17 @@ import {
     movedIngredient,
     removeIngredient
 } from "../../services/slices/burger-constructor-slice";
-import { setOrder } from "../../services/slices/order-slice";
+import { orderClear, setOrder } from "../../services/slices/order-slice";
 import { useDrop } from "react-dnd";
 import EmptyBurgerConstruction from "../empty-burger-constructor/empty-burger-constructor";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo } from "react";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = () => {
     const { itemsBurger: data, bun } = useSelector(store => store.burgerConstructor);
-    const isOrderSuccess = useSelector(store => store.order.itemsSuccess)
+    const isOrderNumber = useSelector(store => store.order.result)
     const dispatch = useDispatch();
-    const [isModal, setIsModal] = useState(false);
 
     const addToOrder = (ingredient) => {
         dispatch(ingredient.type === 'bun' ? addBun(ingredient) : addIngredient(ingredient))
@@ -35,15 +34,6 @@ const BurgerConstructor = () => {
         },
     });
 
-    const getOrderNumbers = ()  => {
-        dispatch(setOrder(data.map(el => el._id)))
-        setIsModal(true)
-    }
-
-    const deleteToOrder = (ingredient) => {
-        dispatch(removeIngredient(ingredient))
-    }
-
     const moveItem = useCallback(
         (dragIndex, hoverIndex) => {
             dispatch(movedIngredient({ dragIndex: dragIndex, hoverIndex: hoverIndex })
@@ -51,6 +41,16 @@ const BurgerConstructor = () => {
         },
         [dispatch]
     );
+    const getOrderNumbers = ()  => {
+        dispatch(setOrder(data.map(el => el._id)))
+    }
+
+    const deleteToOrder = (ingredient) => {
+        dispatch(removeIngredient(ingredient))
+    }
+
+    const totalPrice = useMemo(() => calculationCost(bun, data), [bun, data]);
+
     return (
         <section className={ `${ styles.main } pt-25` } ref={ dropTarget }>
             <div className={ styles.content }>
@@ -93,7 +93,7 @@ const BurgerConstructor = () => {
 
             <div className={ `${ styles.orderInfo } pt-10` }>
                 <div className={ `${ styles.priceTotal } pr-10` }>
-                    <p className={ 'text text_type_digits-medium' }>{ calculationCost(bun, data) }</p>
+                    <p className={ 'text text_type_digits-medium' }>{ totalPrice }</p>
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button htmlType='button' type='primary' size='medium' disabled={ (!data || !bun) }
@@ -102,8 +102,8 @@ const BurgerConstructor = () => {
                     Оформить заказ
                 </Button>
             </div>
-            {isModal && isOrderSuccess &&
-                <Modal onClose={() => setIsModal(false)}>
+            {isOrderNumber &&
+                <Modal onClose={() => dispatch(orderClear())}>
                     <OrderDetails />
                 </Modal>
             }
