@@ -30,8 +30,6 @@ const burgerConstructorSlice = createSlice({
         },
     }
 })
-// const dragIngredient = newListIngredients.splice(action.dragIndex, 1)[0];
-// newListIngredients.splice(action.hoverIndex, 0, dragIngredient);
 
 export default burgerConstructorSlice.reducer
 export const { addIngredient, addBun, removeIngredient, cleanConstructor, movedIngredient } = burgerConstructorSlice.actions

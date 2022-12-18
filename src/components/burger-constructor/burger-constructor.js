@@ -1,8 +1,6 @@
 import styles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorItem from "../constructor-item/constructor-item";
-// import { IngredientsContext } from "../../contexts/ingredients-context";
-//import { getOrder } from "../../utils/api";
 import { calculationCost } from "../../utils/tools";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,22 +11,18 @@ import {
 } from "../../services/slices/burger-constructor-slice";
 import { setOrder } from "../../services/slices/order-slice";
 import { useDrop } from "react-dnd";
-import EmptyBurgerConstruction from "./empty-burger-constructor/empty-burger-constructor";
+import EmptyBurgerConstruction from "../empty-burger-constructor/empty-burger-constructor";
 import { useCallback, useState } from "react";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-// import { initialState } from "../constructor/constructor";
 
 const BurgerConstructor = () => {
     const { itemsBurger: data, bun } = useSelector(store => store.burgerConstructor);
-    const isOrderSuccess = useSelector(store => store.order.orderSuccess)
-    console.log(isOrderSuccess)
+    const isOrderSuccess = useSelector(store => store.order.itemsSuccess)
     const dispatch = useDispatch();
-    console.log(data)
     const [isModal, setIsModal] = useState(false);
 
     const addToOrder = (ingredient) => {
-        //console.log(ingredient)
         dispatch(ingredient.type === 'bun' ? addBun(ingredient) : addIngredient(ingredient))
     }
     const [{ isHover }, dropTarget] = useDrop({
@@ -37,37 +31,19 @@ const BurgerConstructor = () => {
             isHover: monitor.isOver()
         }),
         drop(ingredient) {
-            //console.log(ingredient)
             addToOrder(ingredient)
         },
     });
 
-    //const { addBuns } = burgerConstructorSlice.actions;
-    // const { orderIngredients, setOrderIngredients } = useContext(IngredientsContext);
-    // const { fillings: data, buns: bun } = orderIngredients;
-    //const { setModal } = useContext(ModalContext);
-
     const getOrderNumbers = ()  => {
         dispatch(setOrder(data.map(el => el._id)))
         setIsModal(true)
-
-        // setModal({
-        //     visible: true,
-        //     content: <OrderDetails number={ data.order.number } />
-        // })
-
     }
 
     const deleteToOrder = (ingredient) => {
         dispatch(removeIngredient(ingredient))
-        // setOrderIngredients({
-        //     ...orderIngredients,
-        //     fillings: [...orderIngredients.fillings.filter(i => i.id !== ingredient.id)]
-        // })
     }
 
-    const { order: number } = useSelector(store => store.order.result)
-    //console.log(order)
     const moveItem = useCallback(
         (dragIndex, hoverIndex) => {
             dispatch(movedIngredient({ dragIndex: dragIndex, hoverIndex: hoverIndex })
@@ -94,7 +70,6 @@ const BurgerConstructor = () => {
                             <ConstructorItem
                                 key={ data.id }
                                 isDraggable
-                                //key={ crypto.randomUUID() }
                                 text={ data.name }
                                 price={ data.price }
                                 thumbnail={ data.image }
@@ -129,7 +104,7 @@ const BurgerConstructor = () => {
             </div>
             {isModal && isOrderSuccess &&
                 <Modal onClose={() => setIsModal(false)}>
-                    <OrderDetails number={number}/>
+                    <OrderDetails />
                 </Modal>
             }
         </section>

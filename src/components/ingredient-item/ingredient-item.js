@@ -16,26 +16,10 @@ const IngredientItem = ({ ingredient, count }) => {
             opacity: monitor.isDragging() ? 0.5 : 1
         })
     });
-    // const ingredientCard = {
-    //     image: ingredient.image_large,
-    //     name: ingredient.name,
-    //     calories: ingredient.calories,
-    //     fat: ingredient.fat,
-    //     carbohydrates: ingredient.carbohydrates,
-    //     proteins: ingredient.proteins,
-    //     price: ingredient.price,
-    //     _id: ingredient._id,
-    // }
 
     const  onSelectIngredient = () => {
         dispatch(setCurrentIngredient(ingredient))
-        //console.log(ingredient)
     }
-
-    // const onSelectIngredient = () => {
-    //     //ingredientModal(ingredientCard);
-    //     addToOrder(ingredient)
-    // }
 
     return (
         <div className={ `${ styles.content } mt-6` } onClick={ onSelectIngredient } style={{ opacity }} ref={ref} >
@@ -72,8 +56,6 @@ const IngredientItem = ({ ingredient, count }) => {
 IngredientItem.propTypes = {
     ingredient: ingredientType,
     count: PropTypes.number,
-    addToOrder: PropTypes.func,
-   // ingredientModal: PropTypes.func
 }
 
 export default IngredientItem;

@@ -3,12 +3,10 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import PropTypes from "prop-types";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { ingredientType } from "../../utils/types";
 
-const ConstructorItem = ({ ingredient, type, isLocked, isAdded, text, price, thumbnail, handleClose, isDraggable, moveItem }) => {
+const ConstructorItem = ({ ingredient, type, isLocked, text, price, thumbnail, handleClose, isDraggable, moveItem }) => {
     const ref = useRef();
-    const dispatch = useDispatch();
-    //console.log(ingredient)
     const [{handlerId}, drop] = useDrop({
         accept: 'constructorIngredient',
         collect(monitor) {
@@ -93,13 +91,15 @@ const ConstructorItem = ({ ingredient, type, isLocked, isAdded, text, price, thu
 }
 
 ConstructorItem.propTypes = {
+    ingredient: PropTypes.number,
     type: PropTypes.string,
     isLocked: PropTypes.bool,
-    isAdded: PropTypes.bool,
     text: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     thumbnail: PropTypes.string,
-    handleClose: PropTypes.func
+    handleClose: PropTypes.func,
+    isDraggable: PropTypes.bool,
+    moveItem: PropTypes.func,
 }
 
 export default ConstructorItem;

@@ -6,24 +6,54 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import { removeCurrentIngredient } from "../../services/slices/current-ingredient-slice";
-import {useInView} from "react-intersection-observer";
+//import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients = () => {
-    const [current, setCurrent] = useState('one')
-    const { ref, inView } = useInView({threshold: 0});
+    const tabs = ['one', 'two', 'three']
+    const [current, setCurrent] = useState(tabs[0]);
+    console.log(current)
 
-    const data = useSelector(store => store.ingredients.items)
-    const dispatch = useDispatch()
-    const currentIngredient = useSelector(store => store.currentIngredient)
+    const data = useSelector(store => store.ingredients.items);
+    const dispatch = useDispatch();
+    const currentIngredient = useSelector(store => store.currentIngredient);
 
-    const buns = useMemo(() => data.filter(el => el.type === 'bun'), [data])
-    const mains = useMemo(() => data.filter(el => el.type === 'main'), [data])
-    const sauces = useMemo(() => data.filter(el => el.type === 'sauce'), [data])
+    const buns = useMemo(() => data.filter(el => el.type === 'bun'), [data]);
+    const mains = useMemo(() => data.filter(el => el.type === 'main'), [data]);
+    const sauces = useMemo(() => data.filter(el => el.type === 'sauce'), [data]);
 
-    const bunRef = useRef(null)
-    const sauceRef = useRef(null)
-    const mainRef = useRef(null)
+    const rootRef = useRef(null);
+    const bunRef = useRef(null);
+    const sauceRef = useRef(null);
+    const mainRef = useRef(null);
 
+    function onScroll() {
+        const rootTop = rootRef.current.getBoundingClientRect().top
+        const bunTop = bunRef.current.getBoundingClientRect().top
+        const sauceTop = sauceRef.current.getBoundingClientRect().top
+        const mainTop = mainRef.current.getBoundingClientRect().top
+
+        const distToBun = Math.abs(rootTop - bunTop)
+        const distToSauce = Math.abs(rootTop - sauceTop)
+        const distToMain = Math.abs(rootTop - mainTop)
+
+        const distances = [distToBun, distToSauce, distToMain]
+        const minElement = Math.min(...distances)
+        const minIndex = distances.findIndex(el => el === minElement)
+        let newTab = tabs[minIndex]
+
+        if (newTab !== current) {
+            setCurrent(newTab)
+        }
+    }
+    //const [inViewRef, inView] = useInView()
+    // const { ref: inViewRef, inView } = useInView({
+    //     /* Optional options */
+    //     threshold: 0,
+    // });
+    // function handleRef(node) {
+    //     inViewRef(node);
+    //     mainRef.current = node;
+    // }
     const scroll = (ref) => {
         ref.current.scrollIntoView({
             behavior: "smooth"
@@ -37,24 +67,24 @@ const BurgerIngredients = () => {
                 <div className={ `${ styles.tabs } pb-10` }>
                     <Tab value="one" active={ current === 'one' } onClick={ () => {
                         scroll(bunRef)
-                        setCurrent('one')
+                        setCurrent(tabs[0])
                     } }>
                         Булки
                     </Tab>
                     <Tab value="two" active={ current === 'two' } onClick={ () => {
                         scroll(sauceRef)
-                        setCurrent('two')
+                        setCurrent(tabs[1])
                     } }>
                         Соусы
                     </Tab>
                     <Tab value="three" active={ current === 'three' } onClick={ () => {
                         scroll(mainRef)
-                        setCurrent('three')
+                        setCurrent(tabs[2])
                     } }>
                         Начинки
                     </Tab>
                 </div>
-                <div className={ styles.container }>
+                <div ref={rootRef} onScroll={onScroll} className={ styles.container }>
                     <IngredientGroup data={ buns } title={ 'Булки' } ref={ bunRef } />
                     <IngredientGroup data={ sauces } title={ 'Соусы' } ref={ sauceRef } />
                     <IngredientGroup data={ mains } title={ 'Начинки' } ref={ mainRef } />

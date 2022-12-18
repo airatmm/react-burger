@@ -1,4 +1,5 @@
 import styles from './empty-burger-constructor.module.css';
+import PropTypes from "prop-types";
 
 const EmptyBurgerConstruction = ({ isFieldHover }) => {
     const style = {
@@ -20,5 +21,7 @@ const EmptyBurgerConstruction = ({ isFieldHover }) => {
         </div>
     )
 }
-
+EmptyBurgerConstruction.propTypes = {
+    isLocked: PropTypes.bool,
+}
 export default EmptyBurgerConstruction;

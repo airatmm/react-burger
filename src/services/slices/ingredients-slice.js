@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getAllIngredients } from "../../utils/api";
-// import { SERVER_ERROR } from "../../utils/constants";
 
 const ingredientsSlice = createSlice({
     name: 'ingredients',
@@ -49,7 +48,6 @@ export const getAllIngredientsData = () => async dispatch => {
             .then((data) => dispatch(ingredientsSuccess(data.data)))
     } catch (e) {
         dispatch(ingredientsError())
-        // console.log(SERVER_ERROR)
     }
 }
 
