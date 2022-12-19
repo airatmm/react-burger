@@ -44,10 +44,9 @@ export const { ingredientsSuccess, ingredientsRequest, ingredientsError } = ingr
 export const getAllIngredientsData = () => async dispatch => {
     dispatch(ingredientsRequest())
     try {
-        await getAllIngredients
+        await getAllIngredients()
             .then((data) => dispatch(ingredientsSuccess(data.data)))
     } catch (e) {
         dispatch(ingredientsError())
     }
 }
-
