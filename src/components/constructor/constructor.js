@@ -1,59 +1,16 @@
 import styles from './constructor.module.css';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import { getAllIngredients } from "../../utils/api";
-import { SERVER_ERROR } from "../../utils/constants";
-import { useEffect, useState } from "react";
-import { IngredientsContext } from "../../contexts/ingredients-context";
-import { ModalContext } from "../../contexts/modal-context";
-import Modal from '../modal/modal';
-
-export const initialState = {
-    buns: null,
-    fillings: []
-}
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const Constructor = () => {
-
-    const [allIngredients, setAllIngredients] = useState([]);
-    const [orderIngredients, setOrderIngredients] = useState(initialState)
-    const getAllIngredientsData = () => {
-        getAllIngredients
-            .then((data) => {
-                setAllIngredients(data.data)
-            })
-
-            .catch(() => {
-                console.log(SERVER_ERROR)
-            })
-    }
-
-    useEffect(() => {
-        getAllIngredientsData();
-    }, [])
-
-    const [modal, setModal] = useState({
-        visible: false,
-        content: null,
-    });
-
-    const { visible, content } = modal;
-
     return (
         <main className={ styles.main }>
-            <ModalContext.Provider value={ { modal, setModal } }>
-                <IngredientsContext.Provider
-                    value={ {
-                        allIngredients,
-                        setAllIngredients,
-                        orderIngredients,
-                        setOrderIngredients
-                    } }>
-                    <BurgerIngredients />
-                    <BurgerConstructor />
-                    { visible && <Modal>{ content }</Modal> }
-                </IngredientsContext.Provider>
-            </ModalContext.Provider>
+            <DndProvider backend={ HTML5Backend }>
+                <BurgerIngredients />
+                <BurgerConstructor />
+            </DndProvider>
         </main>
 
     )

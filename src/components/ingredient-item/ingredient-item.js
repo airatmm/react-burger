@@ -2,26 +2,27 @@ import styles from './ingredient-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
+import { setCurrentIngredient } from "../../services/slices/current-ingredient-slice";
+import { useDispatch } from "react-redux";
+import { useDrag } from "react-dnd";
 
-const IngredientItem = ({ ingredient, count, ingredientModal, addToOrder }) => {
+const IngredientItem = ({ ingredient, count }) => {
+    const dispatch = useDispatch();
 
-    const ingredientCard = {
-        image: ingredient.image_large,
-        name: ingredient.name,
-        calories: ingredient.calories,
-        fat: ingredient.fat,
-        carbohydrates: ingredient.carbohydrates,
-        proteins: ingredient.proteins,
-        price: ingredient.price,
-        _id: ingredient._id,
-    }
-    const onSelectIngredient = () => {
-        ingredientModal(ingredientCard);
-        addToOrder(ingredient)
+    const [{ opacity }, ref] = useDrag({
+        type: 'ingredients',
+        item: ingredient,
+        collect: monitor => ({
+            opacity: monitor.isDragging() ? 0.5 : 1
+        })
+    });
+
+    const  onSelectIngredient = () => {
+        dispatch(setCurrentIngredient(ingredient))
     }
 
     return (
-        <div className={ `${ styles.content } pt-6` } onClick={ onSelectIngredient }>
+        <div className={ `${ styles.content } mt-6` } onClick={ onSelectIngredient } style={{ opacity }} ref={ref} >
             { count &&
                 <div className={ styles.counter }>
 
@@ -54,9 +55,7 @@ const IngredientItem = ({ ingredient, count, ingredientModal, addToOrder }) => {
 
 IngredientItem.propTypes = {
     ingredient: ingredientType.isRequired,
-    count: PropTypes.number.isRequired,
-    addToOrder: PropTypes.func.isRequired,
-    ingredientModal: PropTypes.func.isRequired
+    count: PropTypes.number,
 }
 
 export default IngredientItem;

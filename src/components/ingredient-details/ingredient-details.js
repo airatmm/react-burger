@@ -1,12 +1,12 @@
 import styles from './ingredient-details.module.css';
 import { ingredientType } from "../../utils/types";
 
-const IngredientDetails = ({ data }) => {
+const IngredientDetails = ({ ingredient: data }) => {
     const spanStyle = 'text text_type_main-default text_color_inactive';
     return (
         <section className={ `${ styles.main } pb-15` }>
             <span className={ `${ styles.title } text text_type_main-large mt-10 ml-10` }>Детали ингридиента</span>
-            <img src={ data.image } alt={ data.image } />
+            <img src={ data.image_large } alt={ data.image } />
             <span className={ 'text text_type_main-medium pt-4 pb-8' }>{ data.name }</span>
             <div className={ styles.nutrition }>
                 <div className={ styles.nutritionItem }>
@@ -31,7 +31,7 @@ const IngredientDetails = ({ data }) => {
 }
 
 IngredientDetails.propTypes = {
-    data: ingredientType.isRequired
+    data: ingredientType
 }
 
 export default IngredientDetails;

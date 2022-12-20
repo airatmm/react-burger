@@ -11,7 +11,7 @@ const request = (url, options) => {
     return fetch(url, options).then(checkResponse)
 }
 
-export const getAllIngredients = request(
+export const getAllIngredients = () => request(
     `${ BASE_URL }/ingredients`,
 
     {
@@ -23,7 +23,7 @@ export const getAllIngredients = request(
     }
 );
 
-export const getOrder = (ingredients) => request(
+export const setOrderRequest = (ingredients) => request(
     `${ BASE_URL }/orders`,
 
     {

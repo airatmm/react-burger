@@ -1,28 +1,61 @@
-import { useContext, useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "../ingredient-group/ingredient-group";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { IngredientsContext } from "../../contexts/ingredients-context";
-import { ModalContext } from "../../contexts/modal-context";
+import { useDispatch, useSelector } from "react-redux";
+import Modal from "../modal/modal";
+import { removeCurrentIngredient } from "../../services/slices/current-ingredient-slice";
 
 const BurgerIngredients = () => {
-    const { allIngredients: data } = useContext(IngredientsContext);
-    const [current, setCurrent] = useState('one')
-    const { setModal } = useContext(ModalContext);
+    const tabs = { bun: 'bun', sauce: 'sauce', main: 'main'};
+    const {bun, sauce, main} = tabs;
 
-    const ingredientModal = (ingredient) => {
-        setModal({
-            visible: true,
-            content: <IngredientDetails
-                data={ ingredient }
-            />
-        })
+    const [current, setCurrent] = useState(bun);
+
+    const data = useSelector(store => store.ingredients.items);
+    const dispatch = useDispatch();
+    const currentIngredient = useSelector(store => store.currentIngredient);
+
+    const buns = useMemo(() => data.filter(el => el.type === bun), [data, bun]);
+    const sauces = useMemo(() => data.filter(el => el.type === sauce), [data, sauce]);
+    const mains = useMemo(() => data.filter(el => el.type === main), [data, main]);
+
+    const rootRef = useRef(null);
+    const bunRef = useRef(null);
+    const sauceRef = useRef(null);
+    const mainRef = useRef(null);
+
+    function onScroll() {
+        const rootTop = rootRef.current.getBoundingClientRect().top
+        const bunTop = bunRef.current.getBoundingClientRect().top
+        const sauceTop = sauceRef.current.getBoundingClientRect().top
+        const mainTop = mainRef.current.getBoundingClientRect().top
+
+        const distToBun = Math.abs(rootTop - bunTop)
+        const distToSauce = Math.abs(rootTop - sauceTop)
+        const distToMain = Math.abs(rootTop - mainTop)
+
+        //работает также ...
+        if (distToBun < distToSauce) {
+            setCurrent(bun);
+        } else if (distToSauce < distToMain) {
+            setCurrent(sauce);
+        } else {
+            setCurrent(main);
+        }
+
+        //... как и это
+
+        // const distances = [distToBun, distToSauce, distToMain]
+        // const minElement = Math.min(...distances)
+        // const minIndex = distances.findIndex(el => el === minElement)
+        // let newTab = tabs[minIndex]
+
+        // if (newTab !== current) {
+        //     setCurrent(newTab)
+        // }
     }
-
-    const bunRef = useRef(null)
-    const sauceRef = useRef(null)
-    const mainRef = useRef(null)
 
     const scroll = (ref) => {
         ref.current.scrollIntoView({
@@ -35,36 +68,40 @@ const BurgerIngredients = () => {
             <h2 className={ 'text text_type_main-large pb-5' }>Соберите бургер</h2>
             <div className={ `${ styles.content } custom-scroll` }>
                 <div className={ `${ styles.tabs } pb-10` }>
-                    <Tab value="one" active={ current === 'one' } onClick={ () => {
+                    <Tab value={ bun } active={ current === bun } onClick={ () => {
                         scroll(bunRef)
-                        setCurrent('one')
+                        setCurrent(bun)
                     } }>
                         Булки
                     </Tab>
-                    <Tab value="two" active={ current === 'two' } onClick={ () => {
+                    <Tab value={ sauce } active={ current === sauce } onClick={ () => {
                         scroll(sauceRef)
-                        setCurrent('two')
+                        setCurrent(sauce)
                     } }>
                         Соусы
                     </Tab>
-                    <Tab value="three" active={ current === 'three' } onClick={ () => {
+                    <Tab value={ main } active={ current === main } onClick={ () => {
                         scroll(mainRef)
-                        setCurrent('three')
+                        setCurrent(main)
                     } }>
                         Начинки
                     </Tab>
                 </div>
-                <div className={ styles.container }>
-                    <IngredientGroup data={ data.filter(el => el.type === 'bun') } title={ 'Булки' }
-                                     ingredientModal={ ingredientModal } ref={ bunRef } />
-                    <IngredientGroup data={ data.filter(el => el.type === 'sauce') } title={ 'Соусы' }
-                                     ingredientModal={ ingredientModal } ref={ sauceRef } />
-                    <IngredientGroup data={ data.filter(el => el.type === 'main') } title={ 'Начинки' }
-                                     ingredientModal={ ingredientModal } ref={ mainRef } />
+                <div ref={ rootRef } onScroll={ onScroll } className={ styles.container }>
+                    <IngredientGroup data={ buns } title={ 'Булки' } ref={ bunRef } />
+                    <IngredientGroup data={ sauces } title={ 'Соусы' } ref={ sauceRef } />
+                    <IngredientGroup data={ mains } title={ 'Начинки' } ref={ mainRef } />
+
                 </div>
+                { currentIngredient &&
+                    <Modal header={ 'Детали ингредиента' } onClose={ () => dispatch(removeCurrentIngredient()) }>
+                        <IngredientDetails ingredient={ currentIngredient } />
+                    </Modal>
+                }
             </div>
         </section>
     )
 }
 
 export default BurgerIngredients;
+
