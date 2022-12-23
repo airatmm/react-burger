@@ -1,10 +1,24 @@
 import styles from './ingredient-group.module.css';
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import IngredientItem from '../ingredient-item/ingredient-item';
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
+import { useSelector } from "react-redux";
 
 const IngredientGroup = forwardRef(({ data, title }, ref) => {
+    const burgerConstructor = useSelector(state => state.burgerConstructor);
+
+    const ingredientsCounter = useMemo(() => {
+        const { bun, itemsBurger } = burgerConstructor;
+        const counters = {};
+        itemsBurger.forEach((ingredient) => {
+            if(!counters[ingredient._id]) counters[ingredient._id] = 0;
+            counters[ingredient._id]++;
+        });
+        if (bun) counters[bun._id] = 2;
+        return counters;
+    }, [burgerConstructor]);
+
     return (
         <section className={ 'pb-10' }>
             <div className={ styles.title }>
@@ -15,7 +29,7 @@ const IngredientGroup = forwardRef(({ data, title }, ref) => {
             <div className={ styles.items }>
                 { data.map(ingredient =>
                     <IngredientItem
-                        count={ 1 }
+                        count={ ingredientsCounter[ingredient._id] }
                         key={ ingredient._id }
                         ingredient={ ingredient }
                     />) }
