@@ -1,17 +1,15 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './app-header.module.css';
 import Navigation from '../navigation/navigation';
-import PropTypes from "prop-types";
+//import PropTypes from "prop-types";
 
-const setActiveLink = ({ isActive }) => isActive ? `${ styles.navigationLinkActive }  pt-4 pr-5 pb-4 pl-5  text text_type_main-default`
-    :
-    `${ styles.navigationLinkInactive } pt-4 pr-5 pb-4 pl-5  text text_type_main-default text_color_inactive`;
-
-const AppHeader = ({ path }) => {
-    const locationMain = path === "/";
-    const locationOrder = path === "/order";
-    const locationAccount = path === "/account";
+const navigationLinkActive = `${ styles.navigationLinkActive }  pt-4 pr-5 pb-4 pl-5  text text_type_main-default`;
+const navigationLinkInActive = `${ styles.navigationLinkInactive } pt-4 pr-5 pb-4 pl-5  text text_type_main-default text_color_inactive`;
+const AppHeader = () => {
+    // const locationMain = path === "/";
+    // const locationOrder = path === "/order";
+    // const locationAccount = path === "/account";
 
     return (
         <>
@@ -19,37 +17,39 @@ const AppHeader = ({ path }) => {
                 <Navigation>
                     <div className={ styles.headerMenu }>
                         <NavLink
-                            className={ setActiveLink }
+                            className={ navigationLinkInActive }
+                            activeClassName={navigationLinkActive}
                             to="/">
-                            { locationMain && <BurgerIcon type="primary" /> }
-                            { !locationMain && <BurgerIcon type="secondary" /> }
+                            <BurgerIcon type="primary" />
+                            {/*{ !locationMain && <BurgerIcon type="secondary" /> }*/}
                             Конструктор
                         </NavLink>
                         <NavLink
-                            className={ setActiveLink }
+                            className={ navigationLinkInActive }
+                            activeClassName={navigationLinkActive}
                             to="/order">
-                            { locationOrder && <ListIcon type="primary" /> }
-                            { !locationOrder && <ListIcon type="secondary" /> }
+                            <ListIcon type="primary" />
+                            {/*{ !locationOrder && <ListIcon type="secondary" /> }*/}
                             Лента заказов
                         </NavLink>
                     </div>
                     <div className={ styles.logo }><Logo /></div>
                     <NavLink
-                        className={ setActiveLink }
+                        className={ navigationLinkInActive }
+                        activeClassName={navigationLinkActive}
                         to="/account">
-                        { locationAccount && <ProfileIcon type="primary" /> }
-                        { !locationAccount && <ProfileIcon type="secondary" /> }
+                        <ProfileIcon type="primary" />
+                        {/*{ !locationAccount && <ProfileIcon type="secondary" /> }*/}
                         Личный кабинет
                     </NavLink>
                 </Navigation>
             </header>
-            <Outlet />
         </>
     );
 }
 
-AppHeader.propTypes = {
-    path: PropTypes.string.isRequired
-}
+// AppHeader.propTypes = {
+//     path: PropTypes.string.isRequired
+// }
 
 export default AppHeader;
