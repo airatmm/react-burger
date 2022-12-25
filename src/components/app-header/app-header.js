@@ -21,7 +21,7 @@ const AppHeader = () => {
                             activeClassName={navigationLinkActive}
                             to="/">
                             <BurgerIcon type="primary" />
-                            {/*{ !locationMain && <BurgerIcon type="secondary" /> }*/}
+                            {/*{ !activeClassName ? <BurgerIcon type="primary" /> : <BurgerIcon type="secondary" /> }*/}
                             Конструктор
                         </NavLink>
                         <NavLink
@@ -37,7 +37,7 @@ const AppHeader = () => {
                     <NavLink
                         className={ navigationLinkInActive }
                         activeClassName={navigationLinkActive}
-                        to="/account">
+                        to="/profile">
                         <ProfileIcon type="primary" />
                         {/*{ !locationAccount && <ProfileIcon type="secondary" /> }*/}
                         Личный кабинет
