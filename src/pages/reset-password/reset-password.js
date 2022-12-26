@@ -1,6 +1,6 @@
 import styles from './reset-password.module.css';
 import Form from "../form/form";
-import { EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import FormLink from "../form/form-link/form-link";
 
 const ResetPassword = () => {

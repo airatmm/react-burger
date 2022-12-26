@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllIngredients } from "../../utils/api";
+import { getAllIngredients } from "../../utils/api/ingredients-api";
 
 const ingredientsSlice = createSlice({
     name: 'ingredients',

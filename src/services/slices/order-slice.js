@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setOrderRequest } from "../../utils/api";
+import { setOrderRequest } from "../../utils/api/ingredients-api";
 import { cleanConstructor } from "./burger-constructor-slice";
 
 const orderSlice = createSlice({

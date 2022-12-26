@@ -1,29 +1,58 @@
 import styles from './login.module.css';
 import Form from "../form/form";
-import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import FormLink from "../form/form-link/form-link";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { login } from "../../services/slices/login-slice";
+import { Redirect } from "react-router-dom";
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const isLogged = useSelector(state => state.user.isLogged)
+
+    const [inputValue, setInputValue] = useState({
+        email: '',
+        password: '',
+    });
+
+    const onChangeValue = (e) => {
+        setInputValue(inputValue => ({ ...inputValue, [e.target.name]: e.target.value }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(login(inputValue));
+    };
+
+    if (isLogged) {
+        return (
+            <Redirect
+                to={ {
+                    pathname: '/'
+                } }
+            />
+        );
+    }
     return (
         <main className={ styles.main }>
             <Form
                 name='login'
                 title='Вход'
-                //handleSubmit={handleSubmit}
+                handleSubmit={handleSubmit}
                 buttonText='Войти'
-                //handleClick={handleClick}
+                handleClick={handleSubmit}
             >
                 <EmailInput
-                    // onChange={onChange}
-                    // value={value}
+                    onChange={onChangeValue}
+                    value={inputValue.email}
                     name={ 'email' }
                     isIcon={ false }
                     extraClass="pb-6"
                 />
                 <PasswordInput
-                    // onChange={onChange}
-                    // value={value}
+                    onChange={onChangeValue}
+                    value={inputValue.password}
                     name={ 'password' }
                     extraClass="pb-6"
                 />
