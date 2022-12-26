@@ -31,7 +31,7 @@ const App = () => {
                     <Route path='/' exact={ true }>
                         { !isIngredients ? <Loader /> : <Constructor /> }
                     </Route>
-                    <Route path='/profile' exact={ true }>
+                    <Route path='/profile'>
                         <Profile />
                     </Route>
                     <Route path='/forgot-password' exact={ true }>

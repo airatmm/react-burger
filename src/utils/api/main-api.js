@@ -41,6 +41,20 @@ export const logout = () => request(
     }
 );
 
+export const forgotPassword = (email) => request(
+    `${ AUTH_URL }/password-reset.`,
+
+    {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            Accept: 'application/json',
+        },
+        //credentials: 'include',
+        body: JSON.stringify(email),
+    }
+);
+
 
 // export const editProfile = (name, email) => {
 //     return fetch(`${BASE_URL}/users/me`, {
