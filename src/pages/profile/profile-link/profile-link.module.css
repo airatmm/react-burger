@@ -1,8 +1,8 @@
-.link {
-    text-decoration: none;
-    color: #8585AD;
+.item {
+    list-style: none;
 }
 
-.link_active {
-    color: #F2F2F3;
+.link {
+    text-decoration: none;
 }
+

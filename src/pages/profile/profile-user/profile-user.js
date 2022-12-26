@@ -3,7 +3,6 @@ import { EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-
 
 const ProfileUser = () => {
     return (
-        <div className={styles.profile}>
             <form
                 className={ styles.form }
                 //onSubmit={ handleSubmit }
@@ -17,7 +16,7 @@ const ProfileUser = () => {
                     error={ false }
                     errorText={ 'Ошибка' }
                     size={ 'default' }
-                    icon="EditIcon"
+                    icon={ 'EditIcon' }
                     extraClass="pb-6"
                 />
                 <EmailInput
@@ -35,7 +34,6 @@ const ProfileUser = () => {
                     extraClass="pb-6"
                 />
             </form>
-        </div>
     )
 }
 

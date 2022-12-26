@@ -8,7 +8,7 @@ const Profile = () => {
     return (
         <main className={ styles.main }>
             <div className={ styles.navbar }>
-                <div className={ styles.links }>
+                <ul className={ styles.links }>
                     <ProfileLink
                         url='/profile'
                         title='Профиль'
@@ -21,7 +21,7 @@ const Profile = () => {
                         url='/logout'
                         title='Выход'
                     />
-                </div>
+                </ul>
                 <span className={ `text text_type_main-default text_color_inactive` }>
                     В этом разделе вы можете изменить свои персональные данные
                 </span>

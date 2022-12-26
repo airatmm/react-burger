@@ -1,15 +1,17 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import styles from './app-header.module.css';
 import Navigation from '../navigation/navigation';
 //import PropTypes from "prop-types";
 
-const navigationLinkActive = `${ styles.navigationLinkActive }  pt-4 pr-5 pb-4 pl-5  text text_type_main-default`;
 const navigationLinkInActive = `${ styles.navigationLinkInactive } pt-4 pr-5 pb-4 pl-5  text text_type_main-default text_color_inactive`;
+const navigationLinkActive = `${ styles.navigationLinkActive }  pt-4 pr-5 pb-4 pl-5  text text_type_main-default`;
+
 const AppHeader = () => {
-    // const locationMain = path === "/";
-    // const locationOrder = path === "/order";
-    // const locationAccount = path === "/account";
+    const pathname = useLocation();
+    const locationMain = pathname === "/";
+    const locationOrder = pathname === "/order";
+    const locationAccount = pathname === "/profile";
 
     return (
         <>
@@ -19,7 +21,8 @@ const AppHeader = () => {
                         <NavLink
                             className={ navigationLinkInActive }
                             activeClassName={navigationLinkActive}
-                            to="/">
+                            to="/"
+                            exact={true}>
                             <BurgerIcon type="primary" />
                             {/*{ !activeClassName ? <BurgerIcon type="primary" /> : <BurgerIcon type="secondary" /> }*/}
                             Конструктор
@@ -27,9 +30,10 @@ const AppHeader = () => {
                         <NavLink
                             className={ navigationLinkInActive }
                             activeClassName={navigationLinkActive}
-                            to="/order">
-                            <ListIcon type="primary" />
-                            {/*{ !locationOrder && <ListIcon type="secondary" /> }*/}
+                            to="/order"
+                            exact={true}>
+                            {/*<ListIcon type="primary" />*/}
+                            { locationOrder ? <ListIcon type="primary" />:  <ListIcon type="secondary" /> }
                             Лента заказов
                         </NavLink>
                     </div>
@@ -37,7 +41,8 @@ const AppHeader = () => {
                     <NavLink
                         className={ navigationLinkInActive }
                         activeClassName={navigationLinkActive}
-                        to="/profile">
+                        to="/profile"
+                        exact={true}>
                         <ProfileIcon type="primary" />
                         {/*{ !locationAccount && <ProfileIcon type="secondary" /> }*/}
                         Личный кабинет
