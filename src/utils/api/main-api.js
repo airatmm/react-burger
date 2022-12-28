@@ -80,7 +80,6 @@ export const getUserInfo = () => request(
             'Content-type': 'application/json',
             Accept: 'application/json',
             authorization: getCookie('accessToken'),
-
         },
         //credentials: 'include',
     }
@@ -101,5 +100,17 @@ export const editProfile = (name, email, password) => request(
             password
         ),
         // credentials: 'include',
-    })
-;
+    }
+);
+
+export const signout = () => request(
+    `${ BASE_URL }/auth/logout`,
+    {
+        method: 'POST',
+        headers: {
+            Accept: "application/json",
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
+    }
+);

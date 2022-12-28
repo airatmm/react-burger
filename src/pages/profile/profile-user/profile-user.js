@@ -36,6 +36,13 @@ const ProfileUser = () => {
             dispatch(editUser(inputValue));
         }
     };
+
+    function handleReset(e) {
+        e.preventDefault()
+        setButtonsDisabled({ name: true, email: true, password: true })
+        setInputValue({ ...user, password: '' })
+    }
+
     useEffect(() => {
         setInputValue({ ...user, password: '' });
     }, [user]);
@@ -82,19 +89,24 @@ const ProfileUser = () => {
                 icon={ buttonsDisabled.password ? "EditIcon" : "CloseIcon" }
                 extraClass={ "pb-6" }
             />
-            <div className={ styles.buttons }>
-                <Button
-                    htmlType="button"
-                    size="medium"
-                    type="secondary"
-                >Отмена</Button>
-                <Button
-                    htmlType="button"
-                    size="medium"
-                    type="primary"
-                    onClick={ handleSubmit }
-                >Сохранить</Button>
-            </div>
+            { !buttonsDisabled.name || !buttonsDisabled.email || !buttonsDisabled.password
+                ?
+                <div className={ styles.buttons }>
+                    <Button
+                        htmlType="button"
+                        size="medium"
+                        type="secondary"
+                        onClick={ handleReset }
+                    >Отмена</Button>
+                    <Button
+                        htmlType="button"
+                        size="medium"
+                        type="primary"
+                        onClick={ handleSubmit }
+                    >Сохранить</Button>
+                </div>
+                :
+                null }
         </form>
     )
 }

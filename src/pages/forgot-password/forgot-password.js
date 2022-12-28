@@ -10,7 +10,7 @@ import { Redirect, useHistory } from "react-router-dom";
 const ForgotPassword = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const refreshToken = localStorage.refreshToken;
+    //const refreshToken = localStorage.refreshToken;
     const ifForgotSuccess = useSelector(store => store.forgot.forgotPasswordSuccess);
     const [email, setEmail] = useState('');
 
@@ -31,9 +31,9 @@ const ForgotPassword = () => {
         }
     }, [ifForgotSuccess, history, email])
 
-    if (refreshToken) {
-        return <Redirect to='/' />
-    }
+    // if (refreshToken) {
+    //     return <Redirect to='/' />
+    // }
 
     return (
         <main className={ styles.main }>
