@@ -8,7 +8,7 @@ const ProfileLink = ({url, title}) => {
             to={url}
             exact={true}
             className={ `${styles.link} text text_type_main-medium text_color_inactive` }
-            activeClassName='text text_type_main-medium'>
+            activeClassName={styles.link_active} >
             {title}
         </NavLink>
         </li>

@@ -6,3 +6,6 @@
     text-decoration: none;
 }
 
+.link_active {
+    color: #F2F2F3;
+}

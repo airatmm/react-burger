@@ -6,7 +6,7 @@ import { ingredientType } from "../../utils/types";
 import { useSelector } from "react-redux";
 
 const IngredientGroup = forwardRef(({ data, title }, ref) => {
-    const burgerConstructor = useSelector(state => state.burgerConstructor);
+    const burgerConstructor = useSelector(store => store.burgerConstructor);
 
     const ingredientsCounter = useMemo(() => {
         const { bun, itemsBurger } = burgerConstructor;

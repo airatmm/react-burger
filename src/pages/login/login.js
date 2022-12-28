@@ -9,7 +9,7 @@ import { Redirect } from "react-router-dom";
 
 const Login = () => {
     const dispatch = useDispatch();
-    const isLogged = useSelector(state => state.user.isLogged)
+    const isLogged = useSelector(store => store.user.isLogged)
 
     const [inputValue, setInputValue] = useState({
         email: '',

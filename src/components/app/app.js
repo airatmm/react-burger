@@ -9,7 +9,7 @@ import Loader from "../loader/loader";
 import { Login, Profile, Registration, ForgotPassword, ResetPassword } from "../../pages";
 
 const App = () => {
-    const isIngredients = useSelector(state => state.ingredients.itemsSuccess)
+    const isIngredients = useSelector(store => store.ingredients.itemsSuccess)
     const dispatch = useDispatch();
 
     useEffect(() => {

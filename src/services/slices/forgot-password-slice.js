@@ -36,7 +36,7 @@ const forgotPasswordSlice = createSlice({
 export default forgotPasswordSlice.reducer;
 export const { forgotPasswordRequest, forgotPasswordSuccess, forgotPasswordFiled } = forgotPasswordSlice.actions;
 
-export const forgot = (email, password) => async dispatch => {
+export const forgot = (email) => async dispatch => {
     dispatch(forgotPasswordRequest())
     try {
         await forgotPassword(email)
@@ -45,5 +45,6 @@ export const forgot = (email, password) => async dispatch => {
             })
     } catch (e) {
         dispatch(forgotPasswordFiled())
+
     }
 }

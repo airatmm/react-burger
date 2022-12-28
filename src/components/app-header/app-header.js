@@ -32,8 +32,8 @@ const AppHeader = () => {
                             activeClassName={navigationLinkActive}
                             to="/order"
                             exact={true}>
-                            {/*<ListIcon type="primary" />*/}
-                            { locationOrder ? <ListIcon type="primary" />:  <ListIcon type="secondary" /> }
+                            <ListIcon type="primary" />
+                            {/*{ locationOrder ? <ListIcon type="primary" />:  <ListIcon type="secondary" /> }*/}
                             Лента заказов
                         </NavLink>
                     </div>

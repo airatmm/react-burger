@@ -1,8 +1,9 @@
-import { AUTH_URL } from "../constants";
+import { BASE_URL } from "../constants";
 import request from "./api-tools";
+import { getCookie } from "../cookies";
 
 export const authorize = (email, password) => request(
-    `${ AUTH_URL }/login`,
+    `${ BASE_URL }/auth/login`,
 
     {
         method: 'POST',
@@ -11,12 +12,12 @@ export const authorize = (email, password) => request(
             Accept: 'application/json',
         },
         //credentials: 'include',
-        body: JSON.stringify(email, password),
+        body: JSON.stringify(email, password)
     }
 );
 
 export const register = (name, email, password) => request(
-    `${ AUTH_URL }/register`,
+    `${ BASE_URL }/auth/register`,
 
     {
         method: 'POST',
@@ -25,12 +26,12 @@ export const register = (name, email, password) => request(
             Accept: 'application/json',
         },
         //credentials: 'include',
-        body: JSON.stringify(name, email, password),
+        body: JSON.stringify(name, email, password)
     }
 );
 
 export const logout = () => request(
-    `${ AUTH_URL }/logout`,
+    `${ BASE_URL }/auth/logout`,
 
     {
         method: 'GET',
@@ -42,7 +43,7 @@ export const logout = () => request(
 );
 
 export const forgotPassword = (email) => request(
-    `${ AUTH_URL }/password-reset.`,
+    `${ BASE_URL }/password-reset`,
 
     {
         method: 'POST',
@@ -51,23 +52,54 @@ export const forgotPassword = (email) => request(
             Accept: 'application/json',
         },
         //credentials: 'include',
-        body: JSON.stringify(email),
+        body: JSON.stringify(email)
+    }
+);
+
+export const resetPassword = (password, token) => request(
+    `${ BASE_URL }/password-reset/reset`,
+
+    {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            Accept: 'application/json',
+        },
+        //credentials: 'include',
+        body: JSON.stringify(password, token)
     }
 );
 
 
-// export const editProfile = (name, email) => {
-//     return fetch(`${BASE_URL}/users/me`, {
-//         method: 'PATCH',
-//         headers: {
-//             Accept: "application/json",
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(
-//             name,
-//             email
-//         ),
-//         credentials: 'include',
-//     })
-//         .then(checkResponse);
-// }
+export const getUserInfo = () => request(
+    `${ BASE_URL }/auth/user`,
+
+    {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            Accept: 'application/json',
+            authorization: getCookie('accessToken'),
+
+        },
+        //credentials: 'include',
+    }
+);
+
+export const editProfile = (name, email, password) => request(
+    `${ BASE_URL }/auth/user`,
+    {
+        method: 'PATCH',
+        headers: {
+            Accept: "application/json",
+            'Content-Type': 'application/json',
+            authorization: getCookie('accessToken'),
+        },
+        body: JSON.stringify(
+            name,
+            email,
+            password
+        ),
+        // credentials: 'include',
+    })
+;
