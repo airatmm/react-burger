@@ -3,17 +3,16 @@ import Form from "../form/form";
 import { EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import FormLink from "../form/form-link/form-link";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "../../services/slices/login-slice";
 import { Redirect } from "react-router-dom";
 import { setUserData } from "../../services/slices/user-slice";
+import { getUserData } from "../../services/slices/get-user-data-slice";
 
 const Login = () => {
     const dispatch = useDispatch();
-
     const isLogged = useSelector(store => store.user.isLogged)
-    console.log(isLogged)
-
+    console.log('Login isLogged', isLogged)
     const [inputValue, setInputValue] = useState({
         email: '',
         password: '',
@@ -28,6 +27,21 @@ const Login = () => {
         dispatch(login(inputValue));
         dispatch(setUserData(inputValue))
     };
+
+    const [isUserLoaded, setUserLoaded] = useState(false);
+
+    const init = async () => {
+        await dispatch(getUserData());
+        setUserLoaded(true);
+    };
+
+    useEffect(() => {
+        init();
+    }, []);
+
+    if (!isUserLoaded) {
+        return null;
+    }
 
     if (isLogged) {
         return <Redirect to='/' />

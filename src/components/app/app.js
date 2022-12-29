@@ -20,7 +20,7 @@ const App = () => {
     const dispatch = useDispatch();
 
     const isLogged = useSelector(store => store.user.isLogged)
-    console.log(isLogged)
+    console.log('App isLogged', isLogged)
 
     const currentIngredient = useSelector(store => store.currentIngredient)
 
@@ -32,16 +32,15 @@ const App = () => {
             state: undefined
         })
     }, [])
+    useEffect(() => {
+        dispatch(getAllIngredientsData())
+    }, [dispatch]);
 
     useEffect(() => {
         if (!isLogged && localStorage.getItem('refreshToken')) {
             dispatch(getUserData());
         }
     }, [dispatch, isLogged]);
-
-    useEffect(() => {
-        dispatch(getAllIngredientsData())
-    }, [dispatch]);
 
     return (
         <div className={ styles.app }>

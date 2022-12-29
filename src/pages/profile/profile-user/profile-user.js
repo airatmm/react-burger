@@ -7,7 +7,7 @@ import { editUser } from "../../../services/slices/edit-user-slice";
 const ProfileUser = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(store => store)
-    console.log(user.isLogged)
+    console.log('ProfileUser isLogged', user.isLogged)
 
     const [inputValue, setInputValue] = useState({
         name: '',

@@ -6,7 +6,7 @@ const checkResponse = (res) => {
 };
 
 const request = (url, options) => {
-    return fetch(url, options).then(checkResponse)
+    return fetch(url, options).then(checkResponse).catch(e =>console.log('api tools', e))
 }
 
 export default request;
