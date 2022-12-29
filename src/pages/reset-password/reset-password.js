@@ -11,7 +11,7 @@ const ResetPassword = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // const prevPathname = history.location.state && history.location.state.prevPathname;
+    //const prevPathname = history.location.state && history.location.state.prevPathname;
     const prevPathname = history.location.state?.prevPathname;
     const isLogged = useSelector(store => store.user.isLogged)
     console.log(isLogged)
@@ -36,16 +36,13 @@ const ResetPassword = () => {
     };
     useEffect(() => {
         if (password && token && ifResetSuccess) {
-            history.push('/login')
+            history.replace('/login')
         }
     }, [ifResetSuccess, history, password, token])
 
     if (!prevPathname) {
         return (
-            <Redirect to={{
-                pathname: '/login',
-            }}
-            />
+            <Redirect to={{ pathname: '/login'}} />
         );
     }
 

@@ -12,6 +12,7 @@ import { getUserData } from "../../services/slices/get-user-data-slice";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { removeCurrentIngredient } from "../../services/slices/current-ingredient-slice";
+import NotFound from "../not-found/not-found";
 
 const App = () => {
     const location = useLocation()
@@ -66,6 +67,9 @@ const App = () => {
                 </ProtectedRoute>
                 <Route path='/ingredients/:id' exact={ true }>
                     <IngredientDetails />
+                </Route>
+                <Route>
+                    <NotFound/>
                 </Route>
             </Switch>
             { background && (

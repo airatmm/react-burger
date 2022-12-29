@@ -50,6 +50,7 @@ export const updateToken = () => async dispatch => {
                 dispatch(setUserData(data.user))
             })
     } catch (e) {
+        console.log(e)
         if (e.message === 'Token is invalid') {
             updateToken()
         } else {

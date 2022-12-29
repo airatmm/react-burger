@@ -15,11 +15,14 @@ import EmptyBurgerConstruction from "../empty-burger-constructor/empty-burger-co
 import { useCallback, useMemo } from "react";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import { useHistory } from "react-router-dom";
 
 const BurgerConstructor = () => {
     const { itemsBurger: data, bun } = useSelector(store => store.burgerConstructor);
     const isOrderNumber = useSelector(store => store.order.result)
+    const isLogged = useSelector(store => store.user.isLogged);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const addToOrder = (ingredient) => {
         dispatch(ingredient.type === 'bun' ? addBun(ingredient) : addIngredient(ingredient))
@@ -42,8 +45,17 @@ const BurgerConstructor = () => {
         [dispatch]
     );
     const getOrderNumbers = ()  => {
+        if(isLogged){
         dispatch(setOrder(data.map(el => el._id)))
-    }
+        } else {
+            const location = {
+                pathname: '/login',
+                state: { from: '/' },
+            }
+            history.replace(location)
+        }
+        }
+
 
     const deleteToOrder = (ingredient) => {
         dispatch(removeIngredient(ingredient))

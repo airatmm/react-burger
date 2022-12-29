@@ -11,20 +11,6 @@ const Profile = () => {
 
     const isLogged = useSelector(store => store.user.isLogged)
     console.log('Profile isLogged', isLogged)
-    // const dispatch = useDispatch();
-    // const init = async () => {
-    //     await dispatch(getUserData());
-    //     //setUserLoaded(true);
-    // };
-    //
-    // useEffect(() => {
-    //     init();
-    // }, []);
-    //
-    // useEffect(() => {
-    //     dispatch(getUserData())
-    // }, [dispatch])
-
 
     return (
         <main className={ styles.main }>

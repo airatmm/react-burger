@@ -26,11 +26,22 @@ const ForgotPassword = () => {
         }
     };
 
+
     useEffect(() => {
         if (ifForgotSuccess && email) {
-            history.push('/reset-password')
+            const location = {
+                pathname: '/reset-password',
+                state: { prevPathname: true },
+            }
+            history.replace(location)
         }
     }, [ifForgotSuccess, history, email])
+    //
+    // useEffect(() => {
+    //     if (ifForgotSuccess && email) {
+    //         history.push('/reset-password')
+    //     }
+    // }, [ifForgotSuccess, history, email])
 
     if (isLogged) {
         return <Redirect to='/' />

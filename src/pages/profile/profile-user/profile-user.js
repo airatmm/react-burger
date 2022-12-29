@@ -34,6 +34,7 @@ const ProfileUser = () => {
         e.preventDefault();
         if (inputValue) {
             dispatch(editUser(inputValue));
+            setButtonsDisabled({ name: true, email: true, password: true })
         }
     };
 
