@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserInfo } from "../../utils/api/main-api";
 import { setUserData } from "./user-slice";
+import { updateToken } from "./update-token-slice";
 
 const getUserDataSlice = createSlice({
     name: 'getUserData',
@@ -45,6 +46,12 @@ export const getUserData = () => async dispatch => {
                 dispatch(setUserData(data.user))
             })
     } catch (e) {
-        dispatch(getUserDataFiled())
+        if (e.message === 'jwt expired' || e.message === 'Token is invalid') {
+            dispatch(updateToken())
+            dispatch(getUserData())
+            console.log(e.message)
+        } else {
+            dispatch(getUserDataFiled())
+        }
     }
 }

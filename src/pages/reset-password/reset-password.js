@@ -10,7 +10,8 @@ import { Redirect, useHistory } from "react-router-dom";
 const ResetPassword = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const refreshToken = localStorage.refreshToken;
+    const isLogged = useSelector(store => store.user.isLogged)
+    console.log(isLogged)
     const ifResetSuccess = useSelector(store => store.reset.resetPasswordSuccess);
 
     const [inputValue, setInputValue] = useState({
@@ -36,7 +37,7 @@ const ResetPassword = () => {
         }
     }, [ifResetSuccess, history, password, token])
 
-    if (refreshToken) {
+    if (isLogged) {
         return <Redirect to='/' />
     }
 

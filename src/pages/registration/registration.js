@@ -10,6 +10,8 @@ import { Redirect } from 'react-router-dom';
 const Registration = () => {
     const dispatch = useDispatch();
     const isRegistrationSuccess = useSelector(store => store.registration.registrationSuccess)
+    const isLogged = useSelector(store => store.user.isLogged)
+    console.log(isLogged)
 
     const [inputValue, setInputValue] = useState({
         name: '',
@@ -27,13 +29,11 @@ const Registration = () => {
     };
 
     if (isRegistrationSuccess) {
-        return (
-            <Redirect
-                to={ {
-                    pathname: '/'
-                } }
-            />
-        );
+        return <Redirect to='/login' />
+    }
+
+    if (isLogged) {
+        return <Redirect to='/' />
     }
 
     return (

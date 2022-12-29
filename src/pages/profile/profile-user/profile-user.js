@@ -2,13 +2,13 @@ import styles from './profile-user.module.css';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getUserData } from "../../../services/slices/get-user-data-slice";
 import { editUser } from "../../../services/slices/edit-user-slice";
 
 const ProfileUser = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(store => store)
-    //console.log(user)
+    console.log(user.isLogged)
+
     const [inputValue, setInputValue] = useState({
         name: '',
         email: '',
@@ -45,11 +45,7 @@ const ProfileUser = () => {
 
     useEffect(() => {
         setInputValue({ ...user, password: '' });
-    }, [user]);
-
-    useEffect(() => {
-        dispatch(getUserData())
-    }, [dispatch])
+    }, []);
 
     return (
         <form

@@ -4,9 +4,23 @@ import { Route, Switch } from "react-router-dom";
 import Orders from "./orders/orders";
 import ProfileUser from "./profile-user/profile-user";
 import { useDispatch } from "react-redux";
-import { logout } from "../../services/slices/logout-slice";
+import { useEffect } from "react";
+import { getUserData } from "../../services/slices/get-user-data-slice";
 
 const Profile = () => {
+    // const dispatch = useDispatch();
+    // const init = async () => {
+    //     await dispatch(getUserData());
+    //     //setUserLoaded(true);
+    // };
+    //
+    // useEffect(() => {
+    //     init();
+    // }, []);
+    //
+    // // useEffect(() => {
+    // //     dispatch(getUserData())
+    // // }, [dispatch])
 
     return (
         <main className={ styles.main }>

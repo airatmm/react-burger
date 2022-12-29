@@ -43,7 +43,7 @@ export const registration = (name, email, password) => async dispatch => {
     try {
         await register(name, email, password)
             .then((data) => {
-                setCookie('accessToken', data.accessToken)
+                setCookie('accessToken', data.accessToken, { expires: 300 })
                 localStorage.setItem('refreshToken', data.refreshToken)
                 dispatch(registrationSuccess(data))
                 dispatch(setUserData(data.user))

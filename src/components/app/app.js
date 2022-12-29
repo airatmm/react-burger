@@ -7,10 +7,21 @@ import { useEffect } from "react";
 import { getAllIngredientsData } from "../../services/slices/ingredients-slice";
 import Loader from "../loader/loader";
 import { Login, Profile, Registration, ForgotPassword, ResetPassword } from "../../pages";
+import { ProtectedRoute } from "../protected-route/protected-route";
+import { getUserData } from "../../services/slices/get-user-data-slice";
 
 const App = () => {
     const isIngredients = useSelector(store => store.ingredients.itemsSuccess)
     const dispatch = useDispatch();
+
+    const isLogged = useSelector(store => store.user.isLogged)
+    console.log(isLogged)
+
+    useEffect(() => {
+        if (!isLogged && localStorage.getItem('refreshToken')) {
+            dispatch(getUserData());
+        }
+    }, [dispatch,isLogged]);
 
     useEffect(() => {
         dispatch(getAllIngredientsData())
@@ -21,7 +32,6 @@ const App = () => {
             <BrowserRouter>
                 <AppHeader />
                 <Switch>
-
                     <Route path='/login' exact={ true }>
                         <Login />
                     </Route>
@@ -31,15 +41,15 @@ const App = () => {
                     <Route path='/' exact={ true }>
                         { !isIngredients ? <Loader /> : <Constructor /> }
                     </Route>
-                    <Route path='/profile'>
-                        <Profile />
-                    </Route>
-                    <Route path='/forgot-password' exact={ true }>
+                    <ProtectedRoute path='/forgot-password' exact={ true }>
                         <ForgotPassword />
-                    </Route>
-                    <Route path='/reset-password' exact={ true }>
+                    </ProtectedRoute>
+                    <ProtectedRoute path='/reset-password' exact={ true }>
                         <ResetPassword />
-                    </Route>
+                    </ProtectedRoute>
+                    <ProtectedRoute path='/profile'>
+                        <Profile />
+                    </ProtectedRoute>
                 </Switch>
             </BrowserRouter>
         </div>

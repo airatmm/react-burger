@@ -6,10 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { login } from "../../services/slices/login-slice";
 import { Redirect } from "react-router-dom";
+import { setUserData } from "../../services/slices/user-slice";
 
 const Login = () => {
     const dispatch = useDispatch();
+
     const isLogged = useSelector(store => store.user.isLogged)
+    console.log(isLogged)
 
     const [inputValue, setInputValue] = useState({
         email: '',
@@ -23,16 +26,11 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(login(inputValue));
+        dispatch(setUserData(inputValue))
     };
 
     if (isLogged) {
-        return (
-            <Redirect
-                to={ {
-                    pathname: '/'
-                } }
-            />
-        );
+        return <Redirect to='/' />
     }
     return (
         <main className={ styles.main }>

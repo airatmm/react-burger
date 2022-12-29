@@ -30,18 +30,6 @@ export const register = (name, email, password) => request(
     }
 );
 
-export const logout = () => request(
-    `${ BASE_URL }/auth/logout`,
-
-    {
-        method: 'GET',
-        headers: {
-            'Content-type': 'application/json',
-            Accept: 'application/json',
-        }
-    }
-);
-
 export const forgotPassword = (email) => request(
     `${ BASE_URL }/password-reset`,
 
@@ -111,6 +99,18 @@ export const signout = () => request(
             Accept: "application/json",
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
+        body: JSON.stringify({ token: localStorage.refreshToken }),
     }
 );
+
+export const refreshToken = () => request(
+    `${ BASE_URL }/auth/token`,
+    {
+        method: 'POST',
+        headers: {
+            Accept: "application/json",
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token: localStorage.refreshToken }),
+    }
+)
