@@ -2,20 +2,14 @@ import { useState, useRef, useMemo } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "../ingredient-group/ingredient-group";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
-import Modal from "../modal/modal";
-import { removeCurrentIngredient } from "../../services/slices/current-ingredient-slice";
+import { useSelector } from "react-redux";
 
 const BurgerIngredients = () => {
     const tabs = { bun: 'bun', sauce: 'sauce', main: 'main'};
     const {bun, sauce, main} = tabs;
-
     const [current, setCurrent] = useState(bun);
 
     const data = useSelector(store => store.ingredients.items);
-    const dispatch = useDispatch();
-    const currentIngredient = useSelector(store => store.currentIngredient);
 
     const buns = useMemo(() => data.filter(el => el.type === bun), [data, bun]);
     const sauces = useMemo(() => data.filter(el => el.type === sauce), [data, sauce]);
@@ -93,11 +87,6 @@ const BurgerIngredients = () => {
                     <IngredientGroup data={ mains } title={ 'Начинки' } ref={ mainRef } />
 
                 </div>
-                { currentIngredient &&
-                    <Modal header={ 'Детали ингредиента' } onClose={ () => dispatch(removeCurrentIngredient()) }>
-                        <IngredientDetails ingredient={ currentIngredient } />
-                    </Modal>
-                }
             </div>
         </section>
     )

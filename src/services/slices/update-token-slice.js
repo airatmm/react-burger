@@ -44,7 +44,7 @@ export const updateToken = () => async dispatch => {
         await refreshToken()
             .then((data) => {
                 console.log(data)
-                setCookie('accessToken', data.accessToken, { expires: 300 })
+                setCookie('accessToken', data.accessToken, { expires: 120 })
                 localStorage.setItem('refreshToken', data.refreshToken)
                 dispatch(updateTokenSuccess(data))
                 dispatch(setUserData(data.user))
