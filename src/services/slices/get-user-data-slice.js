@@ -49,7 +49,6 @@ export const getUserData = () => async dispatch => {
         if (e.message === 'jwt expired' || e.message === 'Token is invalid') {
             dispatch(updateToken())
             dispatch(getUserData())
-            console.log(e.message)
         } else {
             dispatch(getUserDataFiled())
         }

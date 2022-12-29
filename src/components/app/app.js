@@ -56,12 +56,12 @@ const App = () => {
                 <Route path='/' exact={ true }>
                     { !isIngredients ? <Loader /> : <Constructor /> }
                 </Route>
-                <ProtectedRoute path='/forgot-password' exact={ true }>
+                <Route path='/forgot-password' exact={ true }>
                     <ForgotPassword />
-                </ProtectedRoute>
-                <ProtectedRoute path='/reset-password' exact={ true }>
+                </Route>
+                <Route path='/reset-password' exact={ true }>
                     <ResetPassword />
-                </ProtectedRoute>
+                </Route>
                 <ProtectedRoute path='/profile'>
                     <Profile />
                 </ProtectedRoute>

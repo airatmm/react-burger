@@ -10,6 +10,9 @@ import { Redirect, useHistory } from "react-router-dom";
 const ResetPassword = () => {
     const dispatch = useDispatch();
     const history = useHistory();
+
+    // const prevPathname = history.location.state && history.location.state.prevPathname;
+    const prevPathname = history.location.state?.prevPathname;
     const isLogged = useSelector(store => store.user.isLogged)
     console.log(isLogged)
     const ifResetSuccess = useSelector(store => store.reset.resetPasswordSuccess);
@@ -36,6 +39,15 @@ const ResetPassword = () => {
             history.push('/login')
         }
     }, [ifResetSuccess, history, password, token])
+
+    if (!prevPathname) {
+        return (
+            <Redirect to={{
+                pathname: '/login',
+            }}
+            />
+        );
+    }
 
     if (isLogged) {
         return <Redirect to='/' />
