@@ -5,8 +5,8 @@ import IngredientGroup from "../ingredient-group/ingredient-group";
 import { useSelector } from "react-redux";
 
 const BurgerIngredients = () => {
-    const tabs = { bun: 'bun', sauce: 'sauce', main: 'main'};
-    const {bun, sauce, main} = tabs;
+    const tabs = { bun: 'bun', sauce: 'sauce', main: 'main' };
+    const { bun, sauce, main } = tabs;
     const [current, setCurrent] = useState(bun);
 
     const data = useSelector(store => store.ingredients.items);

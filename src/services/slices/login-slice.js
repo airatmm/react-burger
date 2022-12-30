@@ -43,7 +43,7 @@ export const login = (email, password) => async dispatch => {
     try {
         await authorize(email, password)
             .then((data) => {
-                setCookie('accessToken', data.accessToken, { expires: 1200 })
+                setCookie('accessToken', data.accessToken)
                 localStorage.setItem('refreshToken', data.refreshToken)
                 dispatch(loginSuccess(data))
                 dispatch(setUserData(data.user))

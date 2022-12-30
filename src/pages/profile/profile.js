@@ -1,17 +1,16 @@
 import styles from './profile.module.css';
 import ProfileLink from "./profile-link/profile-link";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Orders from "./orders/orders";
 import ProfileUser from "./profile-user/profile-user";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getUserData } from "../../services/slices/get-user-data-slice";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
-
-    const isLogged = useSelector(store => store.user.isLogged)
-    console.log('Profile isLogged', isLogged)
-
+    const { isLogged } = useSelector(store => store.user)
+    console.log(isLogged)
+    if (!isLogged) {
+        return <Redirect to='/profile' />
+    }
     return (
         <main className={ styles.main }>
             <ProfileLink />

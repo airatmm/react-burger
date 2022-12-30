@@ -12,7 +12,7 @@ const IngredientGroup = forwardRef(({ data, title }, ref) => {
         const { bun, itemsBurger } = burgerConstructor;
         const counters = {};
         itemsBurger.forEach((ingredient) => {
-            if(!counters[ingredient._id]) counters[ingredient._id] = 0;
+            if (!counters[ingredient._id]) counters[ingredient._id] = 0;
             counters[ingredient._id]++;
         });
         if (bun) counters[bun._id] = 2;

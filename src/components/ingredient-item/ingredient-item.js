@@ -20,17 +20,17 @@ const IngredientItem = ({ ingredient, count }) => {
         })
     });
 
-    const  onSelectIngredient = () => {
+    const onSelectIngredient = () => {
         dispatch(setCurrentIngredient(ingredient))
         const _location = {
-            pathname: `/ingredients/${ingredient._id}`,
-            state: { background: location  }
+            pathname: `/ingredients/${ ingredient._id }`,
+            state: { background: location }
         }
         history.push(_location)
     }
 
     return (
-        <div className={ `${ styles.content } mt-6` } onClick={ onSelectIngredient } style={{ opacity }} ref={ref} >
+        <div className={ `${ styles.content } mt-6` } onClick={ onSelectIngredient } style={ { opacity } } ref={ ref }>
             { count &&
                 <div className={ styles.counter }>
 

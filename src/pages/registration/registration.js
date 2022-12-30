@@ -11,7 +11,6 @@ const Registration = () => {
     const dispatch = useDispatch();
     const isRegistrationSuccess = useSelector(store => store.registration.registrationSuccess)
     const isLogged = useSelector(store => store.user.isLogged)
-    console.log(isLogged)
 
     const [inputValue, setInputValue] = useState({
         name: '',

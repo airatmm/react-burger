@@ -10,11 +10,8 @@ import { Redirect, useHistory } from "react-router-dom";
 const ResetPassword = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-
-    //const prevPathname = history.location.state && history.location.state.prevPathname;
     const prevPathname = history.location.state?.prevPathname;
     const isLogged = useSelector(store => store.user.isLogged)
-    console.log(isLogged)
     const ifResetSuccess = useSelector(store => store.reset.resetPasswordSuccess);
 
     const [inputValue, setInputValue] = useState({
@@ -30,8 +27,8 @@ const ResetPassword = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(password && token) {
-        dispatch(reset(inputValue));
+        if (password && token) {
+            dispatch(reset(inputValue));
         }
     };
     useEffect(() => {
@@ -42,7 +39,7 @@ const ResetPassword = () => {
 
     if (!prevPathname) {
         return (
-            <Redirect to={{ pathname: '/login'}} />
+            <Redirect to={ { pathname: '/login' } } />
         );
     }
 
@@ -55,29 +52,26 @@ const ResetPassword = () => {
             <Form
                 name='reset-password'
                 title='Восстановление пароля'
-                handleSubmit={handleSubmit}
+                handleSubmit={ handleSubmit }
                 buttonText='Сохранить'
-                handleClick={handleSubmit}
+                handleClick={ handleSubmit }
             >
                 <PasswordInput
-                    onChange={onChangeValue}
-                    value={password}
+                    onChange={ onChangeValue }
+                    value={ password }
                     name={ 'password' }
-                    placeholder={'Введите новый пароль'}
+                    placeholder={ 'Введите новый пароль' }
                     extraClass="pb-6"
                 />
                 <Input
-                    type={'text'}
-                    placeholder={'Введите код из письма'}
-                    onChange={onChangeValue}
-                    //icon={'CurrencyIcon'}
-                    value={token}
-                    name={'token'}
-                    error={false}
-                    //ref={inputRef}
-                    //onIconClick={onIconClick}
-                    errorText={'Ошибка'}
-                    size={'default'}
+                    type={ 'text' }
+                    placeholder={ 'Введите код из письма' }
+                    onChange={ onChangeValue }
+                    value={ token }
+                    name={ 'token' }
+                    error={ false }
+                    errorText={ 'Ошибка' }
+                    size={ 'default' }
                     extraClass="pb-6"
                 />
             </Form>

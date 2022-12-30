@@ -43,14 +43,12 @@ export const updateToken = () => async dispatch => {
     try {
         await refreshToken()
             .then((data) => {
-                console.log(data)
-                setCookie('accessToken', data.accessToken, { expires: 1200 })
+                setCookie('accessToken', data.accessToken)
                 localStorage.setItem('refreshToken', data.refreshToken)
                 dispatch(updateTokenSuccess(data))
                 dispatch(setUserData(data.user))
             })
     } catch (e) {
-        console.log(e)
         if (e.message === 'Token is invalid') {
             updateToken()
         } else {

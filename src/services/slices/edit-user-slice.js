@@ -48,7 +48,7 @@ export const editUser = (name, email, password) => async dispatch => {
             })
     } catch (e) {
         if (e.message === 'jwt expired' || e.message === 'Token is invalid') {
-            dispatch(updateToken())
+            await dispatch(updateToken())
             dispatch(editUser(name, email, password))
         } else {
             dispatch(editUserDataFiled())

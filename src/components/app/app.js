@@ -21,10 +21,7 @@ const App = () => {
     const dispatch = useDispatch();
 
     const isLogged = useSelector(store => store.user.isLogged)
-    console.log('App isLogged', isLogged)
-
     const currentIngredient = useSelector(store => store.currentIngredient)
-
     const background = location.state?.background
 
     useEffect(() => {
@@ -33,6 +30,7 @@ const App = () => {
             state: undefined
         })
     }, [])
+
     useEffect(() => {
         dispatch(getAllIngredientsData())
     }, [dispatch]);
@@ -69,7 +67,7 @@ const App = () => {
                     <IngredientDetails />
                 </Route>
                 <Route>
-                    <NotFound/>
+                    <NotFound />
                 </Route>
             </Switch>
             { background && (

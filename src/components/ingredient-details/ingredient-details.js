@@ -5,12 +5,8 @@ import { useSelector } from "react-redux";
 
 const IngredientDetails = () => {
     const { id } = useParams();
-    console.log(id);
     const ingredients = useSelector(store => store.ingredients.items);
-    console.log(ingredients);
     const data = ingredients.length && ingredients.find((item) => item._id === id);
-    console.log(data);
-
 
     const spanStyle = 'text text_type_main-default text_color_inactive';
     return (
@@ -38,10 +34,6 @@ const IngredientDetails = () => {
             </div>
         </section>
     )
-}
-
-IngredientDetails.propTypes = {
-    data: ingredientType
 }
 
 export default IngredientDetails;

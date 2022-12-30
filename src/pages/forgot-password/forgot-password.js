@@ -11,7 +11,6 @@ const ForgotPassword = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const isLogged = useSelector(store => store.user.isLogged)
-    console.log(isLogged)
     const ifForgotSuccess = useSelector(store => store.forgot.forgotPasswordSuccess);
     const [email, setEmail] = useState('');
 
@@ -26,7 +25,6 @@ const ForgotPassword = () => {
         }
     };
 
-
     useEffect(() => {
         if (ifForgotSuccess && email) {
             const location = {
@@ -36,12 +34,6 @@ const ForgotPassword = () => {
             history.replace(location)
         }
     }, [ifForgotSuccess, history, email])
-    //
-    // useEffect(() => {
-    //     if (ifForgotSuccess && email) {
-    //         history.push('/reset-password')
-    //     }
-    // }, [ifForgotSuccess, history, email])
 
     if (isLogged) {
         return <Redirect to='/' />

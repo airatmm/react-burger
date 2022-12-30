@@ -4,9 +4,21 @@ import PropTypes from "prop-types";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
 
-const ConstructorItem = ({ ingredient, type, isLocked, text, price, thumbnail, handleClose, isDraggable, moveItem }) => {
+const ConstructorItem = (
+    {
+        ingredient,
+        type,
+        isLocked,
+        text,
+        price,
+        thumbnail,
+        handleClose,
+        isDraggable,
+        moveItem
+    }
+) => {
     const ref = useRef();
-    const [{handlerId}, drop] = useDrop({
+    const [{ handlerId }, drop] = useDrop({
         accept: 'constructorIngredient',
         collect(monitor) {
             return {
@@ -75,7 +87,8 @@ const ConstructorItem = ({ ingredient, type, isLocked, text, price, thumbnail, h
     const opacity = isDragging ? 0.5 : 1;
 
     return (
-        <div data-handler-id={handlerId} ref={ref}  className={ `${ styles.content } mt-4 mb-4 ${ isDraggable ? styles.moved : '' }` } style={ { opacity }} >
+        <div data-handler-id={ handlerId } ref={ ref }
+             className={ `${ styles.content } mt-4 mb-4 ${ isDraggable ? styles.moved : '' }` } style={ { opacity } }>
             { isDraggable && <DragIcon type="primary" /> }
             <ConstructorElement
                 type={ type }

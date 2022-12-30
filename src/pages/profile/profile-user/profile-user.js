@@ -1,13 +1,12 @@
 import styles from './profile-user.module.css';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { editUser } from "../../../services/slices/edit-user-slice";
 
 const ProfileUser = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(store => store)
-    console.log('ProfileUser isLogged', user.isLogged)
 
     const [inputValue, setInputValue] = useState({
         name: '',
@@ -19,13 +18,18 @@ const ProfileUser = () => {
         email: true,
         password: true,
     })
+    const nameRef = useRef();
+    const emailRef = useRef();
+    const passwordRef = useRef();
 
-    function onButtonActive(name) {
+    function onButtonActive(name, ref) {
         setButtonsDisabled(prev => ({
             ...prev,
             [name]: !prev[name],
         }))
+        setTimeout(() => ref.current.focus(), 0);
     }
+
 
     const onChangeValue = (e) => {
         setInputValue(inputValue => ({ ...inputValue, [e.target.name]: e.target.value }));
@@ -59,9 +63,10 @@ const ProfileUser = () => {
                 placeholder={ 'Имя' }
                 onChange={ onChangeValue }
                 value={ inputValue.name || '' }
-                onIconClick={ () => onButtonActive('name') }
+                onIconClick={ () => onButtonActive('name', nameRef) }
                 disabled={ buttonsDisabled.name }
                 icon={ buttonsDisabled.name ? "EditIcon" : "CloseIcon" }
+                ref={ nameRef }
                 extraClass={ "pb-6" }
             />
             <Input
@@ -70,9 +75,10 @@ const ProfileUser = () => {
                 placeholder={ 'E-mail' }
                 onChange={ onChangeValue }
                 value={ inputValue.email || '' }
-                onIconClick={ () => onButtonActive('email') }
+                onIconClick={ () => onButtonActive('email', emailRef) }
                 disabled={ buttonsDisabled.email }
                 icon={ buttonsDisabled.email ? "EditIcon" : "CloseIcon" }
+                ref={ emailRef }
                 extraClass={ "pb-6" }
             />
             <Input
@@ -81,9 +87,10 @@ const ProfileUser = () => {
                 placeholder={ 'Пароль' }
                 onChange={ onChangeValue }
                 value={ inputValue.password || '' }
-                onIconClick={ () => onButtonActive('password') }
+                onIconClick={ () => onButtonActive('password', passwordRef) }
                 disabled={ buttonsDisabled.password }
                 icon={ buttonsDisabled.password ? "EditIcon" : "CloseIcon" }
+                ref={ passwordRef }
                 extraClass={ "pb-6" }
             />
             { !buttonsDisabled.name || !buttonsDisabled.email || !buttonsDisabled.password
