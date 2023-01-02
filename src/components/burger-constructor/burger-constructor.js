@@ -17,10 +17,14 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import { useHistory } from "react-router-dom";
 
+const burgerConstructorState = (store) => store.burgerConstructor;
+const isOrderNumberState = (store) => store.order.result;
+const isLoggedState = (store) => store.user.isLogged;
+
 const BurgerConstructor = () => {
-    const { itemsBurger: data, bun } = useSelector(store => store.burgerConstructor);
-    const isOrderNumber = useSelector(store => store.order.result)
-    const isLogged = useSelector(store => store.user.isLogged);
+    const { itemsBurger: data, bun } = useSelector(burgerConstructorState);
+    const isOrderNumber = useSelector(isOrderNumberState)
+    const isLogged = useSelector(isLoggedState);
     const dispatch = useDispatch();
     const history = useHistory();
 

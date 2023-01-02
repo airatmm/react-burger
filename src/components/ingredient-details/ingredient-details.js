@@ -1,11 +1,11 @@
 import styles from './ingredient-details.module.css';
-import { ingredientType } from "../../utils/types";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+const ingredientsState = (store) => store.ingredients.items;
 const IngredientDetails = () => {
     const { id } = useParams();
-    const ingredients = useSelector(store => store.ingredients.items);
+    const ingredients = useSelector(ingredientsState);
     const data = ingredients.length && ingredients.find((item) => item._id === id);
 
     const spanStyle = 'text text_type_main-default text_color_inactive';

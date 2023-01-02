@@ -14,14 +14,18 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { removeCurrentIngredient } from "../../services/slices/current-ingredient-slice";
 import NotFound from "../not-found/not-found";
 
+const getIngredientsState = (store) => store.ingredients.itemsSuccess;
+const isLoggedState = (store) => store.user.isLogged
+const currentIngredientState =(store) => store.currentIngredient
+
 const App = () => {
     const location = useLocation()
     const history = useHistory()
-    const isIngredients = useSelector(store => store.ingredients.itemsSuccess)
+    const isIngredients = useSelector(getIngredientsState);
+    const isLogged = useSelector(isLoggedState)
     const dispatch = useDispatch();
 
-    const isLogged = useSelector(store => store.user.isLogged)
-    const currentIngredient = useSelector(store => store.currentIngredient)
+    const currentIngredient = useSelector(currentIngredientState)
     const background = location.state?.background
 
     useEffect(() => {
@@ -29,6 +33,7 @@ const App = () => {
             pathname: location.pathname,
             state: undefined
         })
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
@@ -45,21 +50,40 @@ const App = () => {
         <div className={ styles.app }>
             <AppHeader />
             <Switch location={ background || location }>
-                <Route path='/login' exact={ true }>
+                <ProtectedRoute
+                    path='/login'
+                    exact={ true }
+                    isAuth={ false }
+                    redirectPath='/'
+                >
                     <Login />
-                </Route>
-                <Route path='/registration' exact={ true }>
+                </ProtectedRoute>
+                <ProtectedRoute
+                    path='/registration'
+                    exact={ true }
+                    isAuth={ false }
+                    redirectPath='/'>
                     <Registration />
-                </Route>
+                </ProtectedRoute>
                 <Route path='/' exact={ true }>
                     { !isIngredients ? <Loader /> : <Constructor /> }
                 </Route>
-                <Route path='/forgot-password' exact={ true }>
+                <ProtectedRoute
+                    path='/forgot-password'
+                    exact={ true }
+                    isAuth={ false }
+                    redirectPath='/'
+                >
                     <ForgotPassword />
-                </Route>
-                <Route path='/reset-password' exact={ true }>
+                </ProtectedRoute>
+                <ProtectedRoute
+                    path='/reset-password'
+                    exact={ true }
+                    isAuth={ false }
+                    redirectPath='/'
+                >
                     <ResetPassword />
-                </Route>
+                </ProtectedRoute>
                 <ProtectedRoute path='/profile'>
                     <Profile />
                 </ProtectedRoute>

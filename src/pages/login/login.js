@@ -2,15 +2,13 @@ import styles from './login.module.css';
 import Form from "../form/form";
 import { EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import FormLink from "../form/form-link/form-link";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { login } from "../../services/slices/login-slice";
-import { Redirect } from "react-router-dom";
 import { setUserData } from "../../services/slices/user-slice";
 
 const Login = () => {
     const dispatch = useDispatch();
-    const isLogged = useSelector(store => store.user.isLogged)
     const [inputValue, setInputValue] = useState({
         email: '',
         password: '',
@@ -26,9 +24,6 @@ const Login = () => {
         dispatch(setUserData(inputValue))
     };
 
-    if (isLogged) {
-        return <Redirect to='/' />
-    }
     return (
         <main className={ styles.main }>
             <Form

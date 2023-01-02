@@ -5,13 +5,14 @@ import FormLink from "../form/form-link/form-link";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { forgot } from "../../services/slices/forgot-password-slice";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
+const ifForgotSuccessState = (store) => store.forgot.forgotPasswordSuccess;
 
 const ForgotPassword = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const isLogged = useSelector(store => store.user.isLogged)
-    const ifForgotSuccess = useSelector(store => store.forgot.forgotPasswordSuccess);
+    const ifForgotSuccess = useSelector(ifForgotSuccessState);
     const [email, setEmail] = useState('');
 
     const onChangeValue = (e) => {
@@ -34,10 +35,6 @@ const ForgotPassword = () => {
             history.replace(location)
         }
     }, [ifForgotSuccess, history, email])
-
-    if (isLogged) {
-        return <Redirect to='/' />
-    }
 
     return (
         <main className={ styles.main }>

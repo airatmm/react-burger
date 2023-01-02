@@ -2,8 +2,10 @@ import styles from './order-details.module.css';
 import doneImage from '../../images/done-image.svg';
 import { useSelector } from "react-redux";
 
+const orderState = (store) => store.order.result;
+
 const OrderDetails = () => {
-    const { order } = useSelector(store => store.order.result)
+    const { order } = useSelector(orderState)
     return (
         <section className={ styles.main }>
             <span className={ `${ styles.orderId } text text_type_digits-large mt-30 mb-8` }>{ order.number }</span>

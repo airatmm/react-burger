@@ -34,8 +34,7 @@ const AppHeader = () => {
                     <NavLink
                         className={ navigationLinkInActive }
                         activeClassName={ navigationLinkActive }
-                        to="/profile"
-                        exact={ true }>
+                        to="/profile">
                         <ProfileIcon type="primary" />
                         Личный кабинет
                     </NavLink>

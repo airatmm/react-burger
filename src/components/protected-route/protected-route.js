@@ -2,19 +2,21 @@ import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
-export function ProtectedRoute({ children, ...rest }) {
-    const { isLogged } = useSelector(store => store.user);
+const isLoggedState = (store) => store.user.isLogged;
+
+export function ProtectedRoute({ children, isAuth = true, redirectPath = '/login', ...rest }) {
+    const isLogged = useSelector(isLoggedState);
 
     return (
         <Route
             { ...rest }
             render={ ({ location }) =>
-                isLogged ? (
+                isLogged === isAuth ? (
                     children
                 ) : (
                     <Redirect
                         to={ {
-                            pathname: '/login',
+                            pathname: redirectPath,
                             state: { from: location }
                         } }
                     />
@@ -25,5 +27,5 @@ export function ProtectedRoute({ children, ...rest }) {
 }
 
 ProtectedRoute.propTypes = {
-    children: PropTypes.element.isRequired,
+    children: PropTypes.node.isRequired,
 };

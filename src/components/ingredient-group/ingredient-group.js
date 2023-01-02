@@ -5,8 +5,9 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import { useSelector } from "react-redux";
 
+const burgerConstructorState = (store) => store.burgerConstructor;
 const IngredientGroup = forwardRef(({ data, title }, ref) => {
-    const burgerConstructor = useSelector(store => store.burgerConstructor);
+    const burgerConstructor = useSelector(burgerConstructorState);
 
     const ingredientsCounter = useMemo(() => {
         const { bun, itemsBurger } = burgerConstructor;

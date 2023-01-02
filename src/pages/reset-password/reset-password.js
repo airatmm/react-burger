@@ -7,12 +7,13 @@ import { useEffect, useState } from "react";
 import { reset } from "../../services/slices/reset-password-slice";
 import { Redirect, useHistory } from "react-router-dom";
 
+const ifResetSuccessState = (store) => store.reset.resetPasswordSuccess;
+
 const ResetPassword = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const prevPathname = history.location.state?.prevPathname;
-    const isLogged = useSelector(store => store.user.isLogged)
-    const ifResetSuccess = useSelector(store => store.reset.resetPasswordSuccess);
+    const ifResetSuccess = useSelector(ifResetSuccessState);
 
     const [inputValue, setInputValue] = useState({
         password: '',
@@ -41,10 +42,6 @@ const ResetPassword = () => {
         return (
             <Redirect to={ { pathname: '/login' } } />
         );
-    }
-
-    if (isLogged) {
-        return <Redirect to='/' />
     }
 
     return (

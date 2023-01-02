@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { editUser } from "../../../services/slices/edit-user-slice";
 
+const userState = store => store.user;
 const ProfileUser = () => {
     const dispatch = useDispatch();
-    const { user } = useSelector(store => store)
+    const user = useSelector(userState)
 
     const [inputValue, setInputValue] = useState({
         name: '',
@@ -50,6 +51,7 @@ const ProfileUser = () => {
 
     useEffect(() => {
         setInputValue({ ...user, password: '' });
+        // eslint-disable-next-line
     }, []);
 
     return (

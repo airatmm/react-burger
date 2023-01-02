@@ -7,11 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { registration } from "../../services/slices/registration-slice";
 import { Redirect } from 'react-router-dom';
 
+const isRegistrationSuccessState = (store) => store.registration.registrationSuccess;
+
 const Registration = () => {
     const dispatch = useDispatch();
-    const isRegistrationSuccess = useSelector(store => store.registration.registrationSuccess)
-    const isLogged = useSelector(store => store.user.isLogged)
-
+    const isRegistrationSuccess = useSelector(isRegistrationSuccessState)
     const [inputValue, setInputValue] = useState({
         name: '',
         email: '',
@@ -29,10 +29,6 @@ const Registration = () => {
 
     if (isRegistrationSuccess) {
         return <Redirect to='/login' />
-    }
-
-    if (isLogged) {
-        return <Redirect to='/' />
     }
 
     return (
