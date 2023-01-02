@@ -48,9 +48,9 @@ const BurgerConstructor = () => {
         },
         [dispatch]
     );
-    const getOrderNumbers = ()  => {
-        if(isLogged){
-        dispatch(setOrder(data.map(el => el._id)))
+    const getOrderNumbers = () => {
+        if (isLogged) {
+            dispatch(setOrder(data.map(el => el._id)))
         } else {
             const location = {
                 pathname: '/login',
@@ -58,7 +58,7 @@ const BurgerConstructor = () => {
             }
             history.replace(location)
         }
-        }
+    }
 
 
     const deleteToOrder = (ingredient) => {
@@ -92,7 +92,7 @@ const BurgerConstructor = () => {
                                 isAdded={ true }
                                 handleClose={ () => deleteToOrder(ingredient) }
                                 ingredient={ ingredient }
-                                moveItem={moveItem}
+                                moveItem={ moveItem }
                             />
                         ) } </div>
                     :
@@ -113,13 +113,13 @@ const BurgerConstructor = () => {
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button htmlType='button' type='primary' size='medium' disabled={ (!data || !bun) }
-                    onClick={ getOrderNumbers }
+                        onClick={ getOrderNumbers }
                 >
                     Оформить заказ
                 </Button>
             </div>
-            {isOrderNumber &&
-                <Modal onClose={() => dispatch(orderClear())}>
+            { isOrderNumber &&
+                <Modal onClose={ () => dispatch(orderClear()) }>
                     <OrderDetails />
                 </Modal>
             }

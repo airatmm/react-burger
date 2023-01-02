@@ -1,6 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { signout } from "../../utils/api/main-api";
-import { deleteCookie, setCookie } from "../../utils/cookies";
+import { deleteCookie } from "../../utils/cookies";
 import { logoutUser } from "./user-slice";
 
 const logoutSlice = createSlice({
@@ -36,7 +36,7 @@ const logoutSlice = createSlice({
 });
 
 export default logoutSlice.reducer;
-export const {logoutRequest, logoutSuccess, logoutFiled} = logoutSlice.actions;
+export const { logoutRequest, logoutSuccess, logoutFiled } = logoutSlice.actions;
 
 export const logout = () => async dispatch => {
     dispatch(logoutRequest())

@@ -46,7 +46,7 @@ export const getUserData = () => async dispatch => {
                 dispatch(setUserData(data.user))
             })
     } catch (e) {
-        if (e.message=== 'You should be authorised' || e.message === 'jwt expired' || e.message === 'Token is invalid') {
+        if (e.message === 'You should be authorised' || e.message === 'jwt expired' || e.message === 'Token is invalid') {
             await dispatch(updateToken())
             dispatch(getUserData())
         } else {

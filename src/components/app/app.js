@@ -16,7 +16,7 @@ import NotFound from "../not-found/not-found";
 
 const getIngredientsState = (store) => store.ingredients.itemsSuccess;
 const isLoggedState = (store) => store.user.isLogged
-const currentIngredientState =(store) => store.currentIngredient
+const currentIngredientState = (store) => store.currentIngredient
 
 const App = () => {
     const location = useLocation()
