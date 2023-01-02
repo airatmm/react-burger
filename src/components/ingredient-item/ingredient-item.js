@@ -5,9 +5,12 @@ import { ingredientType } from "../../utils/types";
 import { setCurrentIngredient } from "../../services/slices/current-ingredient-slice";
 import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
+import { useHistory, useLocation } from "react-router-dom";
 
 const IngredientItem = ({ ingredient, count }) => {
     const dispatch = useDispatch();
+    const history = useHistory()
+    const location = useLocation()
 
     const [{ opacity }, ref] = useDrag({
         type: 'ingredients',
@@ -17,12 +20,17 @@ const IngredientItem = ({ ingredient, count }) => {
         })
     });
 
-    const  onSelectIngredient = () => {
+    const onSelectIngredient = () => {
         dispatch(setCurrentIngredient(ingredient))
+        const _location = {
+            pathname: `/ingredients/${ ingredient._id }`,
+            state: { background: location }
+        }
+        history.push(_location)
     }
 
     return (
-        <div className={ `${ styles.content } mt-6` } onClick={ onSelectIngredient } style={{ opacity }} ref={ref} >
+        <div className={ `${ styles.content } mt-6` } onClick={ onSelectIngredient } style={ { opacity } } ref={ ref }>
             { count &&
                 <div className={ styles.counter }>
 

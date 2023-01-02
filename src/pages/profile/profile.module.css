@@ -1,0 +1,12 @@
+.main {
+    max-width: 860px;
+    width: 100%;
+    display: flex;
+    margin-top: 120px;
+    gap: 60px;
+}
+
+.content {
+    max-width: 480px;
+    width: 100%;
+}

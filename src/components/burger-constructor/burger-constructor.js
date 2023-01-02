@@ -15,11 +15,18 @@ import EmptyBurgerConstruction from "../empty-burger-constructor/empty-burger-co
 import { useCallback, useMemo } from "react";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import { useHistory } from "react-router-dom";
+
+const burgerConstructorState = (store) => store.burgerConstructor;
+const isOrderNumberState = (store) => store.order.result;
+const isLoggedState = (store) => store.user.isLogged;
 
 const BurgerConstructor = () => {
-    const { itemsBurger: data, bun } = useSelector(store => store.burgerConstructor);
-    const isOrderNumber = useSelector(store => store.order.result)
+    const { itemsBurger: data, bun } = useSelector(burgerConstructorState);
+    const isOrderNumber = useSelector(isOrderNumberState)
+    const isLogged = useSelector(isLoggedState);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const addToOrder = (ingredient) => {
         dispatch(ingredient.type === 'bun' ? addBun(ingredient) : addIngredient(ingredient))
@@ -41,9 +48,18 @@ const BurgerConstructor = () => {
         },
         [dispatch]
     );
-    const getOrderNumbers = ()  => {
-        dispatch(setOrder(data.map(el => el._id)))
+    const getOrderNumbers = () => {
+        if (isLogged) {
+            dispatch(setOrder(data.map(el => el._id)))
+        } else {
+            const location = {
+                pathname: '/login',
+                state: { from: '/' },
+            }
+            history.replace(location)
+        }
     }
+
 
     const deleteToOrder = (ingredient) => {
         dispatch(removeIngredient(ingredient))
@@ -76,7 +92,7 @@ const BurgerConstructor = () => {
                                 isAdded={ true }
                                 handleClose={ () => deleteToOrder(ingredient) }
                                 ingredient={ ingredient }
-                                moveItem={moveItem}
+                                moveItem={ moveItem }
                             />
                         ) } </div>
                     :
@@ -97,13 +113,13 @@ const BurgerConstructor = () => {
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button htmlType='button' type='primary' size='medium' disabled={ (!data || !bun) }
-                    onClick={ getOrderNumbers }
+                        onClick={ getOrderNumbers }
                 >
                     Оформить заказ
                 </Button>
             </div>
-            {isOrderNumber &&
-                <Modal onClose={() => dispatch(orderClear())}>
+            { isOrderNumber &&
+                <Modal onClose={ () => dispatch(orderClear()) }>
                     <OrderDetails />
                 </Modal>
             }

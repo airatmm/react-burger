@@ -1,7 +1,13 @@
 import styles from './ingredient-details.module.css';
-import { ingredientType } from "../../utils/types";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const IngredientDetails = ({ ingredient: data }) => {
+const ingredientsState = (store) => store.ingredients.items;
+const IngredientDetails = () => {
+    const { id } = useParams();
+    const ingredients = useSelector(ingredientsState);
+    const data = ingredients.length && ingredients.find((item) => item._id === id);
+
     const spanStyle = 'text text_type_main-default text_color_inactive';
     return (
         <section className={ `${ styles.main } pb-15` }>
@@ -28,10 +34,6 @@ const IngredientDetails = ({ ingredient: data }) => {
             </div>
         </section>
     )
-}
-
-IngredientDetails.propTypes = {
-    data: ingredientType
 }
 
 export default IngredientDetails;
